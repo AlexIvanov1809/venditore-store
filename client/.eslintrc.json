@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "semi": "off",
+    "react/display-name": "off"
+  },
+  "extends": ["plugin:react-hooks/recommended"]
+}
