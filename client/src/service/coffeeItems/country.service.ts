@@ -2,37 +2,37 @@ import {
   AllFiltersResponse,
   GetFiltersResponse,
   RemoveFiltersResponse,
-  IFilters,
-} from "../../store/models/IFilters";
+} from "./../../store/models/IFilters";
 import httpService from "../http.service";
+import { IFilters } from "../../store/models/ICoffeeBrand";
 
-const brandEndpoint = "coffeeBrands/";
+const countryEndpoint = "coffeeCounties/";
 
-const brandService = {
+const countryService = {
   get: async () => {
-    const { data } = await httpService.get<GetFiltersResponse>(brandEndpoint);
+    const { data } = await httpService.get<GetFiltersResponse>(countryEndpoint);
     return data;
   },
   create: async (payload: IFilters) => {
     const { data } = await httpService.post<AllFiltersResponse>(
-      brandEndpoint,
+      countryEndpoint,
       payload,
     );
     return data;
   },
   edit: async (payload: IFilters) => {
     const { data } = await httpService.patch<AllFiltersResponse>(
-      brandEndpoint + payload._id,
+      countryEndpoint + payload._id,
       payload,
     );
     return data;
   },
   remove: async (id: string) => {
     const { data } = await httpService.delete<RemoveFiltersResponse>(
-      brandEndpoint + id,
+      countryEndpoint + id,
     );
     return data;
   },
 };
 
-export default brandService;
+export default countryService;

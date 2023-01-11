@@ -1,3 +1,5 @@
+import { ImgItem } from "./ImageItem";
+
 export interface ICoffeeItem {
   _id: string;
   name: string;
@@ -22,14 +24,6 @@ export interface Images {
   quarter?: ImgItem;
   kg?: ImgItem;
   drip?: ImgItem;
-}
-
-export interface ImgItem {
-  name: string;
-  straightPath: string;
-  htmlPath: string;
-  _id: string;
-  __v: number;
 }
 
 export interface Price {

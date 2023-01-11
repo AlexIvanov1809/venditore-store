@@ -1,23 +1,33 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { coffeeBrandAPI } from "../service/coffeeItems/brand.service";
-import { coffeeItemAPI } from "../service/coffeeItems/coffeeItem.service";
+import brandsReducer from "./coffeeItems/brands";
+import coffeeItemsReducer from "./coffeeItems/coffeeItems";
+import consumerBasketReducer from "./consumerBasket";
+import countriesReducer from "./coffeeItems/countries";
+import kindsReducer from "./coffeeItems/kinds";
+import methodsReducer from "./coffeeItems/methods";
+import teaTypesReducer from "./teaItems/teaType";
+import teaItemsReducer from "./teaItems/teaItems";
+import teaBrandsReducer from "./teaItems/teaBrands";
+import teaPackagesReducer from "./teaItems/teaPackages";
 
 const rootReducer = combineReducers({
-  [coffeeItemAPI.reducerPath]: coffeeItemAPI.reducer,
-  [coffeeBrandAPI.reducerPath]: coffeeBrandAPI.reducer,
+  countries: countriesReducer,
+  coffeeItems: coffeeItemsReducer,
+  methods: methodsReducer,
+  brands: brandsReducer,
+  kinds: kindsReducer,
+  consumerBasket: consumerBasketReducer,
+  teaTypes: teaTypesReducer,
+  teaItems: teaItemsReducer,
+  teaBrands: teaBrandsReducer,
+  teaPackages: teaPackagesReducer,
 });
 
-export const createStore = () => {
+export function createStore() {
   return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(
-        coffeeItemAPI.middleware,
-        coffeeBrandAPI.middleware,
-      );
-    },
   });
-};
+}
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof createStore>;

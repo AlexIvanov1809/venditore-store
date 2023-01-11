@@ -1,43 +1,43 @@
-import { ICoffeeItem } from "../../store/models/ICoffeeItem";
+import { ITeaItem } from "../../store/models/ITeaItem";
 import httpService from "../http.service";
 
 interface GetResponse {
-  content: ICoffeeItem[];
+  content: ITeaItem[];
 }
 interface AllResponse {
-  content: ICoffeeItem;
+  content: ITeaItem;
 }
 interface RemoveResponse {
   content: null | string;
 }
 
-const coffeeItemEndpoint = "coffeeItems/";
+const teaItemEndpoint = "teaItems/";
 
-const coffeeItemService = {
+const teaItemService = {
   get: async () => {
-    const { data } = await httpService.get<GetResponse>(coffeeItemEndpoint);
+    const { data } = await httpService.get<GetResponse>(teaItemEndpoint);
     return data;
   },
-  create: async (payload: ICoffeeItem) => {
+  create: async (payload: ITeaItem) => {
     const { data } = await httpService.post<AllResponse>(
-      coffeeItemEndpoint,
+      teaItemEndpoint,
       payload,
     );
     return data;
   },
-  edit: async (payload: ICoffeeItem) => {
+  edit: async (payload: ITeaItem) => {
     const { data } = await httpService.patch<AllResponse>(
-      coffeeItemEndpoint + payload._id,
+      teaItemEndpoint + payload._id,
       payload,
     );
     return data;
   },
   remove: async (id: string) => {
     const { data } = await httpService.delete<RemoveResponse>(
-      coffeeItemEndpoint + id,
+      teaItemEndpoint + id,
     );
     return data;
   },
 };
 
-export default coffeeItemService;
+export default teaItemService;

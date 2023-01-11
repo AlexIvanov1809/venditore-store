@@ -1,38 +1,38 @@
+import httpService from "../http.service";
 import {
   AllFiltersResponse,
   GetFiltersResponse,
   RemoveFiltersResponse,
-  IFilters,
 } from "../../store/models/IFilters";
-import httpService from "../http.service";
+import { IFilters } from "../../store/models/ICoffeeBrand";
 
-const brandEndpoint = "coffeeBrands/";
+const kindEndpoint = "coffeeKinds/";
 
-const brandService = {
+const kindService = {
   get: async () => {
-    const { data } = await httpService.get<GetFiltersResponse>(brandEndpoint);
+    const { data } = await httpService.get<GetFiltersResponse>(kindEndpoint);
     return data;
   },
   create: async (payload: IFilters) => {
     const { data } = await httpService.post<AllFiltersResponse>(
-      brandEndpoint,
+      kindEndpoint,
       payload,
     );
     return data;
   },
   edit: async (payload: IFilters) => {
     const { data } = await httpService.patch<AllFiltersResponse>(
-      brandEndpoint + payload._id,
+      kindEndpoint + payload._id,
       payload,
     );
     return data;
   },
   remove: async (id: string) => {
     const { data } = await httpService.delete<RemoveFiltersResponse>(
-      brandEndpoint + id,
+      kindEndpoint + id,
     );
     return data;
   },
 };
 
-export default brandService;
+export default kindService;
