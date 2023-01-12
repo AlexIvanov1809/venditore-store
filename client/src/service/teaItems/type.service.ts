@@ -4,6 +4,7 @@ import {
   GetFiltersResponse,
   RemoveFiltersResponse,
   IFilters,
+  ICreateFilters,
 } from "../../store/models/IFilters";
 
 const teaTypeEndpoint = "teaTypes/";
@@ -13,7 +14,7 @@ const teaTypeService = {
     const { data } = await httpService.get<GetFiltersResponse>(teaTypeEndpoint);
     return data;
   },
-  create: async (payload: IFilters) => {
+  create: async (payload: ICreateFilters) => {
     const { data } = await httpService.post<AllFiltersResponse>(
       teaTypeEndpoint,
       payload,

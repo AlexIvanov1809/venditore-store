@@ -2,9 +2,10 @@ import {
   AllFiltersResponse,
   GetFiltersResponse,
   RemoveFiltersResponse,
+  IFilters,
+  ICreateFilters,
 } from "./../../store/models/IFilters";
 import httpService from "../http.service";
-import { IFilters } from "../../store/models/ICoffeeBrand";
 
 const countryEndpoint = "coffeeCounties/";
 
@@ -13,7 +14,7 @@ const countryService = {
     const { data } = await httpService.get<GetFiltersResponse>(countryEndpoint);
     return data;
   },
-  create: async (payload: IFilters) => {
+  create: async (payload: ICreateFilters) => {
     const { data } = await httpService.post<AllFiltersResponse>(
       countryEndpoint,
       payload,

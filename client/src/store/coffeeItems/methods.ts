@@ -1,7 +1,11 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import methodService from "../../service/coffeeItems/method.service";
 import { AppDispatch, RootState } from "../createStore";
-import { IFiltersInitialState, IFilters } from "../models/IFilters";
+import {
+  IFiltersInitialState,
+  IFilters,
+  ICreateFilters,
+} from "../models/IFilters";
 
 const initialState: IFiltersInitialState = {
   entities: null,
@@ -74,7 +78,7 @@ export const methodsRemove =
   };
 
 export const createNewMethodsItem =
-  (payload: IFilters) => async (dispatch: AppDispatch) => {
+  (payload: ICreateFilters) => async (dispatch: AppDispatch) => {
     dispatch(methodsCreateRequested());
     try {
       const { content } = await methodService.create(payload);

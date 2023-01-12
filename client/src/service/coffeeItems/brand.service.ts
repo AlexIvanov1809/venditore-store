@@ -3,6 +3,7 @@ import {
   GetFiltersResponse,
   RemoveFiltersResponse,
   IFilters,
+  ICreateFilters,
 } from "../../store/models/IFilters";
 import httpService from "../http.service";
 
@@ -13,7 +14,7 @@ const brandService = {
     const { data } = await httpService.get<GetFiltersResponse>(brandEndpoint);
     return data;
   },
-  create: async (payload: IFilters) => {
+  create: async (payload: ICreateFilters) => {
     const { data } = await httpService.post<AllFiltersResponse>(
       brandEndpoint,
       payload,

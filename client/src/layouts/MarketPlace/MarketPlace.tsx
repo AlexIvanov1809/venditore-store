@@ -1,19 +1,19 @@
-import React from "react";
-import { coffeeItemAPI } from "../../service/coffeeItems/coffeeItem.service";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks/redux";
+import CoffeeMarket from "../../pages/coffeePages/CoffeeMarket/CoffeeMarket";
+import { loadCoffeeItemsList } from "../../store/coffeeItems/coffeeItems";
+import { AppDispatch } from "../../store/createStore";
 import styles from "./MarketPlace.module.css";
 
 const MarketPlace = (): JSX.Element => {
-  const { data: coffeeItems, isLoading } =
-    coffeeItemAPI.useFetchAllCoffeeItemsQuery();
-  console.log(coffeeItems);
-
-  if (isLoading) {
-    return <main className={styles.main}>loading...</main>;
-  }
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(loadCoffeeItemsList());
+  }, []);
   return (
     <main className={styles.main}>
-      {coffeeItems &&
-        coffeeItems.map((item) => <div key={item._id}>{item.name}</div>)}
+      <CoffeeMarket />
     </main>
   );
 };

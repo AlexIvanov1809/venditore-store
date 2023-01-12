@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import localStorageService from "../service/localStorage.service";
+// import localStorageService from "../service/localStorage.service";
 import { AppDispatch, RootState } from "./createStore";
 import { IBasketItems } from "./models/IBasket";
 
@@ -49,12 +49,12 @@ const {
   itemBackUpped,
 } = actions;
 
-export const loadBasketList = () => async (dispatch: AppDispatch) => {
-  const content = localStorageService.getBasketItems();
-  if (content) {
-    dispatch(itemReceived(content));
-  }
-};
+// export const loadBasketList = () => async (dispatch: AppDispatch) => {
+//   const content = localStorageService.getBasketItems();
+//   if (content) {
+//     dispatch(itemReceived(content));
+//   }
+// };
 
 export const storeAdding =
   (payload: IBasketItems) => (dispatch: AppDispatch) => {

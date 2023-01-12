@@ -1,7 +1,11 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import teaPackagesService from "../../service/teaItems/package.service";
 import { AppDispatch, RootState } from "../createStore";
-import { IFiltersInitialState, IFilters } from "../models/IFilters";
+import {
+  IFiltersInitialState,
+  IFilters,
+  ICreateFilters,
+} from "../models/IFilters";
 
 const initialState: IFiltersInitialState = {
   entities: null,
@@ -78,7 +82,7 @@ export const teaPackagesRemove =
   };
 
 export const createNewTeaPackagesItem =
-  (payload: IFilters) => async (dispatch: AppDispatch) => {
+  (payload: ICreateFilters) => async (dispatch: AppDispatch) => {
     dispatch(teaPackagesCreateRequested());
     try {
       const { content } = await teaPackagesService.create(payload);

@@ -1,27 +1,39 @@
 import httpService from "../http.service";
+import {
+  AllFiltersResponse,
+  GetFiltersResponse,
+  RemoveFiltersResponse,
+  IFilters,
+  ICreateFilters,
+} from "../../store/models/IFilters";
 
 const methodEndpoint = "coffeeMethods/";
 
 const methodService = {
   get: async () => {
-    const { data } = await httpService.get(methodEndpoint);
+    const { data } = await httpService.get<GetFiltersResponse>(methodEndpoint);
     return data;
   },
-  create: async (payload) => {
-    const { data } = await httpService.post(methodEndpoint, payload);
-    return data;
-  },
-  edit: async (payload) => {
-    const { data } = await httpService.patch(
-      methodEndpoint + payload._id,
-      payload
+  create: async (payload: ICreateFilters) => {
+    const { data } = await httpService.post<AllFiltersResponse>(
+      methodEndpoint,
+      payload,
     );
     return data;
   },
-  remove: async (id) => {
-    const { data } = await httpService.delete(methodEndpoint + id);
+  edit: async (payload: IFilters) => {
+    const { data } = await httpService.patch<AllFiltersResponse>(
+      methodEndpoint + payload._id,
+      payload,
+    );
     return data;
-  }
+  },
+  remove: async (id: string) => {
+    const { data } = await httpService.delete<RemoveFiltersResponse>(
+      methodEndpoint + id,
+    );
+    return data;
+  },
 };
 
 export default methodService;

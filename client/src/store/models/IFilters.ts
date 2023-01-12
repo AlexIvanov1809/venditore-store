@@ -21,3 +21,7 @@ export interface IFiltersInitialState {
   isLoading: boolean;
   error: string | null;
 }
+
+export interface ICreateFilters {
+  value: string;
+}

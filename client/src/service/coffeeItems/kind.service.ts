@@ -3,8 +3,9 @@ import {
   AllFiltersResponse,
   GetFiltersResponse,
   RemoveFiltersResponse,
+  IFilters,
+  ICreateFilters,
 } from "../../store/models/IFilters";
-import { IFilters } from "../../store/models/ICoffeeBrand";
 
 const kindEndpoint = "coffeeKinds/";
 
@@ -13,7 +14,7 @@ const kindService = {
     const { data } = await httpService.get<GetFiltersResponse>(kindEndpoint);
     return data;
   },
-  create: async (payload: IFilters) => {
+  create: async (payload: ICreateFilters) => {
     const { data } = await httpService.post<AllFiltersResponse>(
       kindEndpoint,
       payload,

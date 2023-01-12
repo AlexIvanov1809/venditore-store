@@ -23,12 +23,12 @@ const coffeeItemsSlice = createSlice({
       state.isLoading = true;
     },
     coffeeItemsReceived: (state, action: PayloadAction<ICoffeeItem[]>) => {
-      state.entities = action.payload;
       state.isLoading = false;
+      state.entities = action.payload;
     },
     coffeeItemsRequestFailed: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
       state.isLoading = false;
+      state.error = action.payload;
     },
     coffeeItemCreated: (state, action: PayloadAction<ICoffeeItem>) => {
       if (!Array.isArray(state.entities)) {

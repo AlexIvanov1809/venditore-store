@@ -4,6 +4,7 @@ import {
   GetFiltersResponse,
   RemoveFiltersResponse,
   IFilters,
+  ICreateFilters,
 } from "../../store/models/IFilters";
 
 const teaPackagesEndpoint = "teaPackages/";
@@ -15,7 +16,7 @@ const teaPackagesService = {
     );
     return data;
   },
-  create: async (payload: IFilters) => {
+  create: async (payload: ICreateFilters) => {
     const { data } = await httpService.post<AllFiltersResponse>(
       teaPackagesEndpoint,
       payload,
