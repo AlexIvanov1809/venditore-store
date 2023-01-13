@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { paginate } from "../../../helpers/pagination";
 import { useSelector } from "react-redux";
 import {
@@ -8,6 +7,8 @@ import {
 } from "../../../store/coffeeItems/coffeeItems";
 import itemFilter from "../../../helpers/itemFilter";
 import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
+import { CoffeeCard, Pagination } from "../../../components/";
+import styles from "./CoffeeMarket.module.css";
 
 interface SelectedItems {
   brand: string[] | [];
@@ -95,22 +96,21 @@ const CoffeeMarket = (): JSX.Element => {
         "loading..."
       ) : (
         <div>
-          <div>
+          <div className={styles.cardContainer}>
             {itemsOnPage.map((item) => (
-              <h2 key={item._id}>{item.name}</h2>
+              <CoffeeCard key={item._id} coffeeItem={item} />
             ))}
           </div>
-          {itemsQty}
-          <button onClick={() => handleCurrentPageSet(1)}>1</button>
-          <button onClick={() => handleCurrentPageSet(2)}>2</button>
+          <Pagination
+            itemsQty={itemsQty}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={handleCurrentPageSet}
+          />
         </div>
       )}
     </>
   );
-};
-
-CoffeeMarket.propTypes = {
-  handleOrder: PropTypes.func,
 };
 
 export default CoffeeMarket;

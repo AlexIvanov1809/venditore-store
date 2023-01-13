@@ -1,0 +1,42 @@
+.paginationContainer {
+	margin: 20px 0;
+}
+
+.paginationNav {
+	width: 100%;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pageItem {
+	border: 1px solid var(--black);
+	overflow: hidden;
+}
+
+.pageLink {
+	padding: 15px;
+}
+
+.pageLink:hover {
+	background-color: var(--primary);
+	color: var(--white);
+}
+.active {
+	background-color: var(--primary);
+	color: var(--white);
+}
+
+.pagination li:first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-right: none;
+}
+.pagination li:last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-left: none;
+}
