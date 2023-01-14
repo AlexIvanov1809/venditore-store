@@ -7,5 +7,5 @@ export interface PriceItemProps
     HTMLDivElement
   > {
   item: ICoffeeItem;
-  handleChange: (itemName: string) => void;
+  handleChange: (itemName: "drip" | "kg" | "quarter") => void;
 }

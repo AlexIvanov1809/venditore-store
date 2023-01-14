@@ -1,36 +1,21 @@
 import { ICoffeeItem } from "../store/models/ICoffeeItem";
+import { ITeaItem } from "../store/models/ITeaItem";
 
-interface SelectedItems {
-  brand: string[] | [];
-  country: string[] | [];
-  method: string[] | [];
-  kind: string[] | [];
-}
+type SelectedItems = {
+  [key: string]: string[] | [];
+};
 
 interface Selected {
-  brand: ICoffeeItem[] | [];
-  country: ICoffeeItem[] | [];
-  method: ICoffeeItem[] | [];
-  kind: ICoffeeItem[] | [];
+  [key: string]: (ICoffeeItem | ITeaItem)[] | [];
 }
 
 function itemFilter(
   selectedItems: SelectedItems,
-  allItems: ICoffeeItem[],
-): ICoffeeItem[] {
+  allItems: (ICoffeeItem | ITeaItem)[],
+): (ICoffeeItem | ITeaItem)[] {
   let cycle: number = 0;
-  const selected: Selected = {
-    brand: [],
-    country: [],
-    method: [],
-    kind: [],
-  };
-  const key = Object.keys(selectedItems) as [
-    "brand",
-    "country",
-    "method",
-    "kind",
-  ];
+  const selected: Selected = {};
+  const key = Object.keys(selectedItems) as (keyof (ICoffeeItem | ITeaItem))[];
 
   key.forEach((item) => (selected[item] = []));
   while (cycle < key.length) {

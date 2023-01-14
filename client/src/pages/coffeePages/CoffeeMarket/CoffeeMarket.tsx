@@ -7,17 +7,15 @@ import {
 } from "../../../store/coffeeItems/coffeeItems";
 import itemFilter from "../../../helpers/itemFilter";
 import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
-import { CoffeeCard, Pagination } from "../../../components/";
+import { CoffeeCard, CoffeeSidebar, Pagination } from "../../../components/";
 import styles from "./CoffeeMarket.module.css";
 
-interface SelectedItems {
-  brand: string[] | [];
-  country: string[] | [];
-  method: string[] | [];
-  kind: string[] | [];
+export interface SelectedItems {
+  [key: string]: string[] | [];
 }
 
 const CoffeeMarket = (): JSX.Element => {
+  const page = "coffee";
   const [coffeeAssortment, setCoffeeAssortment] = useState<ICoffeeItem[] | []>(
     [],
   );
@@ -45,7 +43,10 @@ const CoffeeMarket = (): JSX.Element => {
   }, [searchQuery]);
   useEffect(() => {
     setCurrentPage(1);
-    const filtered = itemFilter(selectedItems, coffeeAssortment);
+    const filtered = itemFilter(
+      selectedItems,
+      coffeeAssortment,
+    ) as ICoffeeItem[];
     setFilter(filtered);
   }, [selectedItems, coffeeAssortment]);
 
@@ -96,6 +97,9 @@ const CoffeeMarket = (): JSX.Element => {
         "loading..."
       ) : (
         <div>
+          <div className="col-md-auto">
+            <CoffeeSidebar getSelect={handleSelectedItems} />
+          </div>
           <div className={styles.cardContainer}>
             {itemsOnPage.map((item) => (
               <CoffeeCard key={item._id} coffeeItem={item} />
