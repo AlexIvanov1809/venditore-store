@@ -54,7 +54,7 @@ const TeaSidebar = ({
   };
 
   return (
-    <aside {...props}>
+    <aside className={className} {...props}>
       <h5 className="pb-2">Фильтры</h5>
       <FilterGroupList
         reset={reset}

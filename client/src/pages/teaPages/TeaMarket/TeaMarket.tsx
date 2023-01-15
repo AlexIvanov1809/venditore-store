@@ -1,58 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { paginate } from "../../../helpers/pagination";
-import { useSelector } from "react-redux";
-import {
-  getCoffeeItemsList,
-  getCoffeeItemsLoadingStatus,
-} from "../../../store/coffeeItems/coffeeItems";
 import itemFilter from "../../../helpers/itemFilter";
-import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
-import { CoffeeCard, CoffeeSidebar, Pagination } from "../../../components/";
-import styles from "../../teaPages/TeaMarket/TeaMarket.module.css";
-import { CoffeeMarketProps } from "./CoffeeMarket.props";
+import { Pagination, TeaCard, TeaSidebar } from "../../../components";
+import styles from "./TeaMarket.module.css";
+import { ITeaItem } from "../../../store/models/ITeaItem";
+import { useAppSelector } from "../../../hooks/redux";
+import {
+  getTeaItemsList,
+  getTeaItemsLoadingStatus,
+} from "../../../store/teaItems/teaItems";
+import { TeaMarketProps } from "./TeaMarket.props";
 
 export interface SelectedItems {
   [key: string]: string[] | [];
 }
 
-const CoffeeMarket = ({
-  handleOrder,
-  ...props
-}: CoffeeMarketProps): JSX.Element => {
+const TeaMarket = ({ handleOrder, ...props }: TeaMarketProps): JSX.Element => {
   const page = "coffee";
-  const [coffeeAssortment, setCoffeeAssortment] = useState<ICoffeeItem[] | []>(
-    [],
-  );
+  const [teaAssortment, setTeaAssortment] = useState<ITeaItem[] | []>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [filter, setFilter] = useState<ICoffeeItem[] | []>([]);
+  const [filter, setFilter] = useState<ITeaItem[] | []>([]);
   const [selectedItems, setSelectedItems] = useState<SelectedItems>({
     brand: [],
-    country: [],
-    method: [],
-    kind: [],
+    type: [],
+    package: [],
   });
   const pageSize = 9;
-  const coffeeItems = useSelector(getCoffeeItemsList());
-  const coffeeItemsLoading = useSelector(getCoffeeItemsLoadingStatus());
+  const teaItems = useAppSelector(getTeaItemsList());
+  const coffeeItemsLoading = useAppSelector(getTeaItemsLoadingStatus());
 
   useEffect(() => {
-    if (coffeeItems) {
-      const activeCoffeeItems = coffeeItems.filter((i) => i.active);
-      setCoffeeAssortment(activeCoffeeItems);
+    if (teaItems) {
+      const activeTeaItems = teaItems.filter((i) => i.active);
+      setTeaAssortment(activeTeaItems);
     }
-  }, [coffeeItems]);
+  }, [teaItems]);
   useEffect(() => {
     setCurrentPage(1);
   }, [searchQuery]);
   useEffect(() => {
     setCurrentPage(1);
-    const filtered = itemFilter(
-      selectedItems,
-      coffeeAssortment,
-    ) as ICoffeeItem[];
+    const filtered = itemFilter(selectedItems, teaAssortment) as ITeaItem[];
     setFilter(filtered);
-  }, [selectedItems, coffeeAssortment]);
+  }, [selectedItems, teaAssortment]);
 
   const handleCurrentPageSet = (page: number) => {
     if (page === currentPage) return;
@@ -70,7 +61,7 @@ const CoffeeMarket = ({
     setSelectedItems(items);
   };
 
-  function searchItems(data: ICoffeeItem[]) {
+  function searchItems(data: ITeaItem[]) {
     const filteredData = searchQuery
       ? data.filter(
           (item) =>
@@ -88,7 +79,7 @@ const CoffeeMarket = ({
     filteredItems,
     currentPage,
     pageSize,
-  ) as ICoffeeItem[];
+  ) as ITeaItem[];
 
   return (
     <div className={styles.market} {...props}>
@@ -105,13 +96,14 @@ const CoffeeMarket = ({
         "loading..."
       ) : (
         <>
-          <CoffeeSidebar
+          <TeaSidebar
             className={styles.sidebar}
             getSelect={handleSelectedItems}
           />
+
           <div className={styles.cardContainer}>
             {itemsOnPage.map((item) => (
-              <CoffeeCard key={item._id} coffeeItem={item} />
+              <TeaCard key={item._id} teaItem={item} />
             ))}
           </div>
           <Pagination
@@ -127,4 +119,4 @@ const CoffeeMarket = ({
   );
 };
 
-export default CoffeeMarket;
+export default TeaMarket;

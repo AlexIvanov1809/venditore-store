@@ -1,0 +1,29 @@
+.coffeeCard {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 300px;
+	padding: 10px;
+	text-align: center;
+	background-color: var(--white);
+}
+
+.scale {
+	display: flex;
+	justify-content: space-evenly;
+	margin: 10px 0;
+}
+
+.selectBeans {
+	border: 1px solid var(--black);
+	width: 110px;
+	border-radius: 5px;
+	overflow: hidden;
+	margin: 10px 0;
+}
+
+.bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}

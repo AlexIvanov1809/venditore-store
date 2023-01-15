@@ -1,0 +1,25 @@
+.market {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-areas:
+		"search search"
+		"sidebar cards"
+		"paginate paginate";
+	gap: 20px;
+}
+.search {
+	grid-area: search;
+	margin: 0 auto;
+}
+.sidebar {
+	grid-area: sidebar;
+}
+.cardContainer {
+	grid-area: cards;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 15px;
+}
+.pagination {
+	grid-area: paginate;
+}

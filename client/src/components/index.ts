@@ -8,6 +8,8 @@ import BuyButton from "./BuyButton/BuyButton";
 import CheckBoxField from "./CheckBoxField/CheckBoxField";
 import CoffeeSidebar from "./CoffeeSidebar/CoffeeSidebar";
 import FilterGroupList from "./FilterGroupList/FilterGroupList";
+import TeaCard from "./TeaCard/TeaCard";
+import TeaSidebar from "./TeaSidebar/TeaSidebar";
 
 export {
   Pagination,
@@ -20,4 +22,6 @@ export {
   CheckBoxField,
   CoffeeSidebar,
   FilterGroupList,
+  TeaCard,
+  TeaSidebar,
 };

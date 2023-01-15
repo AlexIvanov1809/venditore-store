@@ -62,7 +62,7 @@ const CoffeeSidebar = ({
   };
 
   return (
-    <aside className={className} {...props}>
+    <aside {...props}>
       <h5 className="pb-2">Фильтры</h5>
       <FilterGroupList
         reset={reset}

@@ -1,5 +1,6 @@
 .paginationContainer {
-	margin: 20px 0;
+	margin: 20px auto;
+	width: 100%;
 }
 
 .paginationNav {
