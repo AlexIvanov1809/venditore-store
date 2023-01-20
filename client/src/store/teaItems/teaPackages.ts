@@ -1,5 +1,5 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import teaPackagesService from "../../service/teaItems/package.service";
+import itemTypesService from "../../service/itemTypes.service";
 import { AppDispatch, RootState } from "../createStore";
 import {
   IFiltersInitialState,
@@ -58,11 +58,12 @@ const teaPackagesCreateRequested = createAction(
 const createTeaPackagesFailed = createAction(
   "teaPackages/createTeaPackagesFailed",
 );
+const ENDPOINT = "itemTypes/teaPackage/";
 
 export const loadTeaPackagesList = () => async (dispatch: AppDispatch) => {
   dispatch(teaPackagesRequested());
   try {
-    const { content } = await teaPackagesService.get();
+    const { content } = await itemTypesService.get(ENDPOINT);
     dispatch(teaPackagesReceived(content));
   } catch (error) {
     dispatch(teaPackagesRequestFailed((error as Error).message));
@@ -72,7 +73,7 @@ export const loadTeaPackagesList = () => async (dispatch: AppDispatch) => {
 export const teaPackagesRemove =
   (itemId: string) => async (dispatch: AppDispatch) => {
     try {
-      const { content } = await teaPackagesService.remove(itemId);
+      const { content } = await itemTypesService.remove(ENDPOINT, itemId);
       if (!content) {
         dispatch(teaPackagesRemoved(itemId));
       }
@@ -85,7 +86,7 @@ export const createNewTeaPackagesItem =
   (payload: ICreateFilters) => async (dispatch: AppDispatch) => {
     dispatch(teaPackagesCreateRequested());
     try {
-      const { content } = await teaPackagesService.create(payload);
+      const { content } = await itemTypesService.create(ENDPOINT, payload);
       dispatch(teaPackagesCreated(content));
     } catch (error) {
       dispatch(createTeaPackagesFailed());

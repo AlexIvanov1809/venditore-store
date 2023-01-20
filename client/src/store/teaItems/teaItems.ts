@@ -1,5 +1,5 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import teaItemService from "../../service/teaItems/teaItem.service";
+import teaItemService from "../../service/teaItem.service";
 import { AppDispatch, RootState } from "../createStore";
 import { ITeaItem } from "../models/ITeaItem";
 

@@ -1,5 +1,5 @@
 const express = require("express");
-const TeaItem = require("../../models/teaItems/TeaItem");
+const TeaItem = require("../models/teaItems/TeaItem");
 const router = express.Router({ mergeParams: true });
 
 router
@@ -36,7 +36,7 @@ router.patch("/:teaItemId", async (req, res) => {
       req.body,
       {
         new: true,
-      }
+      },
     );
     // {new:true} мы ждем когда все обновиться, чтобы передать на фронт верные данные
     res.send(updatedTeaItem);

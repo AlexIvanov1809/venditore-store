@@ -1,6 +1,6 @@
 import { ICoffeeItem } from "./../models/ICoffeeItem";
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import coffeeItemService from "../../service/coffeeItems/coffeeItem.service";
+import coffeeItemService from "../../service/coffeeItem.service";
 import { AppDispatch, RootState } from "../createStore";
 
 interface ICoffeeItemsState {

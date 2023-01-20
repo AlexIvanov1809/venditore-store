@@ -1,5 +1,5 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import methodService from "../../service/coffeeItems/method.service";
+import itemTypesService from "../../service/itemTypes.service";
 import { AppDispatch, RootState } from "../createStore";
 import {
   IFiltersInitialState,
@@ -54,11 +54,12 @@ const {
 
 const methodsCreateRequested = createAction("methods/methodsCreateRequested");
 const createMethodsFailed = createAction("methods/createMethodsFailed");
+const ENDPOINT = "itemTypes/coffeeMethod/";
 
 export const loadMethodsList = () => async (dispatch: AppDispatch) => {
   dispatch(methodsRequested());
   try {
-    const { content } = await methodService.get();
+    const { content } = await itemTypesService.get(ENDPOINT);
     dispatch(methodsReceived(content));
   } catch (error) {
     dispatch(methodsRequestFailed((error as Error).message));
@@ -68,7 +69,7 @@ export const loadMethodsList = () => async (dispatch: AppDispatch) => {
 export const methodsRemove =
   (itemId: string) => async (dispatch: AppDispatch) => {
     try {
-      const { content } = await methodService.remove(itemId);
+      const { content } = await itemTypesService.remove(ENDPOINT, itemId);
       if (!content) {
         dispatch(methodsRemoved(itemId));
       }
@@ -81,7 +82,7 @@ export const createNewMethodsItem =
   (payload: ICreateFilters) => async (dispatch: AppDispatch) => {
     dispatch(methodsCreateRequested());
     try {
-      const { content } = await methodService.create(payload);
+      const { content } = await itemTypesService.create(ENDPOINT, payload);
       dispatch(methodsCreated(content));
     } catch (error) {
       dispatch(createMethodsFailed());

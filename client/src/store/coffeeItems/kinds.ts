@@ -1,5 +1,5 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import kindService from "../../service/coffeeItems/kind.service";
+import itemTypesService from "../../service/itemTypes.service";
 import { AppDispatch, RootState } from "../createStore";
 import {
   IFiltersInitialState,
@@ -54,11 +54,12 @@ const {
 
 const kindsCreateRequested = createAction("kinds/kindsCreateRequested");
 const createKindsFailed = createAction("kinds/createKindsFailed");
+const ENDPOINT = "itemTypes/coffeeKind/";
 
 export const loadKindsList = () => async (dispatch: AppDispatch) => {
   dispatch(kindsRequested());
   try {
-    const { content } = await kindService.get();
+    const { content } = await itemTypesService.get(ENDPOINT);
     dispatch(kindsReceived(content));
   } catch (error) {
     dispatch(kindsRequestFailed((error as Error).message));
@@ -68,7 +69,7 @@ export const loadKindsList = () => async (dispatch: AppDispatch) => {
 export const kindsRemove =
   (itemId: string) => async (dispatch: AppDispatch) => {
     try {
-      const { content } = await kindService.remove(itemId);
+      const { content } = await itemTypesService.remove(ENDPOINT, itemId);
       if (!content) {
         dispatch(kindsRemoved(itemId));
       }
@@ -81,7 +82,7 @@ export const createNewKindsItem =
   (payload: ICreateFilters) => async (dispatch: AppDispatch) => {
     dispatch(kindsCreateRequested());
     try {
-      const { content } = await kindService.create(payload);
+      const { content } = await itemTypesService.create(ENDPOINT, payload);
       dispatch(kindsCreated(content));
     } catch (error) {
       dispatch(createKindsFailed());

@@ -1,5 +1,5 @@
-import { ICoffeeItem } from "../../store/models/ICoffeeItem";
-import httpService from "../http.service";
+import { ICoffeeItem } from "../store/models/ICoffeeItem";
+import httpService from "./http.service";
 
 interface GetResponse {
   content: ICoffeeItem[];

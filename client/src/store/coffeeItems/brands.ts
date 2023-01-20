@@ -1,5 +1,5 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import brandService from "../../service/coffeeItems/brand.service";
+import itemTypesService from "../../service/itemTypes.service";
 import { AppDispatch, RootState } from "../createStore";
 import {
   IFiltersInitialState,
@@ -54,11 +54,12 @@ const {
 
 const brandCreateRequested = createAction("brands/brandCreateRequested");
 const createBrandFailed = createAction("brands/createBrandFailed");
+const ENDPOINT = "itemTypes/coffeeBrand/";
 
 export const loadBrandsList = () => async (dispatch: AppDispatch) => {
   dispatch(brandsRequested());
   try {
-    const { content } = await brandService.get();
+    const { content } = await itemTypesService.get(ENDPOINT);
     dispatch(brandsReceived(content));
   } catch (error) {
     dispatch(brandsRequestFailed((error as Error).message));
@@ -68,7 +69,7 @@ export const loadBrandsList = () => async (dispatch: AppDispatch) => {
 export const brandsRemove =
   (itemId: string) => async (dispatch: AppDispatch) => {
     try {
-      const { content } = await brandService.remove(itemId);
+      const { content } = await itemTypesService.remove(ENDPOINT, itemId);
       if (!content) {
         dispatch(brandsRemoved(itemId));
       }
@@ -81,7 +82,7 @@ export const createNewBrandsItem =
   (payload: ICreateFilters) => async (dispatch: AppDispatch) => {
     dispatch(brandCreateRequested());
     try {
-      const { content } = await brandService.create(payload);
+      const { content } = await itemTypesService.create(ENDPOINT, payload);
       dispatch(brandsCreated(content));
     } catch (error) {
       dispatch(createBrandFailed());

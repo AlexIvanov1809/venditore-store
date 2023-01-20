@@ -3,28 +3,17 @@ const config = require("config");
 const Token = require("../models/Token");
 
 class TokenService {
-  generate(payload) {
+  generateTokens(payload) {
     const accessToken = jwt.sign(payload, config.get("accessSecret"), {
-      expiresIn: "1h",
+      expiresIn: "30m",
     });
-    const refreshToken = jwt.sign(payload, config.get("refreshSecret"));
-
+    const refreshToken = jwt.sign(payload, config.get("refreshSecret"), {
+      expiresIn: "30d",
+    });
     return {
       accessToken,
       refreshToken,
-      expiresIn: 3600,
     };
-  }
-
-  async save(userId, refreshToken) {
-    const data = await Token.findOne({ user: userId });
-    if (data) {
-      data.refreshToken = refreshToken;
-      return data.save();
-    }
-
-    const token = await Token.create({ user: userId, refreshToken });
-    return token;
   }
 
   validateRefresh(refreshToken) {
@@ -43,12 +32,25 @@ class TokenService {
     }
   }
 
-  async findToken(refreshToken) {
-    try {
-      return await Token.findOne({ refreshToken });
-    } catch (error) {
-      return null;
+  async saveToken(userId, refreshToken) {
+    const data = await Token.findOne({ user: userId });
+    if (data) {
+      data.refreshToken = refreshToken;
+      return data.save();
     }
+
+    const token = await Token.create({ user: userId, refreshToken });
+    return token;
+  }
+
+  async findToken(refreshToken) {
+    return await Token.findOne({ refreshToken });
+  }
+
+  async removeToken(refreshToken) {
+    const tokenData = await tokenModel.deleteOne({ refreshToken });
+
+    return tokenData;
   }
 }
 

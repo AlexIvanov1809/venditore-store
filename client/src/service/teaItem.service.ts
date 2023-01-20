@@ -1,5 +1,5 @@
-import { ITeaItem } from "../../store/models/ITeaItem";
-import httpService from "../http.service";
+import { ITeaItem } from "../store/models/ITeaItem";
+import httpService from "./http.service";
 
 interface GetResponse {
   content: ITeaItem[];

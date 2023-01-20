@@ -1,5 +1,5 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
-import countryService from "../../service/coffeeItems/country.service";
+import itemTypesService from "../../service/itemTypes.service";
 import { AppDispatch, RootState } from "../createStore";
 import {
   IFiltersInitialState,
@@ -56,11 +56,12 @@ const countriesCreateRequested = createAction(
   "countries/countriesCreateRequested",
 );
 const createCountriesFailed = createAction("countries/createCountriesFailed");
+const ENDPOINT = "itemTypes/coffeeCountry/";
 
 export const loadCountriesList = () => async (dispatch: AppDispatch) => {
   dispatch(countriesRequested());
   try {
-    const { content } = await countryService.get();
+    const { content } = await itemTypesService.get(ENDPOINT);
     dispatch(countriesReceived(content));
   } catch (error) {
     dispatch(countriesRequestFailed((error as Error).message));
@@ -70,7 +71,7 @@ export const loadCountriesList = () => async (dispatch: AppDispatch) => {
 export const countriesRemove =
   (itemId: string) => async (dispatch: AppDispatch) => {
     try {
-      const { content } = await countryService.remove(itemId);
+      const { content } = await itemTypesService.remove(ENDPOINT, itemId);
       if (!content) {
         dispatch(countriesRemoved(itemId));
       }
@@ -83,7 +84,7 @@ export const createNewCountriesItem =
   (payload: ICreateFilters) => async (dispatch: AppDispatch) => {
     dispatch(countriesCreateRequested());
     try {
-      const { content } = await countryService.create(payload);
+      const { content } = await itemTypesService.create(ENDPOINT, payload);
       dispatch(countriesCreated(content));
     } catch (error) {
       dispatch(createCountriesFailed());
