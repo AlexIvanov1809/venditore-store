@@ -18,3 +18,14 @@
 	height: 45px;
 	width: 120px;
 }
+
+.linksBox {
+	flex: 1 1 auto;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+}
+
+.link {
+	margin: 0 20px;
+}

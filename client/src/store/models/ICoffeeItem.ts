@@ -6,7 +6,7 @@ export interface ICoffeeItem {
   images: Images;
   brand: string;
   sortName: string;
-  country?: string;
+  country: string;
   acidity: number;
   density: number;
   description: string;

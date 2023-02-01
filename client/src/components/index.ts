@@ -10,6 +10,7 @@ import CoffeeSidebar from "./CoffeeSidebar/CoffeeSidebar";
 import FilterGroupList from "./FilterGroupList/FilterGroupList";
 import TeaCard from "./TeaCard/TeaCard";
 import TeaSidebar from "./TeaSidebar/TeaSidebar";
+import Input from "./Input/Input";
 
 export {
   Pagination,
@@ -24,4 +25,5 @@ export {
   FilterGroupList,
   TeaCard,
   TeaSidebar,
+  Input,
 };

@@ -7,11 +7,13 @@ const path = require("path");
 const routes = require("./routes");
 const cors = require("cors");
 const errorMiddleware = require("./middlewares/error.middleware");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
 app.use(fileUpload({}));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api", routes);
 app.use(cors());

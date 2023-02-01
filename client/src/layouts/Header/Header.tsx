@@ -10,10 +10,15 @@ const Header = (): JSX.Element => {
         <Link className={styles.logo} role="button" to="/">
           <LogoIcon />
         </Link>
-        <ul>
-          <li role="button">
+        <ul className={styles.linksBox}>
+          <li className={styles.link} role="button">
             <Link aria-current="page" to="/market/coffee">
               магазин
+            </Link>
+          </li>
+          <li className={styles.link} role="button">
+            <Link aria-current="page" to="/adminPanel/coffee">
+              панель администратора
             </Link>
           </li>
         </ul>
