@@ -1,4 +1,4 @@
-import { ITeaItem } from "../store/models/ITeaItem";
+import { ITeaItem } from "../models/ITeaItem";
 
 function currentPrice(item: ITeaItem): number | string {
   if (item.weight === "шт") {

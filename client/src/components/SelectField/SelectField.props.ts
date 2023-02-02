@@ -1,9 +1,5 @@
 import { DetailedHTMLProps, HtmlHTMLAttributes } from "react";
-
-interface IOptions {
-  _id: number;
-  value: string | number;
-}
+import { IFilters } from "../../models/IFilters";
 
 export interface IChangeFn {
   name: string;
@@ -19,7 +15,7 @@ export interface SelectFieldProps
   value: number | string;
   getChange: (item: IChangeFn) => void;
   defaultOption: number | string;
-  options: IOptions[];
+  options: IFilters[] | null;
   error?: string;
   name: string;
 }

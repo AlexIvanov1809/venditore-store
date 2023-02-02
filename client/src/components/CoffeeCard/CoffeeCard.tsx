@@ -6,7 +6,7 @@ import { BuyButton, CoffeeImgItem, PriceItem, Scale, SelectField } from "../";
 import { IChangeFn } from "../SelectField/SelectField.props";
 import { editItemBasket, storeAdding } from "../../store/consumerBasket";
 import { useAppDispatch } from "../../hooks/redux";
-import { IBasketItems } from "../../store/models/IBasket";
+import { IBasketItems } from "../../models/IBasket";
 
 const CoffeeCard = ({ coffeeItem, ...props }: CoffeeCardProps): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -17,9 +17,9 @@ const CoffeeCard = ({ coffeeItem, ...props }: CoffeeCardProps): JSX.Element => {
     value: "в зернах",
   });
   const beans = [
-    { _id: 1, value: "для чашки" },
-    { _id: 2, value: "для фильтра" },
-    { _id: 3, value: "для эспрессо" },
+    { _id: "1", value: "для чашки" },
+    { _id: "2", value: "для фильтра" },
+    { _id: "3", value: "для эспрессо" },
   ];
 
   useEffect(() => {

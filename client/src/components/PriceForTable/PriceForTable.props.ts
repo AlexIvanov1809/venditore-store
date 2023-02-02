@@ -1,4 +1,4 @@
-import { Price } from "../../store/models/ICoffeeItem";
+import { Price } from "../../models/ICoffeeItem";
 
 export interface PriceForTableProps {
   price: Price;

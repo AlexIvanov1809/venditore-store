@@ -1,4 +1,4 @@
-import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
+import { ICoffeeItem } from "../../../models/ICoffeeItem";
 import { TableItem } from "../TeaTable/TeaTable.props";
 
 export interface CoffeeTableProps {

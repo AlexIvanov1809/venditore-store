@@ -7,7 +7,8 @@ import {
 import { TableItem } from "../../../components/Table/TeaTable/TeaTable.props";
 import CoffeeTable from "../../../components/Table/CoffeeTable/coffeeTable";
 import sortedItems from "../../../helpers/sortForTable";
-import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
+import { ICoffeeItem } from "../../../models/ICoffeeItem";
+import { Link } from "react-router-dom";
 
 const AdminCoffeePage = () => {
   const coffeeItemsLoading = useAppSelector(getCoffeeItemsLoadingStatus());
@@ -32,7 +33,10 @@ const AdminCoffeePage = () => {
   }, [coffeeItems, sortBy]);
 
   return (
-    <main>
+    <div>
+      <Link role="button" to="/adminPanel/coffee/create">
+        Create
+      </Link>
       {coffeeItemsLoading ? (
         "...Loading"
       ) : (
@@ -42,7 +46,7 @@ const AdminCoffeePage = () => {
           selectedSort={sortBy}
         />
       )}
-    </main>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import {
   RemoveFiltersResponse,
   IFilters,
   ICreateFilters,
-} from "../store/models/IFilters";
+} from "../models/IFilters";
 import httpService from "./http.service";
 
 const endpoint = "itemTypes/coffeeBrand/";

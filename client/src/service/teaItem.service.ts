@@ -1,4 +1,4 @@
-import { ITeaItem } from "../store/models/ITeaItem";
+import { ITeaItem } from "../models/ITeaItem";
 import httpService from "./http.service";
 
 interface GetResponse {

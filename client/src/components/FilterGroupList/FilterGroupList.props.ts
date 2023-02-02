@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, HtmlHTMLAttributes } from "react";
-import { IFilters } from "../../store/models/IFilters";
+import { IFilters } from "../../models/IFilters";
 import { IHandleChange } from "./FilterGroupList";
 
 export interface FilterGroupListProps

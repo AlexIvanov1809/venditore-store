@@ -1,6 +1,6 @@
 import { HtmlHTMLAttributes, DetailedHTMLProps } from "react";
-import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
-import { ITeaItem } from "../../../store/models/ITeaItem";
+import { ICoffeeItem } from "../../../models/ICoffeeItem";
+import { ITeaItem } from "../../../models/ITeaItem";
 import { TableItem } from "../TeaTable/TeaTable.props";
 
 export interface IColumn {

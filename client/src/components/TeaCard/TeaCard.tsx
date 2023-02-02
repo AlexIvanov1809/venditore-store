@@ -9,7 +9,7 @@ import {
   storeAdding,
 } from "../../store/consumerBasket";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { IBasketItems } from "../../store/models/IBasket";
+import { IBasketItems } from "../../models/IBasket";
 import currentPrice from "../../helpers/currentPrice";
 
 const TeaCard = ({

@@ -6,7 +6,7 @@ import {
   getTeaItemsList,
   getTeaItemsLoadingStatus,
 } from "../../../store/teaItems/teaItems";
-import { ITeaItem } from "../../../store/models/ITeaItem";
+import { ITeaItem } from "../../../models/ITeaItem";
 import TeaTable from "../../../components/Table/TeaTable/TeaTable";
 
 const AdminTeaPage = () => {

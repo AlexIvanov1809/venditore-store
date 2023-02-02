@@ -1,4 +1,4 @@
-import { ICoffeeItem } from "./../models/ICoffeeItem";
+import { ICoffeeItem, ICreateCoffeeItem } from "../../models/ICoffeeItem";
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import coffeeItemService from "../../service/coffeeItem.service";
 import { AppDispatch, RootState } from "../createStore";
@@ -80,7 +80,8 @@ export const loadCoffeeItemsList = () => async (dispatch: AppDispatch) => {
 };
 
 export const createNewCoffeeItem =
-  (payload: ICoffeeItem, back: Function) => async (dispatch: AppDispatch) => {
+  (payload: ICreateCoffeeItem, back: Function) =>
+  async (dispatch: AppDispatch) => {
     dispatch(itemCreateRequested());
     try {
       const { content } = await coffeeItemService.create(payload);

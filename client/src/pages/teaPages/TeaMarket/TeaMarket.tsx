@@ -3,7 +3,7 @@ import { paginate } from "../../../helpers/pagination";
 import itemFilter from "../../../helpers/itemFilter";
 import { Pagination, TeaCard, TeaSidebar } from "../../../components";
 import styles from "./TeaMarket.module.css";
-import { ITeaItem } from "../../../store/models/ITeaItem";
+import { ITeaItem } from "../../../models/ITeaItem";
 import { useAppSelector } from "../../../hooks/redux";
 import {
   getTeaItemsList,

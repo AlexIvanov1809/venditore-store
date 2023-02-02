@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 // import localStorageService from "../service/localStorage.service";
 import { AppDispatch, RootState } from "./createStore";
-import { IBasketItems } from "./models/IBasket";
+import { IBasketItems } from "../models/IBasket";
 
 interface IBasketInitialState {
   entities: IBasketItems[] | any[];

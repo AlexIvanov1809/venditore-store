@@ -1,11 +1,11 @@
-import { ICoffeeItem } from "../store/models/ICoffeeItem";
-import { ITeaItem } from "../store/models/ITeaItem";
+import { ICoffeeItem } from "../models/ICoffeeItem";
+import { ITeaItem } from "../models/ITeaItem";
 
-export function paginate(
-  items: (ICoffeeItem | ITeaItem)[],
+export function paginate<T>(
+  items: Array<T>,
   pageNumber: number,
   pageSize: number,
-): (ICoffeeItem | ITeaItem)[] {
+): Array<T> {
   const startIndex = (pageNumber - 1) * pageSize;
   return [...items].splice(startIndex, pageSize);
 }

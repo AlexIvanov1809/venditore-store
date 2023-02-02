@@ -1,7 +1,7 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import teaItemService from "../../service/teaItem.service";
 import { AppDispatch, RootState } from "../createStore";
-import { ITeaItem } from "../models/ITeaItem";
+import { ITeaItem } from "../../models/ITeaItem";
 
 interface ITeaItemsState {
   entities: ITeaItem[] | null;

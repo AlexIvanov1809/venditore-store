@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, HtmlHTMLAttributes } from "react";
-import { ITeaItem } from "../../store/models/ITeaItem";
+import { ITeaItem } from "../../models/ITeaItem";
 
 export interface TeaCardProps
   extends DetailedHTMLProps<

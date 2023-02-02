@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TableBodyProps } from "./TableBody.props";
-import { ITeaItem } from "../../../store/models/ITeaItem";
-import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
+import { ITeaItem } from "../../../models/ITeaItem";
+import { ICoffeeItem } from "../../../models/ICoffeeItem";
 
 const TableBody = ({ data, columns, type }: TableBodyProps) => {
   const renderContent = (item: ITeaItem | ICoffeeItem, column: string) => {

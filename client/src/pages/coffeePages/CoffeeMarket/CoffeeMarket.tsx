@@ -6,7 +6,7 @@ import {
   getCoffeeItemsLoadingStatus,
 } from "../../../store/coffeeItems/coffeeItems";
 import itemFilter from "../../../helpers/itemFilter";
-import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
+import { ICoffeeItem } from "../../../models/ICoffeeItem";
 import { CoffeeCard, CoffeeSidebar, Pagination } from "../../../components/";
 import styles from "../../teaPages/TeaMarket/TeaMarket.module.css";
 import { CoffeeMarketProps } from "./CoffeeMarket.props";

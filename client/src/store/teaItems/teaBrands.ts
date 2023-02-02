@@ -5,7 +5,7 @@ import {
   IFiltersInitialState,
   IFilters,
   ICreateFilters,
-} from "../models/IFilters";
+} from "../../models/IFilters";
 
 const initialState: IFiltersInitialState = {
   entities: null,

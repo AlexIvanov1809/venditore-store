@@ -1,8 +1,8 @@
 import React from "react";
 import Table from "../Table/Table";
 import { TeaTableProps } from "./TeaTable.props";
-import { ITeaItem } from "../../../store/models/ITeaItem";
-import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
+import { ITeaItem } from "../../../models/ITeaItem";
+import { ICoffeeItem } from "../../../models/ICoffeeItem";
 
 const TeaTable = ({ teaItems, onSort, selectedSort }: TeaTableProps) => {
   const columns = {

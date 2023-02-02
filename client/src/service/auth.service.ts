@@ -1,7 +1,7 @@
 import axios from "axios";
 // import localStorageSevice from "../../../checker/temp/localStorage.service";
 import config from "../config.json";
-import { IAuth } from "../store/models/IAuth";
+import { IAuth } from "../models/IAuth";
 
 const httpAuth = axios.create({
   baseURL: config.endpoint + "/auth/",

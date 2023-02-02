@@ -18,7 +18,7 @@
   },
   "include": [
     "src",
-    "../checker/temp/file.service.ts",
+    "src/service/file.service.ts",
     "../checker/temp/order.service.ts"
   ]
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import Table from "../Table/Table";
 import { CoffeeTableProps } from "./CoffeeTable.props";
-import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
+import { ICoffeeItem } from "../../../models/ICoffeeItem";
 import PriceForTable from "../../PriceForTable/PriceForTable";
-import { ITeaItem } from "../../../store/models/ITeaItem";
+import { ITeaItem } from "../../../models/ITeaItem";
 
 const CoffeeTable = ({
   coffeeItems,

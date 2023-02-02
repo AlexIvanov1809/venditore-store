@@ -1,7 +1,7 @@
 export interface IFilters {
   _id: string;
   value: string;
-  __v: number;
+  __v?: number;
 }
 
 export interface GetFiltersResponse {

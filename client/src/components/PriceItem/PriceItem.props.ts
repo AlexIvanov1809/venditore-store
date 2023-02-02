@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, HtmlHTMLAttributes } from "react";
-import { ICoffeeItem } from "../../store/models/ICoffeeItem";
+import { ICoffeeItem } from "../../models/ICoffeeItem";
 
 export interface PriceItemProps
   extends DetailedHTMLProps<

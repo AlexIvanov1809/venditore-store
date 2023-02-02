@@ -1,5 +1,5 @@
-import { ICoffeeItem } from "../../../store/models/ICoffeeItem";
-import { ITeaItem } from "../../../store/models/ITeaItem";
+import { ICoffeeItem } from "../../../models/ICoffeeItem";
+import { ITeaItem } from "../../../models/ITeaItem";
 
 export type TableItem = {
   path: string;
