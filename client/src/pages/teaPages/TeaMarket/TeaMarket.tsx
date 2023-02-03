@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { paginate } from "../../../helpers/pagination";
 import itemFilter from "../../../helpers/itemFilter";
-import { Pagination, TeaCard, TeaSidebar } from "../../../components";
+import { Pagination, TeaCard } from "../../../components";
 import styles from "./TeaMarket.module.css";
 import { ITeaItem } from "../../../models/ITeaItem";
 import { useAppSelector } from "../../../hooks/redux";
@@ -10,6 +10,7 @@ import {
   getTeaItemsLoadingStatus,
 } from "../../../store/teaItems/teaItems";
 import { TeaMarketProps } from "./TeaMarket.props";
+import TeaSidebar from "../../../modules/TeaSidebar/TeaSidebar";
 
 export interface SelectedItems {
   [key: string]: string[] | [];

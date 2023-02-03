@@ -4,8 +4,8 @@ import {
   getCoffeeItemsList,
   getCoffeeItemsLoadingStatus,
 } from "../../../store/coffeeItems/coffeeItems";
-import { TableItem } from "../../../components/Table/TeaTable/TeaTable.props";
-import CoffeeTable from "../../../components/Table/CoffeeTable/coffeeTable";
+import { TableItem } from "../../../modules/Table/TeaTable/TeaTable.props";
+import CoffeeTable from "../../../modules/Table/CoffeeTable/coffeeTable";
 import sortedItems from "../../../helpers/sortForTable";
 import { ICoffeeItem } from "../../../models/ICoffeeItem";
 import { Link } from "react-router-dom";

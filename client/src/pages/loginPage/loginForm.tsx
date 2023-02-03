@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import authService from "../../service/auth.service";
 import { useNavigate } from "react-router-dom";
 import { LoginFormProps } from "./loginForm.props";
-import { CheckBoxField, Input } from "../../components";
+import { CheckBoxField, Input } from "../../ui";
 import localStorageService from "../../service/localStorage.service";
 import { AxiosError } from "axios";
 

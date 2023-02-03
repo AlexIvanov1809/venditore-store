@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FilterGroupListProps } from "./FilterGroupList.props";
 import styles from "./FilterGroupList.module.css";
-import { CheckBoxField } from "../";
+import { CheckBoxField } from "../../ui";
 
 export interface IHandleChange {
   name: string;

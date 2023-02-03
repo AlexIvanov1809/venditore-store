@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, HtmlHTMLAttributes, ReactNode } from "react";
-import { IHandleChange } from "../FilterGroupList/FilterGroupList";
+import { IHandleChange } from "../../components/FilterGroupList/FilterGroupList";
 
 export interface CheckBoxFieldProps
   extends DetailedHTMLProps<

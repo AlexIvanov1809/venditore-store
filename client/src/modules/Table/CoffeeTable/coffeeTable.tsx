@@ -2,7 +2,7 @@ import React from "react";
 import Table from "../Table/Table";
 import { CoffeeTableProps } from "./CoffeeTable.props";
 import { ICoffeeItem } from "../../../models/ICoffeeItem";
-import PriceForTable from "../../PriceForTable/PriceForTable";
+import { PriceForTable } from "../../../components";
 import { ITeaItem } from "../../../models/ITeaItem";
 
 const CoffeeTable = ({

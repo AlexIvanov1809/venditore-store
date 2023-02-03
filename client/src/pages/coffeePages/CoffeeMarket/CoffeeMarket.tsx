@@ -7,9 +7,10 @@ import {
 } from "../../../store/coffeeItems/coffeeItems";
 import itemFilter from "../../../helpers/itemFilter";
 import { ICoffeeItem } from "../../../models/ICoffeeItem";
-import { CoffeeCard, CoffeeSidebar, Pagination } from "../../../components/";
+import { CoffeeCard, Pagination } from "../../../components/";
 import styles from "../../teaPages/TeaMarket/TeaMarket.module.css";
 import { CoffeeMarketProps } from "./CoffeeMarket.props";
+import CoffeeSidebar from "../../../modules/CoffeeSidebar/CoffeeSidebar";
 
 export interface SelectedItems {
   [key: string]: string[] | [];

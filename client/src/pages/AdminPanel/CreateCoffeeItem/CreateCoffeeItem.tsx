@@ -5,13 +5,13 @@ import { getCountriesList } from "../../../store/coffeeItems/countries";
 import { getMethodsList } from "../../../store/coffeeItems/methods";
 import { getKindsList } from "../../../store/coffeeItems/kinds";
 import { createNewCoffeeItem } from "../../../store/coffeeItems/coffeeItems";
+import { ImageLoaderField } from "../../../components";
 import {
   CheckBoxField,
   SelectField,
-  ImageLoaderField,
   TextForm,
   TextAriaField,
-} from "../../../components";
+} from "../../../ui";
 import { IError, validator } from "../../../helpers/validator";
 import imageLoader from "../../../helpers/imageLoader";
 import imageAndPriceValidator, {
@@ -75,17 +75,16 @@ const CreateCoffeeItem = ({ ...props }: CreateCoffeeItemProps) => {
       isRequired: { message: "Поле необходимое для заполнения" },
     },
   };
-
-  useEffect(() => {
-    validate();
-  }, [data, image]);
-
   const validate = () => {
     const errors = validator(data, validatorConfig);
     const err = imageAndPriceValidator(image, data);
     setErr(err);
     setErrors(errors);
   };
+
+  useEffect(() => {
+    validate();
+  }, [data, image]);
 
   const brands = useAppSelector(getBrandsList());
   const countries = useAppSelector(getCountriesList());

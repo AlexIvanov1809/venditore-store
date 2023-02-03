@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { CoffeeCardProps } from "./CoffeeCard.props";
 import styles from "./CoffeeCard.module.css";
 import cn from "classnames";
-import { BuyButton, CoffeeImgItem, PriceItem, Scale, SelectField } from "../";
-import { IChangeFn } from "../SelectField/SelectField.props";
+import { BuyButton, CoffeeImgItem, PriceItem, Scale } from "../";
+import { IChangeFn } from "../../ui/SelectField/SelectField.props";
 import { editItemBasket, storeAdding } from "../../store/consumerBasket";
 import { useAppDispatch } from "../../hooks/redux";
 import { IBasketItems } from "../../models/IBasket";
+import { SelectField } from "../../ui";
 
 const CoffeeCard = ({ coffeeItem, ...props }: CoffeeCardProps): JSX.Element => {
   const dispatch = useAppDispatch();

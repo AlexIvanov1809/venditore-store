@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TeaSidebarProps } from "./TeaSidebar.props";
 import styles from "./TeaSidebar.module.css";
 import { useAppSelector } from "../../hooks/redux";
-import { FilterGroupList } from "..";
-import { IHandleChange } from "../FilterGroupList/FilterGroupList";
+import { IHandleChange } from "../../components/FilterGroupList/FilterGroupList";
 import {
   getTeaBrandsList,
   getTeaBrandsLoadingStatus,
@@ -16,6 +15,7 @@ import {
   getTeaPackagesList,
   getTeaPackagesLoadingStatus,
 } from "../../store/teaItems/teaPackages";
+import { FilterGroupList } from "../../components";
 
 const TeaSidebar = ({
   getSelect,

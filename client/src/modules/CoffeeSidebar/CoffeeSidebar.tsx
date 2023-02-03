@@ -18,8 +18,8 @@ import {
   getKindsList,
   getKindsLoadingStatus,
 } from "../../store/coffeeItems/kinds";
-import { FilterGroupList } from "../";
-import { IHandleChange } from "../FilterGroupList/FilterGroupList";
+import { IHandleChange } from "../../components/FilterGroupList/FilterGroupList";
+import { FilterGroupList } from "../../components";
 
 const CoffeeSidebar = ({
   getSelect,
@@ -62,7 +62,7 @@ const CoffeeSidebar = ({
   };
 
   return (
-    <aside {...props}>
+    <aside className={className} {...props}>
       <h5 className="pb-2">Фильтры</h5>
       <FilterGroupList
         reset={reset}

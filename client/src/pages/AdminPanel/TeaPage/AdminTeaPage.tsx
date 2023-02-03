@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useAppSelector } from "../../../hooks/redux";
-import { TableItem } from "../../../components/Table/TeaTable/TeaTable.props";
+import { TableItem } from "../../../modules/Table/TeaTable/TeaTable.props";
 import sortedItems from "../../../helpers/sortForTable";
 import {
   getTeaItemsList,
   getTeaItemsLoadingStatus,
 } from "../../../store/teaItems/teaItems";
 import { ITeaItem } from "../../../models/ITeaItem";
-import TeaTable from "../../../components/Table/TeaTable/TeaTable";
+import TeaTable from "../../../modules/Table/TeaTable/TeaTable";
 
 const AdminTeaPage = () => {
   const teaItemsLoading = useAppSelector(getTeaItemsLoadingStatus());
