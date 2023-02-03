@@ -9,7 +9,7 @@ const Scale = ({ value, name, ...props }: ScaleProps): JSX.Element => {
       <div className={styles.scale}>
         <div
           className={styles.scaleInside}
-          style={{ width: value * 10 + "%" }}
+          style={{ width: +value * 10 + "%" }}
         ></div>
       </div>
     </div>

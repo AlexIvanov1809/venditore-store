@@ -15,18 +15,28 @@ const fileService = {
     }
   },
 
-  // edit: async (payload, dat) => {
-  //   const formData = new FormData();
-  //   formData.append("file", payload);
+  edit: async (
+    payload: File | string | undefined,
+    dat: ImgItem | undefined,
+  ) => {
+    if (typeof payload !== "undefined" && typeof dat !== "undefined") {
+      const formData = new FormData();
+      formData.append("file", payload);
 
-  //   const { data } = await httpService.patch(fileEndpoint + dat._id, formData);
+      const { data } = await httpService.patch(
+        fileEndpoint + dat._id,
+        formData,
+      );
 
-  //   return data;
-  // },
-  remove: async (payload: ImgItem) => {
-    const { data } = await httpService.delete(fileEndpoint + payload._id);
+      return data;
+    }
+  },
+  remove: async (payload: ImgItem | undefined) => {
+    if (typeof payload !== "undefined") {
+      const { data } = await httpService.delete(fileEndpoint + payload._id);
 
-    return data;
+      return data;
+    }
   },
 };
 

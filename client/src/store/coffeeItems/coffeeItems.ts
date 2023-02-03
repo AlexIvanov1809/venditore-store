@@ -118,11 +118,12 @@ export const editCoffeeItem =
     }
   };
 
-export const getCoffeeItemById = (itemId: string) => (state: RootState) => {
-  return state.coffeeItems.entities
-    ? state.coffeeItems.entities.find((i) => i._id === itemId)
-    : null;
-};
+export const getCoffeeItemById =
+  (itemId: string | undefined) => (state: RootState) => {
+    return state.coffeeItems.entities
+      ? state.coffeeItems.entities.find((i) => i._id === itemId)
+      : null;
+  };
 export const getCoffeeItemsList = () => (state: RootState) =>
   state.coffeeItems.entities;
 export const getCoffeeItemsLoadingStatus = () => (state: RootState) =>

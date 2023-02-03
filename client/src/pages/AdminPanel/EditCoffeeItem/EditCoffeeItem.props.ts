@@ -1,10 +1,7 @@
 import { DetailedHTMLProps, HtmlHTMLAttributes } from "react";
 
-export interface ScaleProps
+export interface EditCoffeeItemProps
   extends DetailedHTMLProps<
     HtmlHTMLAttributes<HTMLDivElement>,
     HTMLDivElement
-  > {
-  value: string | number;
-  name: string;
-}
+  > {}

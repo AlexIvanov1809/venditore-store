@@ -19,13 +19,6 @@ export interface ICreateCoffeeItem {
   priceDrip?: string;
 }
 
-export interface ICreateImage {
-  quarter?: File | string;
-  kg?: File | string;
-  drip?: File | string;
-  tea?: File | string;
-}
-
 export interface ICoffeeItem {
   _id: string;
   name: string;
@@ -41,9 +34,12 @@ export interface ICoffeeItem {
   preparationMethod: string;
   price: Price;
   active: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   __v: number;
+  priceQuarter?: string;
+  priceKg?: string;
+  priceDrip?: string;
 }
 
 export interface Images {
@@ -52,6 +48,15 @@ export interface Images {
   drip?: ImgItem;
   tea?: ImgItem;
 }
+
+export interface ICreateImage {
+  quarter?: File | string;
+  kg?: File | string;
+  drip?: File | string;
+  tea?: File | string;
+}
+
+export type IEditImage = ICreateImage | Images;
 
 export interface Price {
   quarter?: string;

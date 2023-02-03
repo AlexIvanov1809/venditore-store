@@ -67,11 +67,13 @@ const TeaCard = ({
       <div className="w-100">
         <h5>{teaItem.brand}</h5>
         <p>{teaItem.type}</p>
-        <img
-          src={"../" + teaItem.images.tea.htmlPath}
-          className="d-block mx-auto"
-          alt="Tea"
-        />
+        {teaItem.images.tea && (
+          <img
+            src={"../" + teaItem.images.tea.htmlPath}
+            className="d-block mx-auto"
+            alt="Tea"
+          />
+        )}
         <h4 className="text-capitalize">{teaItem.name}</h4>
         <p className="" style={{ textAlign: "justify" }}>
           {teaItem.description}

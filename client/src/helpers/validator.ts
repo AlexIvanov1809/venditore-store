@@ -18,7 +18,7 @@ export function validator<T>(data: T, config: IConfig): IError {
     data: any,
     config: { message: string; value?: number },
   ) {
-    console.log(data);
+    if (typeof data === "object") return;
     let statusValidation;
     switch (validateMethod) {
       case "isRequired":

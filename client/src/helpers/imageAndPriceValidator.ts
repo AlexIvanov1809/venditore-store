@@ -1,4 +1,9 @@
-import { ICreateImage, ICreateCoffeeItem } from "../models/ICoffeeItem";
+import {
+  ICreateImage,
+  ICreateCoffeeItem,
+  Images,
+  ICoffeeItem,
+} from "../models/ICoffeeItem";
 
 export interface ImgError {
   all?: string;
@@ -8,16 +13,20 @@ export interface ImgError {
 }
 
 function imageAndPriceValidator(
-  images: ICreateImage | undefined,
-  data: ICreateCoffeeItem,
+  images: ICreateImage | undefined | Images,
+  data: ICreateCoffeeItem | undefined,
 ) {
+  const errors: ImgError = {};
+  if (typeof images === "undefined" || typeof data === "undefined") {
+    errors.all = "Хотя бы одно поле необходимое для заполнения";
+    return errors;
+  }
   const checker = {
     ...images,
     quarterP: data.priceQuarter,
     kgP: data.priceKg,
     dripP: data.priceDrip,
   };
-  const errors: ImgError = {};
   if (
     !checker.quarter &&
     !checker.kg &&

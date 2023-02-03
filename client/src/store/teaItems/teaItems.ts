@@ -93,11 +93,12 @@ export const createNewTeaItem =
   };
 
 export const teaItemRemove =
-  (itemId: string) => async (dispatch: AppDispatch) => {
+  (itemId: string, back: () => void) => async (dispatch: AppDispatch) => {
     try {
       const { content } = await teaItemService.remove(itemId);
       if (!content) {
         dispatch(teaItemRemoved(itemId));
+        back();
       }
     } catch (error) {
       dispatch(teaItemsRequestFailed((error as Error).message));
@@ -116,11 +117,12 @@ export const editTeaItem =
     }
   };
 
-export const getTeaItemById = (itemId: string) => (state: RootState) => {
-  return state.teaItems.entities
-    ? state.teaItems.entities.find((i) => i._id === itemId)
-    : null;
-};
+export const getTeaItemById =
+  (itemId: string | undefined) => (state: RootState) => {
+    return state.teaItems.entities
+      ? state.teaItems.entities.find((i) => i._id === itemId)
+      : null;
+  };
 export const getTeaItemsList = () => (state: RootState) =>
   state.teaItems.entities;
 export const getTeaItemsLoadingStatus = () => (state: RootState) =>

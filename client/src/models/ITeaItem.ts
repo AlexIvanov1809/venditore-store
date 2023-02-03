@@ -4,7 +4,7 @@ import { ImgItem } from "./ImageItem";
 export interface ITeaItem {
   _id: string;
   name: string;
-  images: { tea: ImgItem };
+  images: Images;
   brand: string;
   package: string;
   description: string;
@@ -13,8 +13,8 @@ export interface ITeaItem {
   recipe: string;
   price: string;
   active: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   __v: number;
 }
 
