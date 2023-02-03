@@ -1,11 +1,11 @@
-import { ICreateCoffeeImage, Images } from "../models/ICoffeeItem";
+import { ICreateImage, Images } from "../models/ICoffeeItem";
 import { ImgItem } from "../models/ImageItem";
 import fileService from "../service/file.service";
 
-async function imageLoader(images: ICreateCoffeeImage | undefined) {
+async function imageLoader(images: ICreateImage | undefined) {
   if (typeof images !== "undefined") {
     const data: Images = {};
-    const keys = Object.keys(images) as ["quarter", "drip", "kg"];
+    const keys = Object.keys(images) as ["quarter", "drip", "kg", "tea"];
     keys.forEach(async (key) => {
       const { content } = await fileService.create(images[key], key);
 
@@ -18,6 +18,7 @@ async function imageLoader(images: ICreateCoffeeImage | undefined) {
       quarter: "",
       kg: "",
       drip: "",
+      tea: "",
     };
   }
 }

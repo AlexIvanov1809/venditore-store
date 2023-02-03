@@ -2,7 +2,7 @@ import { ImgItem } from "./ImageItem";
 
 export interface ICreateCoffeeItem {
   name: string;
-  images: ICreateCoffeeImage | Images;
+  images: ICreateImage | Images;
   brand: string;
   sortName: string;
   country: string;
@@ -19,10 +19,11 @@ export interface ICreateCoffeeItem {
   priceDrip?: string;
 }
 
-export interface ICreateCoffeeImage {
+export interface ICreateImage {
   quarter?: File | string;
   kg?: File | string;
   drip?: File | string;
+  tea?: File | string;
 }
 
 export interface ICoffeeItem {
@@ -49,6 +50,7 @@ export interface Images {
   quarter?: ImgItem;
   kg?: ImgItem;
   drip?: ImgItem;
+  tea?: ImgItem;
 }
 
 export interface Price {

@@ -6,8 +6,11 @@ export interface ImageLoaderFieldProps
     HTMLDivElement
   > {
   mainImagePath: string;
-  type: "drip" | "kg" | "quarter";
-  getChange: (file: string | File, type: "drip" | "kg" | "quarter") => void;
+  type: "drip" | "kg" | "quarter" | "tea";
+  getChange: (
+    file: string | File,
+    type: "drip" | "kg" | "quarter" | "tea",
+  ) => void;
   remove: boolean;
   error: boolean;
 }

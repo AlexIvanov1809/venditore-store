@@ -1,4 +1,4 @@
-import { ICreateCoffeeImage, ICreateCoffeeItem } from "../models/ICoffeeItem";
+import { ICreateImage, ICreateCoffeeItem } from "../models/ICoffeeItem";
 
 export interface ImgError {
   all?: string;
@@ -8,7 +8,7 @@ export interface ImgError {
 }
 
 function imageAndPriceValidator(
-  images: ICreateCoffeeImage | undefined,
+  images: ICreateImage | undefined,
   data: ICreateCoffeeItem,
 ) {
   const checker = {

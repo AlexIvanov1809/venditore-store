@@ -19,10 +19,7 @@ import imageAndPriceValidator, {
 } from "../../../helpers/imageAndPriceValidator";
 import { CreateCoffeeItemProps } from "./CreateCoffeeItem.props";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import {
-  ICreateCoffeeImage,
-  ICreateCoffeeItem,
-} from "../../../models/ICoffeeItem";
+import { ICreateImage, ICreateCoffeeItem } from "../../../models/ICoffeeItem";
 
 const CreateCoffeeItem = ({ ...props }: CreateCoffeeItemProps) => {
   const navigate = useNavigate();
@@ -48,7 +45,7 @@ const CreateCoffeeItem = ({ ...props }: CreateCoffeeItemProps) => {
     priceDrip: "",
     active: true,
   };
-  const [image, setImage] = useState<ICreateCoffeeImage>();
+  const [image, setImage] = useState<ICreateImage>();
   const [data, setData] = useState<ICreateCoffeeItem>(defaultData);
   const [errors, setErrors] = useState<IError>({});
   const [err, setErr] = useState<ImgError>({});
@@ -112,7 +109,7 @@ const CreateCoffeeItem = ({ ...props }: CreateCoffeeItemProps) => {
 
   const handleGetImage = (
     file: string | File,
-    type: "drip" | "kg" | "quarter",
+    type: "drip" | "kg" | "quarter" | "tea",
   ) => {
     setImage((prevState) => ({ ...prevState, [type]: file }));
   };

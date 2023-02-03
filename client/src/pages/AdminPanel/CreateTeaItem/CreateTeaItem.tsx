@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import SelectField from "../../common/form/selectField";
-import TextForm from "../../common/form/textForm";
-import { validator } from "../../../utils/validator";
-import CheckBoxField from "../../common/form/checkBoxField";
 import { getTeaTypesList } from "../../../store/teaItems/teaType";
 import { createNewTeaItem } from "../../../store/teaItems/teaItems";
 import { getTeaPackagesList } from "../../../store/teaItems/teaPackages";
 import { getTeaBrandsList } from "../../../store/teaItems/teaBrands";
-import TextAreaField from "../../common/form/textAreaField";
-import ImageLoaderField from "../../common/form/imageLoaderField";
-import imageLoader from "../../../utils/imageLoader";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { IError, validator } from "../../../helpers/validator";
+import imageLoader from "../../../helpers/imageLoader";
+import { ImageLoaderField } from "../../../components";
+import {
+  CheckBoxField,
+  SelectField,
+  TextAriaField,
+  TextForm,
+} from "../../../ui";
+import { ICreateTeaItem } from "../../../models/ITeaItem";
+import { ICreateImage } from "../../../models/ICoffeeItem";
 
-const CreateTeaItem = () => {
+const CreateTeaItem = (): JSX.Element => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [data, setData] = useState({
+  const dispatch = useAppDispatch();
+  const defaultData = {
     brand: "",
-    images: {},
+    images: { tea: "" },
     package: "",
     type: "",
     description: "",
@@ -26,50 +30,58 @@ const CreateTeaItem = () => {
     weight: "",
     recipe: "",
     price: "",
-    active: true
-  });
-  const [errors, setErrors] = useState({});
+    active: true,
+  };
+  const [image, setImage] = useState<ICreateImage>();
+  const [data, setData] = useState<ICreateTeaItem>(defaultData);
+  const [errors, setErrors] = useState<IError>({});
 
-  const brands = useSelector(getTeaBrandsList());
-  const teaPackages = useSelector(getTeaPackagesList());
-  const teaTypes = useSelector(getTeaTypesList());
+  const brands = useAppSelector(getTeaBrandsList());
+  const teaPackages = useAppSelector(getTeaPackagesList());
+  const teaTypes = useAppSelector(getTeaTypesList());
   const weight = [
-    { _id: 0, value: 50 },
-    { _id: 1, value: 75 },
-    { _id: 2, value: 100 },
-    { _id: 3, value: 125 },
-    { _id: 4, value: 150 },
-    { _id: 5, value: "шт" }
+    { _id: "0", value: "50" },
+    { _id: "1", value: "75" },
+    { _id: "2", value: "100" },
+    { _id: "3", value: "125" },
+    { _id: "4", value: "150" },
+    { _id: "5", value: "шт" },
   ];
 
-  const handleChange = (target) => {
+  const handleChange = (target: {
+    name: string;
+    value: string | boolean | number;
+  }) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }));
   };
-  const handleGetImage = (file, type) => {
-    setData((prevState) => ({ ...prevState, images: { [type]: file } }));
+  const handleGetImage = (
+    file: string | File,
+    type: "drip" | "kg" | "quarter" | "tea",
+  ) => {
+    setImage((prevState) => ({ ...prevState, [type]: file }));
   };
   const validatorConfig = {
     brand: {
-      isRequired: { message: "Поле необходимое для заполнения" }
+      isRequired: { message: "Поле необходимое для заполнения" },
     },
     type: {
-      isRequired: { message: "Поле необходимое для заполнения" }
+      isRequired: { message: "Поле необходимое для заполнения" },
     },
     package: {
-      isRequired: { message: "Поле необходимое для заполнения" }
+      isRequired: { message: "Поле необходимое для заполнения" },
     },
     name: {
-      isRequired: { message: "Поле необходимое для заполнения" }
+      isRequired: { message: "Поле необходимое для заполнения" },
     },
     description: {
-      isRequired: { message: "Поле необходимое для заполнения" }
+      isRequired: { message: "Поле необходимое для заполнения" },
     },
     weight: {
-      isRequired: { message: "Поле необходимое для заполнения" }
+      isRequired: { message: "Поле необходимое для заполнения" },
     },
     price: {
-      isRequired: { message: "Поле необходимое для заполнения" }
-    }
+      isRequired: { message: "Поле необходимое для заполнения" },
+    },
   };
 
   useEffect(() => {
@@ -82,18 +94,7 @@ const CreateTeaItem = () => {
   };
 
   const clearForm = () => {
-    setData({
-      brand: "",
-      images: {},
-      package: "",
-      type: "",
-      description: "",
-      name: "",
-      price: "",
-      recipe: "",
-      weight: "",
-      active: true
-    });
+    setData(defaultData);
   };
 
   const back = () => {
@@ -103,9 +104,9 @@ const CreateTeaItem = () => {
 
   const isValid = Object.keys(errors).length === 0 && data.images?.tea;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const uploadedImage = await imageLoader(data.images);
+    const uploadedImage = await imageLoader(image);
     data.images = uploadedImage;
     dispatch(createNewTeaItem(data, back));
   };
@@ -133,10 +134,11 @@ const CreateTeaItem = () => {
               <label className="fw-700 fs-3 mb-2">Создать новую карточку</label>
               <form onSubmit={handleSubmit}>
                 <ImageLoaderField
-                  mainImagePath="img/noFoto/noImg.jpg"
+                  mainImagePath="img/noPhoto/noImg.jpg"
                   type="tea"
-                  onChange={handleGetImage}
-                  error={!data.images?.tea}
+                  getChange={handleGetImage}
+                  error={!data.images}
+                  remove={true}
                 />
                 <SelectField
                   label="Выберите Бренд"
@@ -144,7 +146,7 @@ const CreateTeaItem = () => {
                   defaultOption=""
                   name="brand"
                   options={brands}
-                  onChange={handleChange}
+                  getChange={handleChange}
                   error={errors.brand}
                 />
                 <SelectField
@@ -153,7 +155,7 @@ const CreateTeaItem = () => {
                   defaultOption=""
                   name="type"
                   options={teaTypes}
-                  onChange={handleChange}
+                  getChange={handleChange}
                   error={errors.type}
                 />
                 <SelectField
@@ -162,7 +164,7 @@ const CreateTeaItem = () => {
                   defaultOption=""
                   name="package"
                   options={teaPackages}
-                  onChange={handleChange}
+                  getChange={handleChange}
                   error={errors.package}
                 />
                 <TextForm
@@ -170,14 +172,14 @@ const CreateTeaItem = () => {
                   name="name"
                   type="text"
                   value={data.name || ""}
-                  onChange={handleChange}
+                  getChange={handleChange}
                   error={errors.name}
                 />
-                <TextAreaField
+                <TextAriaField
                   label="Введите описание"
                   name="description"
                   value={data.description || ""}
-                  onChange={handleChange}
+                  getChange={handleChange}
                   error={errors.description}
                 />
                 <SelectField
@@ -186,7 +188,7 @@ const CreateTeaItem = () => {
                   defaultOption=""
                   name="weight"
                   options={weight}
-                  onChange={handleChange}
+                  getChange={handleChange}
                   error={errors.weight}
                 />
                 <TextForm
@@ -195,13 +197,13 @@ const CreateTeaItem = () => {
                   name="price"
                   type="text"
                   value={data.price || ""}
-                  onChange={handleChange}
+                  getChange={handleChange}
                   error={errors.price}
                 />
                 <CheckBoxField
-                  named="active"
+                  name="active"
                   value={data.active}
-                  onChange={handleChange}
+                  getChange={handleChange}
                 >
                   Активность
                 </CheckBoxField>

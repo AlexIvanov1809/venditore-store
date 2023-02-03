@@ -1,5 +1,4 @@
 import { ImgItem } from "./../models/ImageItem";
-import { ICreateCoffeeImage } from "../models/ICoffeeItem";
 import httpService from "./http.service";
 
 const fileEndpoint = "files/";

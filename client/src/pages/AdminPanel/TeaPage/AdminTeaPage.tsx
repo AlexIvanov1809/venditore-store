@@ -8,6 +8,7 @@ import {
 } from "../../../store/teaItems/teaItems";
 import { ITeaItem } from "../../../models/ITeaItem";
 import TeaTable from "../../../modules/Table/TeaTable/TeaTable";
+import { Link } from "react-router-dom";
 
 const AdminTeaPage = () => {
   const teaItemsLoading = useAppSelector(getTeaItemsLoadingStatus());
@@ -32,13 +33,16 @@ const AdminTeaPage = () => {
   }, [teaItems, sortBy]);
 
   return (
-    <main>
+    <div>
+      <Link role="button" to="/adminPanel/tea/create">
+        Create
+      </Link>
       {teaItemsLoading ? (
         "...Loading"
       ) : (
         <TeaTable teaItems={sorted} onSort={handleSort} selectedSort={sortBy} />
       )}
-    </main>
+    </div>
   );
 };
 

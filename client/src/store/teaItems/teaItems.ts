@@ -1,7 +1,7 @@
 import { createSlice, createAction, PayloadAction } from "@reduxjs/toolkit";
 import teaItemService from "../../service/teaItem.service";
 import { AppDispatch, RootState } from "../createStore";
-import { ITeaItem } from "../../models/ITeaItem";
+import { ICreateTeaItem, ITeaItem } from "../../models/ITeaItem";
 
 interface ITeaItemsState {
   entities: ITeaItem[] | null;
@@ -80,7 +80,8 @@ export const loadTeaItemsList = () => async (dispatch: AppDispatch) => {
 };
 
 export const createNewTeaItem =
-  (payload: ITeaItem, back: Function) => async (dispatch: AppDispatch) => {
+  (payload: ICreateTeaItem, back: Function) =>
+  async (dispatch: AppDispatch) => {
     dispatch(itemCreateRequested());
     try {
       const { content } = await teaItemService.create(payload);

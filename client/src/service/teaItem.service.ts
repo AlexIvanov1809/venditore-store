@@ -1,4 +1,4 @@
-import { ITeaItem } from "../models/ITeaItem";
+import { ICreateTeaItem, ITeaItem } from "../models/ITeaItem";
 import httpService from "./http.service";
 
 interface GetResponse {
@@ -18,7 +18,7 @@ const teaItemService = {
     const { data } = await httpService.get<GetResponse>(teaItemEndpoint);
     return data;
   },
-  create: async (payload: ITeaItem) => {
+  create: async (payload: ICreateTeaItem) => {
     const { data } = await httpService.post<AllResponse>(
       teaItemEndpoint,
       payload,
