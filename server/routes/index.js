@@ -1,12 +1,11 @@
-const express = require("express");
-const router = express.Router({ mergeParams: true });
+const Router = require("express");
+const router = new Router();
 
+router.use("/user", require("./user.routes"));
 router.use("/itemTypes", require("./itemTypes.routes"));
-router.use("/coffeeItems", require("./coffeeItem.routes"));
-router.use("/teaItems", require("./teaItem.routes"));
-router.use("/files", require("./file.routes"));
-router.use("/auth", require("./auth.routes"));
+router.use("/product", require("./item.routes"));
+router.use("/pictures", require("./picture.routes"));
+router.use("/price", require("./price.routes"));
 router.use("/order", require("./order.routes"));
-// router.use("/iko", require("./ikoServer.Routes"));
 
 module.exports = router;

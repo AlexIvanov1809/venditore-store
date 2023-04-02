@@ -1,21 +1,20 @@
 const nodemailer = require("nodemailer");
-const config = require("config");
 
 class MailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: config.get("mailFrom"),
-        pass: config.get("mailPass"),
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
   }
   async sendActivationMail(to, link) {
     await this.transporter.sendMail({
-      from: config.get("mailFrom"),
+      from: process.env.SMTP_USER,
       to,
-      subject: "Activation letter",
+      subject: "Activation letter" + process.env.API_URL,
       text: "",
       html: `
 			<div>
