@@ -1,9 +1,13 @@
 const models = require("../models/models");
 
 const INCLUDES_MODELS = [
-  { model: models.ItemImg, as: "image" },
-  { model: models.ItemPrice, as: "price" },
-  { model: models.Type, as: "type", attributes: ["name"] },
+  { model: models.ProductImg, as: "image" },
+  { model: models.ProductPrice, as: "price" },
+  {
+    model: models.Type,
+    as: "type",
+    attributes: ["name"],
+  },
   { model: models.Brand, as: "brand", attributes: ["name"] },
   { model: models.Country, as: "country", attributes: ["name"] },
   {

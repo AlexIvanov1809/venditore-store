@@ -1,0 +1,16 @@
+.basket {
+	padding: 20px;
+}
+
+.product_list {
+	margin: 10px;
+}
+
+.product:not(:first-child) {
+	margin-top: 10px;
+}
+
+.product span,
+button {
+	margin-right: 5px;
+}

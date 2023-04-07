@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+# webpack-must-have
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Webpack version: 5+
 
-## Available Scripts
+## What is new in Webpack 5
 
-In the project directory, you can run:
+- Faster builds with persistent caching
+- Smaller bundle sizes (better tree-shaking)
+- Better long term caching
 
-### `npm start`
+### If you need Webpack4 take a look branch [webpack_v4](https://github.com/Yegorich555/WebpackMustHave/tree/webpack_v4)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## How to run project
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Open project in VSCode (for example)
+2. Run command `npm i` in terminal (console) for installing all required packages (Node.js is required: <https://nodejs.org/en/>)
+3. For builing project you can use the following commands:
+   - `npm run build-prod` - building production version (minimized and optimized). The project will be builded into `build` folder. You can change destination in `webpack.common.js (line 19)`
+   - `npm run build-dev` - building development version
+   - `npm run serve` - building development hot-reloaded version with webpack-dev-server
 
-### `npm test`
+## Recommended VSCode extensions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- CSS Modules: <https://marketplace.visualstudio.com/items?itemName=clinyong.vscode-css-modules>
+- CSS Modules Syntax Highlighter: <https://marketplace.visualstudio.com/items?itemName=andrewleedham.vscode-css-modules>
+- ESlint: <https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint>
+- Stylelint: <https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint>
+- SCSS intellisense: <https://marketplace.visualstudio.com/items?itemName=mrmlnc.vscode-scss>
+- Path autocomplete: <https://marketplace.visualstudio.com/items?itemName=ionutvmi.path-autocomplete>
+- Prettier - Code formatter: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
+- Import Cost: <https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost>
+- Markdownlint: <https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint>
+- EditConfig for VS Code: <https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig>
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Lint**. Integrated the most popular linters: ESlint, Stylelint
+- **BrowserList**. All required browsers are pointed in **.browserslistrc**, so project will be compiled according to required browsers (babel, postcss, stylint use this file)
+- **BrowserList. Stylelint**. Integrated [no-unsupported-browser-features](https://www.npmjs.com/package/stylelint-no-unsupported-browser-features), so during the css,scss-coding stylelint will show on-css rule that unsupported (according to .browserslistrc)
+- **MockServer**. For mocking api responses integrated [webpack-mock-server](https://www.npmjs.com/package/webpack-mock-server) that supports JS,TS and hot-replacement:
+- **Styles**. Integrated [CSS-Modules](https://github.com/css-modules/css-modules) and [postcss-autoprefixer](https://www.npmjs.com/package/autoprefixer), [postcss-normalize](https://www.npmjs.com/package/postcss-normalize), [OptimizeCSSAssetsPlugin](https://www.npmjs.com/package/optimize-css-assets-webpack-plugin) (uses [css-nano](https://cssnano.co/) for production build)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Recommened npm-packages
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[web-ui-pack](https://www.npmjs.com/package/web-ui-pack) - Nice package with form-controls, smart-popup, spinner and other elements and useful helpers
+[ytech-js-extensions](https://www.npmjs.com/package/ytech-js-extensions) - useful extensions for Arrays, Dates (that lacks in web-ui-pack)
 
-### `npm run eject`
+## TODO. Issues
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- add icomoon to fonts
+- Path autocomplete doesn't read path-alias-config from tsconfig.json
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Troubleshooting
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Impossible to run scripts from package.json
+  > try to change backslashes (npm-cli issue that flows between versions time to time)
+  > from `.\\node_modules\\.bin\\webpack serve --open --config webpack.devServer.js"`
+  > to `./node_modules/.bin/webpack serve --open --config webpack.devServer.js"`

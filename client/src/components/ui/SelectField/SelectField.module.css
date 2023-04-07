@@ -1,0 +1,18 @@
+.select_field {
+	display: flex;
+	flex-direction: column;
+}
+
+.select_label {
+	margin-bottom: 5px;
+}
+.select_tag {
+	padding: 5px;
+	font-size: 15px;
+	border: none;
+	border-radius: 5px;
+}
+
+.select_tag:focus {
+	outline: none;
+}

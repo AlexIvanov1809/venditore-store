@@ -1,0 +1,36 @@
+.admin {
+	width: 100%;
+	margin: 20px;
+}
+
+.admin > hr {
+	margin: 20px 0;
+}
+
+.admin_types {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.admin_items {
+	margin-bottom: 20px;
+}
+
+.items_fields {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.items_fields > div:not(:last-child) {
+	border-right: 1px solid #000;
+	margin-right: 5px;
+}
+
+.items_fields > div {
+	text-align: center;
+	padding: 3px 10px;
+	width: 140px;
+	cursor: pointer;
+}

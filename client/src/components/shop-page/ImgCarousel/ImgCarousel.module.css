@@ -1,0 +1,37 @@
+.carousel {
+	position: relative;
+}
+.carousel_main {
+	width: 200px;
+	margin: 0 auto;
+	text-align: center;
+	overflow: hidden;
+}
+
+.carousel_container {
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	transition: all 0.3s ease;
+}
+
+.carousel_btn {
+	position: absolute;
+	top: 50%;
+	border: none;
+	padding: 3px 6px;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+	cursor: pointer;
+}
+
+.btn_prev {
+	left: 40px;
+	transform: translateY(-50%);
+}
+
+.btn_next {
+	right: 40px;
+	transform: translateY(-50%);
+}

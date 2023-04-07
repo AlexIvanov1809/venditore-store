@@ -1,0 +1,46 @@
+.card {
+	width: 320px;
+	padding: 10px;
+	border: 1px solid #000;
+	border-radius: 5px;
+}
+
+.product_container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+
+.product_container h4:first-child {
+	text-transform: uppercase;
+}
+
+.product_container div:not(:last-child) {
+	margin-bottom: 10px;
+}
+
+.product_scale {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.price_buy {
+	display: flex;
+	justify-content: space-between;
+}
+
+.price {
+	display: flex;
+	justify-content: flex-start;
+	gap: 10px;
+	color: gray;
+	cursor: pointer;
+}
+.order_btn {
+	text-align: end;
+}
+
+[data-active="true"] {
+	color: #000;
+}

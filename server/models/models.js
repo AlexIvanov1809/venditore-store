@@ -15,7 +15,7 @@ const Token = sequelize.define("token", {
   refreshToken: { type: DataTypes.STRING },
 });
 
-const Item = sequelize.define("Item", {
+const Product = sequelize.define("product", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   sortName: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING },
@@ -60,12 +60,13 @@ const PackageType = sequelize.define("package_type", {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const ItemImg = sequelize.define("item_img", {
+const ProductImg = sequelize.define("product_img", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
+  row: { type: DataTypes.INTEGER, allowNull: false },
 });
 
-const ItemPrice = sequelize.define("item_price", {
+const ProductPrice = sequelize.define("product_price", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   weight: { type: DataTypes.STRING, allowNull: false },
   value: { type: DataTypes.STRING, allowNull: false },
@@ -91,171 +92,70 @@ const TypeCountry = sequelize.define("type_country", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-const BrandManufacturingMethod = sequelize.define(
-  "brand_manufacturing_method",
-  {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  },
-);
-
-const BrandMakingMethod = sequelize.define("brand_making_method", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-});
-
-const BrandTeaType = sequelize.define("brand_tea-type", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-});
-
-const BrandCountry = sequelize.define("brand_country", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-});
-
-const TeaTypeManufacturingMethod = sequelize.define(
-  "tea_type_manufacturing_method",
-  {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  },
-);
-
-const TeaTypeMakingMethod = sequelize.define("tea_type_making_method", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-});
-
-const TeaTypeCountry = sequelize.define("tea_type_country", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-});
-
-const ManufacturingMethodMakingMethod = sequelize.define(
-  "manufacturing_method_making_method",
-  {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  },
-);
-
-const ManufacturingMethodCountry = sequelize.define(
-  "manufacturing_method_country",
-  {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  },
-);
-
-const MakingMethodCountry = sequelize.define("making_method_country", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-});
-
-const PackageTypeBrand = sequelize.define("package_type_brand", {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-});
-
 const TypePackageType = sequelize.define("package_type_type", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-Country.hasMany(Item);
-Item.belongsTo(Country);
+Country.hasMany(Product);
+Product.belongsTo(Country);
 
-Type.hasMany(Item);
-Item.belongsTo(Type);
+Type.hasMany(Product);
+Product.belongsTo(Type);
 
-Brand.hasMany(Item);
-Item.belongsTo(Brand);
+Brand.hasMany(Product);
+Product.belongsTo(Brand);
 
-MakingMethod.hasMany(Item);
-Item.belongsTo(MakingMethod);
+MakingMethod.hasMany(Product);
+Product.belongsTo(MakingMethod);
 
-ManufacturingMethod.hasMany(Item);
-Item.belongsTo(ManufacturingMethod);
+ManufacturingMethod.hasMany(Product);
+Product.belongsTo(ManufacturingMethod);
 
-TeaType.hasMany(Item);
-Item.belongsTo(TeaType);
+TeaType.hasMany(Product);
+Product.belongsTo(TeaType);
 
-PackageType.hasMany(Item);
-Item.belongsTo(PackageType);
+PackageType.hasMany(Product);
+Product.belongsTo(PackageType);
 
-Item.hasMany(ItemImg, { as: "image" });
-ItemImg.belongsTo(Item);
+Product.hasMany(ProductImg, { as: "image" });
+ProductImg.belongsTo(Product);
 
-Item.hasMany(ItemPrice, { as: "price" });
-ItemPrice.belongsTo(Item);
+Product.hasMany(ProductPrice, { as: "price" });
+ProductPrice.belongsTo(Product);
 
 User.hasOne(Token);
 Token.belongsTo(User);
 
 TypeBrand.belongsTo(Brand);
 TypeBrand.belongsTo(Type);
-TypeBrand.belongsTo(Item);
+TypeBrand.belongsTo(Product);
 
 TypeTeaType.belongsTo(TeaType);
 TypeTeaType.belongsTo(Type);
-TypeTeaType.belongsTo(Item);
+TypeTeaType.belongsTo(Product);
 
 TypeManufacturingMethod.belongsTo(ManufacturingMethod);
 TypeManufacturingMethod.belongsTo(Type);
-TypeManufacturingMethod.belongsTo(Item);
+TypeManufacturingMethod.belongsTo(Product);
 
 TypeMakingMethod.belongsTo(MakingMethod);
 TypeMakingMethod.belongsTo(Type);
-TypeMakingMethod.belongsTo(Item);
+TypeMakingMethod.belongsTo(Product);
 
 TypeCountry.belongsTo(Country);
 TypeCountry.belongsTo(Type);
-TypeCountry.belongsTo(Item);
+TypeCountry.belongsTo(Product);
 
 TypePackageType.belongsTo(PackageType);
 TypePackageType.belongsTo(Type);
-TypePackageType.belongsTo(Item);
-
-Brand.belongsToMany(TeaType, { through: BrandTeaType });
-TeaType.belongsToMany(Brand, { through: BrandTeaType });
-
-Brand.belongsToMany(ManufacturingMethod, { through: BrandManufacturingMethod });
-ManufacturingMethod.belongsToMany(Brand, { through: BrandManufacturingMethod });
-
-Brand.belongsToMany(MakingMethod, { through: BrandMakingMethod });
-MakingMethod.belongsToMany(Brand, { through: BrandMakingMethod });
-
-Brand.belongsToMany(Country, { through: BrandCountry });
-Country.belongsToMany(Brand, { through: BrandCountry });
-
-TeaType.belongsToMany(ManufacturingMethod, {
-  through: TeaTypeManufacturingMethod,
-});
-ManufacturingMethod.belongsToMany(TeaType, {
-  through: TeaTypeManufacturingMethod,
-});
-
-TeaType.belongsToMany(MakingMethod, { through: TeaTypeMakingMethod });
-MakingMethod.belongsToMany(TeaType, { through: TeaTypeMakingMethod });
-
-TeaType.belongsToMany(Country, { through: TeaTypeCountry });
-Country.belongsToMany(TeaType, { through: TeaTypeCountry });
-
-ManufacturingMethod.belongsToMany(MakingMethod, {
-  through: ManufacturingMethodMakingMethod,
-});
-MakingMethod.belongsToMany(ManufacturingMethod, {
-  through: ManufacturingMethodMakingMethod,
-});
-
-ManufacturingMethod.belongsToMany(Country, {
-  through: ManufacturingMethodCountry,
-});
-Country.belongsToMany(ManufacturingMethod, {
-  through: ManufacturingMethodCountry,
-});
-
-MakingMethod.belongsToMany(Country, { through: MakingMethodCountry });
-Country.belongsToMany(MakingMethod, { through: MakingMethodCountry });
-
-PackageType.belongsToMany(Brand, { through: PackageTypeBrand });
-Brand.belongsToMany(PackageType, { through: PackageTypeBrand });
+TypePackageType.belongsTo(Product);
 
 module.exports = {
   User,
   Token,
-  Item,
-  ItemImg,
-  ItemPrice,
+  Product,
+  ProductImg,
+  ProductPrice,
   Type,
   Brand,
   Country,
@@ -268,16 +168,5 @@ module.exports = {
   TypeManufacturingMethod,
   TypeMakingMethod,
   TypeCountry,
-  BrandTeaType,
-  BrandManufacturingMethod,
-  BrandCountry,
-  BrandMakingMethod,
-  TeaTypeManufacturingMethod,
-  TeaTypeCountry,
-  TeaTypeMakingMethod,
-  ManufacturingMethodCountry,
-  ManufacturingMethodMakingMethod,
-  MakingMethodCountry,
-  PackageTypeBrand,
   TypePackageType,
 };

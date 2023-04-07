@@ -1,11 +1,11 @@
-const { ItemImg } = require("../models/models");
+const { ProductImg } = require("../models/models");
 const ApiError = require("../error/ApiError");
 const { convertAndSavePic, removePic } = require("../utils/saveAndRemovePic");
 const uuid = require("uuid");
 
 class PictureController {
   async create(req, res, next) {
-    const { ItemId } = req.params;
+    const { productId, index } = req.params;
 
     if (!req.files) {
       next(ApiError.badRequest("Не отправили фото"));
@@ -16,9 +16,10 @@ class PictureController {
       let fileName = uuid.v4() + ".jpg";
       convertAndSavePic(i, fileName);
 
-      await ItemImg.create({
+      await ProductImg.create({
         name: fileName,
-        ItemId,
+        productId,
+        row: parseInt(index),
       });
     });
   }
@@ -28,15 +29,16 @@ class PictureController {
       const { id } = req.params;
       if (!req.files) {
         next(ApiError.badRequest("Не отправили фото"));
+        console.log({ id });
       }
       let { img } = req.files;
-      const image = await ItemImg.findOne({ where: { id } });
+      const image = await ProductImg.findOne({ where: { id } });
 
       let fileName = uuid.v4() + ".jpg";
       convertAndSavePic(img, fileName);
       removePic(image.name);
 
-      await ItemImg.update(
+      await ProductImg.update(
         {
           name: fileName,
         },
@@ -52,10 +54,10 @@ class PictureController {
   async delete(req, res, next) {
     try {
       const { id } = req.params;
-      const image = await ItemImg.findOne({ where: { id } });
+      const image = await ProductImg.findOne({ where: { id } });
       removePic(image.name);
 
-      await ItemImg.destroy({ where: { id } });
+      await ProductImg.destroy({ where: { id } });
       return res.json("deleted");
     } catch (e) {
       next(ApiError.internal(e.message));

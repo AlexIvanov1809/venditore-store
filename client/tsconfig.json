@@ -1,24 +1,28 @@
 {
+  // jsconfig.json === tsconfig.json with allowJs: true
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    //intellisense config for VSCode
+    "baseUrl": "./",
+    "paths": {
+      //none-js-ts files is not supported by intellisense. Use 'path-intellisense.mappings' in .vscode/settings.json instead
+      //this is should be sync with aliases in webpack
+      "@/*": ["src/*"],
+      "images/*": ["src/assets/images/*"],
+      "fonts/*": ["src/assets/fonts/*"]
+    },
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "outDir": "",
+    "noEmit": true, //exlcude errors in console because it should be wrapped by webpack
+    "esModuleInterop": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
-  "include": [
-    "src",
-    "src/service/file.service.ts",
-    "../checker/temp/order.service.ts"
-  ]
+  "exclude": ["node_modules", "dist", "build", ".vscode"]
 }

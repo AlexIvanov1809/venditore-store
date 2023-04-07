@@ -1,0 +1,22 @@
+.main_shop {
+	padding: 20px;
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-areas: "type type" "aside shop" "paginate paginate";
+	gap: 20px;
+}
+
+.type {
+	grid-area: type;
+}
+.aside {
+	grid-area: aside;
+}
+.shop {
+	grid-area: shop;
+	justify-self: center;
+}
+
+.pagination {
+	grid-area: paginate;
+}

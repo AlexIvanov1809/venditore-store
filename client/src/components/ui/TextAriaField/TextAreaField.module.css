@@ -1,0 +1,16 @@
+.text_item {
+	padding-top: 5px;
+	display: grid;
+	grid-template-columns: auto;
+}
+
+.text_item > textarea {
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	min-width: 280px;
+}
+
+.text_item > textarea:focus {
+	outline: none;
+}

@@ -1,4 +1,4 @@
-const { ItemPrice } = require("../models/models");
+const { ProductPrice } = require("../models/models");
 const ApiError = require("../error/ApiError");
 
 class PictureController {
@@ -6,7 +6,7 @@ class PictureController {
     try {
       const { id } = req.params;
 
-      await ItemPrice.destroy({ where: { id } });
+      await ProductPrice.destroy({ where: { id } });
       return res.json("deleted");
     } catch (e) {
       next(ApiError.internal(e.message));
