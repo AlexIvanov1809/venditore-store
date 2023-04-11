@@ -6,9 +6,10 @@ import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } fro
 import AddPriceValue from '../AddPriceValue/AddPriceValue';
 import httpService from '../../../http/productAPI';
 import { makeFormDataFile, imgUploader, removedPriceIds, validator, imgAndPriceValidator } from '../../../utils';
-import { LEVEL, DEFAULT, VALIDATOR_CONFIG } from '../../../utils/consts';
+import { LEVEL, DEFAULT, VALIDATOR_CONFIG } from '@/constants/consts';
 import EditItemModuleProps from './EditItemModule.props';
 import { useRootStore } from '@/context/StoreContext';
+import { INewProduct } from '@/utils/makeFormDataFile';
 
 function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
   const { products } = useRootStore();
@@ -86,7 +87,8 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
           })
           .catch((e) => console.log(e.response.data));
       } else {
-        const formData = makeFormDataFile({ ...data, price: JSON.stringify(filteredPrice) }, img);
+        const items = { ...data, price: JSON.stringify(filteredPrice) } as INewProduct;
+        const formData = makeFormDataFile(items, img);
         httpService
           .createProduct(formData)
           .then(() => {

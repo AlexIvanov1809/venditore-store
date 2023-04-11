@@ -1,14 +1,16 @@
-import httpService from "../http/productAPI";
-import makeFormDataFile from "./makeFormDataFile";
+import { IProduct } from '@/types/productType';
+import httpService from '../http/productAPI';
+import makeFormDataFile from './makeFormDataFile';
 
-export default function imgUploader(img, product) {
-  const imgIds = ["", "", ""];
+export default function imgUploader(img: (string | File)[], product: IProduct) {
+  const imgIds: (string | number)[] = ['', '', ''];
+  imgIds[0];
   product.image.forEach((img) => {
     imgIds[img.row] = img.id;
   });
 
   img.forEach((file, index) => {
-    if (imgIds[index] && typeof file === "object") {
+    if (imgIds[index] && typeof file === 'object') {
       const formData = makeFormDataFile(null, [file]);
       httpService
         .editProductImage(imgIds[index], formData)
@@ -16,7 +18,7 @@ export default function imgUploader(img, product) {
         .catch((e) => console.log(e));
     }
 
-    if (!imgIds[index] && typeof file === "object") {
+    if (!imgIds[index] && typeof file === 'object') {
       const formData = makeFormDataFile(null, [file]);
       httpService
         .createProductImage(product.id, index, formData)

@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 import styles from './Auth.module.css';
 import { Button, TextInput } from '@/components/ui';
 import { check, login, logout, registration } from '@/http/userAPI';
-import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '@/utils/consts';
+import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
 
 const Auth = observer(() => {

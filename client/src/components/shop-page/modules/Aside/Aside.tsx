@@ -6,7 +6,7 @@ import { FilterFn } from '@/types/uiTypes';
 import styles from './Aside.module.css';
 import { Button } from '../../../ui';
 import { ShopFilterList } from '../..';
-import { ENTITY_TYPES } from '@/utils/consts';
+import { ENTITY_TYPES } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
 
 interface Props {

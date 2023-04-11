@@ -8,7 +8,7 @@ import { Button, Loader } from '@/components/ui';
 import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
 import { wayOfSortingItems } from '@/utils';
-import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/utils/consts';
+import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
 
 const Admin = observer(() => {

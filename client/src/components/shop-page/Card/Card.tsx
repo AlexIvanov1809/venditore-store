@@ -8,7 +8,7 @@ import { Scale, CardPrice, SelectField } from '../../ui';
 import { ImgCarousel, OrderCardBtn } from '..';
 import { useRootStore } from '@/context/StoreContext';
 import { setToStorage } from '@/service/storage.service';
-import { BEANS } from '@/utils/consts';
+import { BEANS } from '@/constants/consts';
 
 interface Props {
   product: IProduct;

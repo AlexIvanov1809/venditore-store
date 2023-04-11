@@ -90,12 +90,12 @@ const httpService = {
     return data;
   },
 
-  async createProductImage(productId: number | string, index: number, payload: File) {
+  async createProductImage(productId: number | string, index: number, payload: File | FormData) {
     const { data } = await $authHost.post(`${PIC_ENDPOINT}/${productId}/${index}`, payload);
 
     return data;
   },
-  async editProductImage(id: number | string, payload: File) {
+  async editProductImage(id: number | string, payload: File | FormData) {
     const { data } = await $authHost.patch(`${PIC_ENDPOINT}/${id}`, payload);
 
     return data;

@@ -1,5 +1,5 @@
 import { IBasketItem } from '@/types/basketTypes';
-import { BASKET_STORAGE_NAME } from '@/utils/consts';
+import { BASKET_STORAGE_NAME } from '@/constants/consts';
 
 export function getFromStorage(name: string) {
   let data = localStorage.getItem(name);

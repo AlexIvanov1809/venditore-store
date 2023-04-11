@@ -7,7 +7,7 @@ import httpService from '@/http/productAPI';
 import { EditItemModule, DeleteBtn } from '@/components/admin-page';
 import { Loader, Button, Scale } from '@/components/ui';
 
-import { ADMIN_ROUTE, ENTITY_TYPES } from '@/utils/consts';
+import { ADMIN_ROUTE, ENTITY_TYPES } from '@/constants/consts';
 import config from '@/config/config.json';
 import { useRootStore } from '@/context/StoreContext';
 
