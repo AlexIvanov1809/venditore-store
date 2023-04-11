@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
-import { Button } from "../../ui";
+import { Dispatch, SetStateAction } from 'react';
+import { Button } from '../../ui';
 
 interface Props {
   className: string;
@@ -22,7 +22,7 @@ function OrderCardBtn({ className, bought, quantity, setQuantity, onOrder }: Pro
         <Button appearance="primary" onClick={() => setQuantity((prev) => prev + 1)} icon="Plus" />
       </div>
       <Button appearance="primary" onClick={onOrder}>
-        {!bought ? "Buy" : "add"}
+        {!bought ? 'Buy' : 'add'}
       </Button>
     </div>
   );

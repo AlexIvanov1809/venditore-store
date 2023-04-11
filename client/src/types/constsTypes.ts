@@ -1,5 +1,5 @@
-import { ProductStore } from "@/store";
-import { IProduct } from "./productType";
+import { ProductStore } from '@/store';
+import { IProduct } from './productType';
 
 type EntityTypes = {
   id: number;
@@ -12,28 +12,28 @@ type EntityTypes = {
 };
 type ProdGetter = Pick<
   ProductStore,
-  "types" | "brands" | "countries" | "makingMethods" | "manufacturingMethods" | "teaTypes" | "packageTypes"
+  'types' | 'brands' | 'countries' | 'makingMethods' | 'manufacturingMethods' | 'teaTypes' | 'packageTypes'
 >;
 type ProdSetters = Pick<
   ProductStore,
-  | "setTypes"
-  | "setBrands"
-  | "setCountries"
-  | "setMakingMethods"
-  | "setManufacturingMethods"
-  | "setTeaTypes"
-  | "setPackageTypes"
+  | 'setTypes'
+  | 'setBrands'
+  | 'setCountries'
+  | 'setMakingMethods'
+  | 'setManufacturingMethods'
+  | 'setTeaTypes'
+  | 'setPackageTypes'
 >;
 
 type ProdSetSel = Pick<
   ProductStore,
-  | "setSelectedType"
-  | "setSelectedBrand"
-  | "setSelectedCountry"
-  | "setSelectedMakingMethod"
-  | "setSelectedManufacturingMethod"
-  | "setSelectedTeaType"
-  | "setSelectedPackageType"
+  | 'setSelectedType'
+  | 'setSelectedBrand'
+  | 'setSelectedCountry'
+  | 'setSelectedMakingMethod'
+  | 'setSelectedManufacturingMethod'
+  | 'setSelectedTeaType'
+  | 'setSelectedPackageType'
 >;
 
 type AdminItemFields = {

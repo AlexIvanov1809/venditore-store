@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import { observer } from "mobx-react-lite";
-import styles from "./Shop.module.css";
-import { Loader } from "../../components/ui";
-import { TypeBar, Aside, CardList, Pagination } from "../../components/shop-page";
-import httpService from "../../http/productAPI";
-import { ENTITY_TYPES } from "../../utils/consts";
-import { Context } from "../../main";
+import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import styles from './Shop.module.css';
+import { Loader } from '@/components/ui';
+import { TypeBar, Aside, CardList, Pagination } from '@/components/shop-page';
+import httpService from '@/http/productAPI';
+import { ENTITY_TYPES } from '@/utils/consts';
+import { useRootStore } from '@/context/StoreContext';
 
 const Shop = observer(() => {
-  const { products } = useContext(Context);
+  const { products } = useRootStore();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -21,8 +21,8 @@ const Shop = observer(() => {
         })
         .catch((e) => e)
         .finally(() => {
-          if (item.getter === "types") {
-            products.setSelectedType(products.types[0]?.id ? products.types[0]?.id : "");
+          if (item.getter === 'types') {
+            products.setSelectedType(products.types[0]?.id ? products.types[0]?.id : '');
           }
         });
     });

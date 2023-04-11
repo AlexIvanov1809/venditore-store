@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import { observer } from "mobx-react-lite";
-import cn from "classnames";
-import { IProductType } from "@/types/productType";
-import { HideFn } from "@/types/uiTypes";
-import { ProdGetter, ProdSetters } from "@/types/constsTypes";
-import styles from "./EntityContainer.module.css";
-import { Button } from "../../ui";
-import EntitiesEditor from "../EntitiesEditor/EntitiesEditor";
-import httpService from "../../../http/productAPI";
-import { Context } from "../../../main";
+import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import cn from 'classnames';
+import { IProductType } from '@/types/productType';
+import { HideFn } from '@/types/uiTypes';
+import { ProdGetter, ProdSetters } from '@/types/constsTypes';
+import styles from './EntityContainer.module.css';
+import { Button } from '../../ui';
+import EntitiesEditor from '../EntitiesEditor/EntitiesEditor';
+import httpService from '../../../http/productAPI';
+import { useRootStore } from '@/context/StoreContext';
 
 interface Props {
   endpoint: string;
@@ -18,13 +18,13 @@ interface Props {
 }
 
 const EntityContainer = observer(({ endpoint, label, getter, setter }: Props) => {
-  const { products } = useContext(Context);
+  const { products } = useRootStore();
   const [show, setShow] = useState<boolean>(false);
   const [item, setItem] = useState<null | IProductType>(null);
   const [refresh, setRefresh] = useState<boolean>(false);
 
   const containerName = cn(styles.types_container, {
-    [styles.type_black]: label === "Типы"
+    [styles.type_black]: label === 'Типы'
   });
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const EntityContainer = observer(({ endpoint, label, getter, setter }: Props) =>
   }, [refresh, products]);
 
   const onHide: HideFn = (bool) => {
-    if (typeof bool === "boolean") {
+    if (typeof bool === 'boolean') {
       setItem(null);
       setShow(bool);
       setRefresh(!refresh);
@@ -79,7 +79,7 @@ const EntityContainer = observer(({ endpoint, label, getter, setter }: Props) =>
         <EntitiesEditor
           onDelete={removeItem}
           endpoint={endpoint}
-          label={item ? "Обновить" : "Создать"}
+          label={item ? 'Обновить' : 'Создать'}
           onHide={onHide}
           item={item}
         />

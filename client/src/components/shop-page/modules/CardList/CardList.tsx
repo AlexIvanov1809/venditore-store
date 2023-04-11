@@ -1,15 +1,14 @@
-import { useContext } from "react";
-import { observer } from "mobx-react-lite";
-import styles from "./CardList.module.css";
-import { Card } from "../..";
-import { Context } from "../../../../main";
+import { observer } from 'mobx-react-lite';
+import styles from './CardList.module.css';
+import { Card } from '../..';
+import { useRootStore } from '@/context/StoreContext';
 
 interface Props {
   className: string;
 }
 
 const CardList = observer(({ className }: Props) => {
-  const { products } = useContext(Context);
+  const { products } = useRootStore();
 
   return (
     <div className={className}>

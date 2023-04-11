@@ -1,6 +1,6 @@
-import AdminItem from "./pages/AdminProductItem/AdminItem";
-import { Admin, Auth, Basket, Shop } from "./pages";
-import { ADMIN_ROUTE, BASKET_ROUTE, ITEM_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from "./utils/consts";
+import AdminItem from './pages/AdminProductItem/AdminItem';
+import { Admin, Auth, Basket, Shop } from './pages';
+import { ADMIN_ROUTE, BASKET_ROUTE, ITEM_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from './utils/consts';
 
 export const authRoutes = [
   {

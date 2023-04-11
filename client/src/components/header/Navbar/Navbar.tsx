@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { NavLink } from "react-router-dom";
-import { observer } from "mobx-react-lite";
-import styles from "./Navbar.module.scss";
-import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from "../../../utils/consts";
-import { Context } from "../../../main";
+import { NavLink } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import styles from './Navbar.module.scss';
+import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../../../utils/consts';
+import { useRootStore } from '@/context/StoreContext';
 
 const Navbar = observer(() => {
-  const { basket } = useContext(Context);
+  const { basket } = useRootStore();
   return (
     <header className={styles.header}>
       <NavLink to={SHOP_ROUTE}>Logo</NavLink>

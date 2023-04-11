@@ -1,5 +1,4 @@
-// import React from "react";
-import styles from "./Scale.module.scss";
+import styles from './Scale.module.scss';
 
 interface ScaleProps {
   value: number;

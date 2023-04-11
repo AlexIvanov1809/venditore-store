@@ -1,10 +1,10 @@
-import { IProductForEdit, IProductType } from "@/types/productType";
-import { $authHost, $host } from "./index";
+import { IProductForEdit, IProductType } from '@/types/productType';
+import { $authHost, $host } from './index';
 
-const TYPES_ENDPOINT = "api/v1/productTypes";
-const PRODUCT_ENDPOINT = "api/v1/product";
-const PIC_ENDPOINT = "api/v1/pictures";
-const PRICE_ENDPOINT = "api/v1/price";
+const TYPES_ENDPOINT = 'api/v1/productTypes';
+const PRODUCT_ENDPOINT = 'api/v1/product';
+const PIC_ENDPOINT = 'api/v1/pictures';
+const PRICE_ENDPOINT = 'api/v1/price';
 
 interface Entity {
   name: string;

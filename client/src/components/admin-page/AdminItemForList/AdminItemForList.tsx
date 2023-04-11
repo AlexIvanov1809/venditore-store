@@ -1,7 +1,7 @@
-import { observer } from "mobx-react-lite";
-import { NavLink } from "react-router-dom";
-import { IProduct } from "@/types/productType";
-import styles from "./AdminItemForList.module.css";
+import { observer } from 'mobx-react-lite';
+import { NavLink } from 'react-router-dom';
+import { IProduct } from '@/types/productType';
+import styles from './AdminItemForList.module.css';
 
 interface Item {
   product: IProduct;
@@ -17,7 +17,7 @@ const AdminItemForList = observer(({ product }: Item) => (
       <div>{product.making_method?.name}</div>
       <div>{product.manufacturing_method?.name}</div>
       <div>{product.tea_type?.name}</div>
-      <div>{product.active ? "true" : "false"}</div>
+      <div>{product.active ? 'true' : 'false'}</div>
     </NavLink>
   </div>
 ));

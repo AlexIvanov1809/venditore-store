@@ -1,21 +1,21 @@
-import { FilterTypesForObject, FilterTypesPrimitive, IProduct, IProductType } from "@/types/productType";
-import orderBy from "lodash.orderby";
-import { makeAutoObservable, runInAction } from "mobx";
+import { FilterTypesForObject, FilterTypesPrimitive, IProduct, IProductType } from '@/types/productType';
+import orderBy from 'lodash.orderby';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 export default class ProductStore {
-  private _types: (IProductType | undefined)[];
+  private _types: IProductType[];
 
-  private _brands: (IProductType | undefined)[];
+  private _brands: IProductType[];
 
-  private _countries: (IProductType | undefined)[];
+  private _countries: IProductType[];
 
-  private _makingMethods: (IProductType | undefined)[];
+  private _makingMethods: IProductType[];
 
-  private _manufacturingMethods: (IProductType | undefined)[];
+  private _manufacturingMethods: IProductType[];
 
-  private _teaTypes: (IProductType | undefined)[];
+  private _teaTypes: IProductType[];
 
-  private _packageTypes: (IProductType | undefined)[];
+  private _packageTypes: IProductType[];
 
   private _products: IProduct[] | IProduct;
 
@@ -49,13 +49,13 @@ export default class ProductStore {
     this._packageTypes = [];
 
     this._products = [];
-    this._selectedType = "";
-    this._selectedBrand = "";
-    this._selectedCountry = "";
-    this._selectedMakingMethod = "";
-    this._selectedManufacturingMethod = "";
-    this._selectedTeaType = "";
-    this._selectedPackageType = "";
+    this._selectedType = '';
+    this._selectedBrand = '';
+    this._selectedCountry = '';
+    this._selectedMakingMethod = '';
+    this._selectedManufacturingMethod = '';
+    this._selectedTeaType = '';
+    this._selectedPackageType = '';
     this._page = 1;
     this._totalCount = 0;
     this._limit = 9;
@@ -132,13 +132,13 @@ export default class ProductStore {
     this._selectedPackageType = packageType;
   }
 
-  productSortingObj(type: keyof FilterTypesForObject, sort: "asc" | "desc") {
+  productSortingObj(type: keyof FilterTypesForObject, sort: 'asc' | 'desc') {
     if (this._products && Array.isArray(this._products)) {
       this._products = orderBy(this._products, (p) => p[type]?.name, sort);
     }
   }
 
-  productSortingPrim(type: keyof FilterTypesPrimitive, sort: "asc" | "desc") {
+  productSortingPrim(type: keyof FilterTypesPrimitive, sort: 'asc' | 'desc') {
     if (this._products) {
       this._products = orderBy(this._products, type, sort);
     }

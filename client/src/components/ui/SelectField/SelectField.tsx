@@ -1,7 +1,7 @@
-import React from "react";
-import cn from "classnames";
-import styles from "./SelectField.module.css";
-import SelectFieldProps from "./SelectField.props";
+import React from 'react';
+import cn from 'classnames';
+import styles from './SelectField.module.css';
+import SelectFieldProps from './SelectField.props';
 
 function SelectField({ label, value, onChange, defaultOption, options, error, name, _id }: SelectFieldProps) {
   const handleChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
@@ -16,8 +16,8 @@ function SelectField({ label, value, onChange, defaultOption, options, error, na
         {label}
       </label>
       <div>
-        <select className={styles.select_tag} id={name} name={name} value={value || ""} onChange={handleChange}>
-          <option value={defaultOption} disabled={defaultOption === ""}>
+        <select className={styles.select_tag} id={name} name={name} value={value || ''} onChange={handleChange}>
+          <option value={defaultOption} disabled={defaultOption === ''}>
             {defaultOption}
           </option>
           {options &&

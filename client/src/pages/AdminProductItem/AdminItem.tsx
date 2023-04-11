@@ -1,20 +1,20 @@
-import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { observer } from "mobx-react-lite";
-import { IProduct } from "@/types/productType";
-import styles from "./AdminItem.module.css";
-import httpService from "../../http/productAPI";
-import { EditItemModule, DeleteBtn } from "../../components/admin-page";
-import { Loader, Button, Scale } from "../../components/ui";
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { IProduct } from '@/types/productType';
+import styles from './AdminItem.module.css';
+import httpService from '@/http/productAPI';
+import { EditItemModule, DeleteBtn } from '@/components/admin-page';
+import { Loader, Button, Scale } from '@/components/ui';
 
-import { ADMIN_ROUTE, ENTITY_TYPES } from "../../utils/consts";
-import { Context } from "../../main";
-import config from "../../config/config.json";
+import { ADMIN_ROUTE, ENTITY_TYPES } from '@/utils/consts';
+import config from '@/config/config.json';
+import { useRootStore } from '@/context/StoreContext';
 
 const AdminItem = observer(() => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { products } = useContext(Context);
+  const { products } = useRootStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [item, setItem] = useState<null | IProduct>(null);
   const [editing, setEditing] = useState<boolean>(false);
@@ -40,7 +40,7 @@ const AdminItem = observer(() => {
           });
       }
     } else {
-      const data = products.products.filter((item) => item.id === parseInt(id || ""));
+      const data = products.products.filter((item) => item.id === parseInt(id || ''));
       setItem(data[0]);
       setIsLoading(false);
     }
@@ -102,9 +102,9 @@ const AdminItem = observer(() => {
             <div>{p.value} &#8381;</div>
           </div>
         ))}
-        <div>{item.active ? "true" : "false"}</div>
+        <div>{item.active ? 'true' : 'false'}</div>
         <div className={styles.item_buttons}>
-          <DeleteBtn onDelete={removeHandle} id={id || ""} />
+          <DeleteBtn onDelete={removeHandle} id={id || ''} />
           <Button appearance="primary" onClick={editHandle} icon="Edit" />
         </div>
       </div>

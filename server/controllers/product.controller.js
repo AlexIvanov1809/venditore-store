@@ -1,9 +1,9 @@
-const { Product, ProductImg, ProductPrice } = require("../models/models");
-const ApiError = require("../error/ApiError");
-const uuid = require("uuid");
-const { INCLUDES_MODELS } = require("../constants/consts");
-const makeEntitiesForFilters = require("../utils/makeEntitiesForFilters");
-const { convertAndSavePic, removePic } = require("../utils/saveAndRemovePic");
+const { Product, ProductImg, ProductPrice } = require('../models/models');
+const ApiError = require('../error/ApiError');
+const uuid = require('uuid');
+const { INCLUDES_MODELS } = require('../constants/consts');
+const makeEntitiesForFilters = require('../utils/makeEntitiesForFilters');
+const { convertAndSavePic, removePic } = require('../utils/saveAndRemovePic');
 
 class ProductController {
   // async test(req, res, next) {
@@ -20,7 +20,7 @@ class ProductController {
     try {
       let { price, ...data } = req.body;
       if (!req.files) {
-        next(ApiError.badRequest("Не отправили фото"));
+        next(ApiError.badRequest('Не отправили фото'));
       }
       let { img } = req.files;
 
@@ -44,7 +44,7 @@ class ProductController {
 
       Array.isArray(img) ? img : (img = [img]);
       img.forEach(async (i, index) => {
-        let fileName = uuid.v4() + ".jpg";
+        let fileName = uuid.v4() + '.jpg';
         convertAndSavePic(i, fileName);
 
         await ProductImg.create({
@@ -65,7 +65,7 @@ class ProductController {
       let { limit, page, ...data } = req.query;
       const filterParams = Object.keys(data).reduce((acc, product) => {
         if (data[product]) {
-          acc[product] = data[product].split("-");
+          acc[product] = data[product].split('-');
         }
         return acc;
       }, {});
@@ -76,8 +76,8 @@ class ProductController {
         products = await Product.findAndCountAll({
           include: INCLUDES_MODELS,
           order: [
-            [{ model: ProductPrice, as: "price" }, "value", "ASC"],
-            [{ model: ProductImg, as: "image" }, "row", "ASC"],
+            [{ model: ProductPrice, as: 'price' }, 'value', 'ASC'],
+            [{ model: ProductImg, as: 'image' }, 'row', 'ASC'],
           ],
         });
       }
@@ -88,8 +88,8 @@ class ProductController {
           offset,
           include: INCLUDES_MODELS,
           order: [
-            [{ model: ProductPrice, as: "price" }, "value", "ASC"],
-            [{ model: ProductImg, as: "image" }, "row", "ASC"],
+            [{ model: ProductPrice, as: 'price' }, 'value', 'ASC'],
+            [{ model: ProductImg, as: 'image' }, 'row', 'ASC'],
           ],
         });
       }
@@ -107,8 +107,8 @@ class ProductController {
         where: { id },
         include: INCLUDES_MODELS,
         order: [
-          [{ model: ProductPrice, as: "price" }, "value", "ASC"],
-          [{ model: ProductImg, as: "image" }, "row", "ASC"],
+          [{ model: ProductPrice, as: 'price' }, 'value', 'ASC'],
+          [{ model: ProductImg, as: 'image' }, 'row', 'ASC'],
         ],
       });
       return res.json(products);
@@ -164,7 +164,7 @@ class ProductController {
       await ProductImg.destroy({ where: { productId: id } });
       await ProductPrice.destroy({ where: { productId: id } });
       await Product.destroy({ where: { id } });
-      return res.json("Product was removed");
+      return res.json('Product was removed');
     } catch (e) {
       next(ApiError.internal(e.message));
     }

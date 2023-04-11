@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { IProduct } from "@/types/productType";
-import { FilterFn, FnOnChange } from "@/types/uiTypes";
-import { ProdGetter } from "@/types/constsTypes";
-import styles from "./ShopFilterList.module.css";
-import { CheckBox } from "../../ui";
-import { Context } from "../../../main";
+import { useEffect, useState } from 'react';
+import { IProduct } from '@/types/productType';
+import { FilterFn, FnOnChange } from '@/types/uiTypes';
+import { ProdGetter } from '@/types/constsTypes';
+import styles from './ShopFilterList.module.css';
+import { CheckBox } from '../../ui';
+import { useRootStore } from '@/context/StoreContext';
 
 interface Props {
   refresh: boolean;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 function ShopFilterList({ refresh, label, list, onChange, filterType }: Props) {
-  const { products } = useContext(Context);
+  const { products } = useRootStore();
   const [data, setData] = useState<null | { [key: string]: boolean }>(null);
   const [changes, setChanges] = useState(true);
 
@@ -39,7 +39,7 @@ function ShopFilterList({ refresh, label, list, onChange, filterType }: Props) {
   }, [changes]);
 
   const changeHandler: FnOnChange = ({ name, value }) => {
-    if (typeof value === "boolean") {
+    if (typeof value === 'boolean') {
       setData((prev) => ({ ...prev, [name]: value }));
       setChanges(!changes);
     }
@@ -52,7 +52,7 @@ function ShopFilterList({ refresh, label, list, onChange, filterType }: Props) {
           products[list].length > 0 &&
           products[list].map((item) => (
             <CheckBox
-              name={item?.id ? item.id.toString() : ""}
+              name={item?.id ? item.id.toString() : ''}
               value={item?.id ? data[item.id] : false}
               className={styles.item}
               key={item?.id}

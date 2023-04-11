@@ -1,5 +1,5 @@
-import { BasketChangeHandler, IBasketItem } from "@/types/basketTypes";
-import { Button } from "../../ui";
+import { BasketChangeHandler, IBasketItem } from '@/types/basketTypes';
+import { Button } from '../../ui';
 
 interface Props {
   className: string;
@@ -15,11 +15,11 @@ function BasketItem({ className, changeHandler, item }: Props) {
       <span>{item.name}</span>
       <span>{item.weight}</span>
       <span>{item.value} RUB</span>
-      <Button onClick={() => changeHandler(item.id, "+")} appearance="primary" icon="Plus" />
+      <Button onClick={() => changeHandler(item.id, '+')} appearance="primary" icon="Plus" />
 
       <span>{item.quantity}</span>
-      <Button appearance="primary" onClick={() => changeHandler(item.id, "-")} icon="Minus" />
-      <Button appearance="danger" onClick={() => changeHandler(item.id, "del")} icon="Delete" />
+      <Button appearance="primary" onClick={() => changeHandler(item.id, '-')} icon="Minus" />
+      <Button appearance="danger" onClick={() => changeHandler(item.id, 'del')} icon="Delete" />
     </li>
   );
 }

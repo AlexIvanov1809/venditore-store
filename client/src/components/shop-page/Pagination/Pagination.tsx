@@ -1,15 +1,14 @@
-import { useContext } from "react";
-import { observer } from "mobx-react-lite";
-import cn from "classnames";
-import styles from "./Pagination.module.css";
-import { Context } from "../../../main";
+import { observer } from 'mobx-react-lite';
+import cn from 'classnames';
+import styles from './Pagination.module.css';
+import { useRootStore } from '@/context/StoreContext';
 
 interface Props {
   className: string;
 }
 
 const Pagination = observer(({ className }: Props) => {
-  const { products } = useContext(Context);
+  const { products } = useRootStore();
   const pageCount = Math.ceil(products.totalCount / products.limit);
   const pages = [];
 

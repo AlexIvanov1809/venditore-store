@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
-const { merge } = require("webpack-merge");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const webpackMockServer = require("webpack-mock-server");
-const path = require("path");
-const dev = require("./webpack.dev");
-const assets = require("./webpack.common").assetsPath;
+const { merge } = require('webpack-merge');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpackMockServer = require('webpack-mock-server');
+const path = require('path');
+const dev = require('./webpack.dev');
+const assets = require('./webpack.common').assetsPath;
 
 module.exports = (env, argv) => {
   const devConfig = dev(env, argv);
@@ -21,14 +21,14 @@ module.exports = (env, argv) => {
 
   /** @type {import('webpack').Configuration} */
   const extendedConfig = {
-    target: "web", // force target otherwise HMR doesn't work for style-loader
+    target: 'web', // force target otherwise HMR doesn't work for style-loader
     /** @type {import('webpack-dev-server').Configuration} */
     devServer: {
       // proxy config will be remove if target is empty
       proxy: {
         // requires for ignoring CORS issues
-        "/api": {
-          router: "http://localhost:5000/",
+        '/api': {
+          router: 'http://localhost:5000/',
           target: proxy,
           // changeOrigin: true,
           // withCredentials: true,
@@ -39,7 +39,7 @@ module.exports = (env, argv) => {
       historyApiFallback: {
         // provide index.html instead of 404:not found error (for SPA app)
         rewrites: [
-          { from: /favicon.ico/, to: "public/favicon.ico" } // provide favicon
+          { from: /favicon.ico/, to: 'public/favicon.ico' } // provide favicon
         ]
       }, // it enables HTML5 mode: https://developer.mozilla.org/en-US/docs/Web/API/History
       devMiddleware: {
@@ -50,8 +50,8 @@ module.exports = (env, argv) => {
       },
       onBeforeSetupMiddleware: (devServer) =>
         webpackMockServer.use(devServer.app, {
-          entry: ["webpack.mock.ts"],
-          tsConfigFileName: "tsconfig.json",
+          entry: ['webpack.mock.ts'],
+          tsConfigFileName: 'tsconfig.json',
           before: (req, res, next) => {
             console.log(`Got request: ${req.method} ${req.url}`);
             // res.once("finish", () => {
@@ -69,7 +69,7 @@ module.exports = (env, argv) => {
 
   if (proxy) {
     delete extendedConfig.devServer.onBeforeSetupMiddleware;
-    console.log("<i> Proxy configured. webpack-mock-server is removed from config");
+    console.log('<i> Proxy configured. webpack-mock-server is removed from config');
   } else {
     delete extendedConfig.devServer.proxy;
   }

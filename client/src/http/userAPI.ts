@@ -1,6 +1,6 @@
-import { $authHost, $host } from "./index";
+import { $authHost, $host } from './index';
 
-const ENDPOINT = "api/v1/user";
+const ENDPOINT = 'api/v1/user';
 
 export const registration = async (email: string, password: string, role: string) => {
   const { data } = await $host.post(`${ENDPOINT}/registration`, {
@@ -8,7 +8,7 @@ export const registration = async (email: string, password: string, role: string
     password,
     role
   });
-  localStorage.setItem("token", data.accessToken);
+  localStorage.setItem('token', data.accessToken);
 
   return data.user;
 };
@@ -18,19 +18,19 @@ export const login = async (email: string, password: string) => {
     email,
     password
   });
-  localStorage.setItem("token", data.accessToken);
+  localStorage.setItem('token', data.accessToken);
 
   return data.user;
 };
 
 export const logout = async () => {
   await $host.post(`${ENDPOINT}/logout`);
-  localStorage.removeItem("token");
+  localStorage.removeItem('token');
 };
 
 export const check = async () => {
   const { data } = await $authHost.get(`${ENDPOINT}/refresh`);
-  localStorage.setItem("token", data.accessToken);
+  localStorage.setItem('token', data.accessToken);
 
   return data.user;
 };

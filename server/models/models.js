@@ -1,21 +1,21 @@
-const sequelize = require("../db");
-const { DataTypes } = require("sequelize");
+const sequelize = require('../db');
+const { DataTypes } = require('sequelize');
 
-const User = sequelize.define("user", {
+const User = sequelize.define('user', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING, unique: true },
   password: { type: DataTypes.STRING },
-  role: { type: DataTypes.STRING, defaultValue: "USER" },
+  role: { type: DataTypes.STRING, defaultValue: 'USER' },
   isActivated: { type: DataTypes.BOOLEAN, defaultValue: false },
   activationLink: { type: DataTypes.STRING },
 });
 
-const Token = sequelize.define("token", {
+const Token = sequelize.define('token', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   refreshToken: { type: DataTypes.STRING },
 });
 
-const Product = sequelize.define("product", {
+const Product = sequelize.define('product', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   sortName: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING },
@@ -25,74 +25,74 @@ const Product = sequelize.define("product", {
   active: { type: DataTypes.BOOLEAN, defaultValue: true, allowNull: false },
 });
 
-const Type = sequelize.define("type", {
+const Type = sequelize.define('type', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const Brand = sequelize.define("brand", {
+const Brand = sequelize.define('brand', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const Country = sequelize.define("country", {
+const Country = sequelize.define('country', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const MakingMethod = sequelize.define("making_method", {
+const MakingMethod = sequelize.define('making_method', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const ManufacturingMethod = sequelize.define("manufacturing_method", {
+const ManufacturingMethod = sequelize.define('manufacturing_method', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const TeaType = sequelize.define("tea_type", {
+const TeaType = sequelize.define('tea_type', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const PackageType = sequelize.define("package_type", {
+const PackageType = sequelize.define('package_type', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const ProductImg = sequelize.define("product_img", {
+const ProductImg = sequelize.define('product_img', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
   row: { type: DataTypes.INTEGER, allowNull: false },
 });
 
-const ProductPrice = sequelize.define("product_price", {
+const ProductPrice = sequelize.define('product_price', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   weight: { type: DataTypes.STRING, allowNull: false },
   value: { type: DataTypes.STRING, allowNull: false },
 });
 
-const TypeBrand = sequelize.define("type_brand", {
+const TypeBrand = sequelize.define('type_brand', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-const TypeTeaType = sequelize.define("type_tea_type", {
+const TypeTeaType = sequelize.define('type_tea_type', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-const TypeManufacturingMethod = sequelize.define("type_manufacturing_method", {
+const TypeManufacturingMethod = sequelize.define('type_manufacturing_method', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-const TypeMakingMethod = sequelize.define("type_making_method", {
+const TypeMakingMethod = sequelize.define('type_making_method', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-const TypeCountry = sequelize.define("type_country", {
+const TypeCountry = sequelize.define('type_country', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
-const TypePackageType = sequelize.define("package_type_type", {
+const TypePackageType = sequelize.define('package_type_type', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
@@ -117,10 +117,10 @@ Product.belongsTo(TeaType);
 PackageType.hasMany(Product);
 Product.belongsTo(PackageType);
 
-Product.hasMany(ProductImg, { as: "image" });
+Product.hasMany(ProductImg, { as: 'image' });
 ProductImg.belongsTo(Product);
 
-Product.hasMany(ProductPrice, { as: "price" });
+Product.hasMany(ProductPrice, { as: 'price' });
 ProductPrice.belongsTo(Product);
 
 User.hasOne(Token);

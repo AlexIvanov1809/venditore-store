@@ -1,8 +1,8 @@
-import { IBasketItem } from "@/types/basketTypes";
-import { makeAutoObservable } from "mobx";
+import { IBasketItem } from '@/types/basketTypes';
+import { makeAutoObservable } from 'mobx';
 
 export default class OrderStore {
-  private _basket: unknown[];
+  private _basket: IBasketItem[];
 
   constructor() {
     this._basket = [];
@@ -13,7 +13,7 @@ export default class OrderStore {
     this._basket = products;
   }
 
-  setIncrementQty(id: IBasketItem["id"]) {
+  setIncrementQty(id: IBasketItem['id']) {
     const data = this._basket.map((prod) => {
       if (prod?.id === id) {
         prod.quantity += 1;
@@ -23,7 +23,7 @@ export default class OrderStore {
     this._basket = data;
   }
 
-  setDecrementQty(id: IBasketItem["id"]) {
+  setDecrementQty(id: IBasketItem['id']) {
     const data = this._basket.map((prod) => {
       if (prod?.id !== id) return prod;
 
@@ -33,7 +33,7 @@ export default class OrderStore {
       }
       if (prod.quantity !== 1) return prod;
     });
-    const newData = data.filter((i) => i);
+    const newData = data.filter((prod) => prod) as IBasketItem[];
     this._basket = newData || [];
   }
 

@@ -1,4 +1,4 @@
-import { IProduct } from "./productType";
+import { IProduct } from './productType';
 
 type FnOnChange = (data: { name: string; value: boolean | string | number }, id?: number) => void;
 
@@ -16,7 +16,7 @@ type DeleteFn = (id: string | number) => void;
 
 type SortProps = {
   type: keyof IProduct;
-  sort: "asc" | "desc";
+  sort: 'asc' | 'desc';
 };
 
 type FilterFn = (filterType: keyof IProduct, item: string[]) => void;

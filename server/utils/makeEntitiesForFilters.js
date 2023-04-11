@@ -1,4 +1,4 @@
-const { TYPES_FOR_FILTER } = require("../constants/consts");
+const { TYPES_FOR_FILTER } = require('../constants/consts');
 
 function makeEntitiesForFilters(item) {
   TYPES_FOR_FILTER.forEach(async (t) => {
@@ -20,7 +20,7 @@ function makeEntitiesForFilters(item) {
         productId: item.id,
       });
     }
-    if (typeof item === "string") {
+    if (typeof item === 'string') {
       await t.model.destroy({
         where: {
           productId: item,

@@ -1,10 +1,10 @@
-const { User } = require("../models/models");
-const bcrypt = require("bcrypt");
-const uuid = require("uuid");
-const mailService = require("./mail.service");
-const tokenService = require("./token.service");
-const UserDto = require("../dtos/user.dto");
-const ApiError = require("../error/ApiError");
+const { User } = require('../models/models');
+const bcrypt = require('bcrypt');
+const uuid = require('uuid');
+const mailService = require('./mail.service');
+const tokenService = require('./token.service');
+const UserDto = require('../dtos/user.dto');
+const ApiError = require('../error/ApiError');
 
 class UserService {
   async registration(email, password, role) {
@@ -42,7 +42,7 @@ class UserService {
   async activate(activationLink) {
     const user = await User.findOne({ where: { activationLink } });
     if (!user) {
-      throw ApiError.BadRequest("Некорректная ссылка активации");
+      throw ApiError.BadRequest('Некорректная ссылка активации');
     }
 
     await User.update({ isActivated: true }, { where: { id: user.id } });
@@ -51,12 +51,12 @@ class UserService {
   async login(email, password) {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      throw ApiError.BadRequest("Пользователь не был найден");
+      throw ApiError.BadRequest('Пользователь не был найден');
     }
 
     const isPassEquals = await bcrypt.compare(password, user.password);
     if (!isPassEquals) {
-      throw ApiError.BadRequest("Неверный пароль");
+      throw ApiError.BadRequest('Неверный пароль');
     }
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });

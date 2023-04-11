@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import cn from "classnames";
-import styles from "./imgInput.module.css";
-import noPic from "../../../assets/noImg.jpg";
-import ImgInputProps from "./ImgInput.props";
-import config from "../../../config/config.json";
+import React, { useEffect, useState } from 'react';
+import cn from 'classnames';
+import styles from './imgInput.module.css';
+import noPic from '../../../assets/noImg.jpg';
+import ImgInputProps from './ImgInput.props';
+import config from '../../../config/config.json';
 
 function ImgInput({ name, index, onChange, remove, error, picName }: ImgInputProps) {
   const [imgUrl, setImgUrl] = useState<string>(noPic);
@@ -30,7 +30,7 @@ function ImgInput({ name, index, onChange, remove, error, picName }: ImgInputPro
   };
   const handleRemoveImage = () => {
     setImgUrl(noPic);
-    onChange(index, "");
+    onChange(index, '');
   };
 
   return (

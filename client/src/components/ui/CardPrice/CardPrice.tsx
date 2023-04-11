@@ -1,6 +1,5 @@
-// import React from "react";
-import styles from "./CardPrice.module.scss";
-import { CardPriceProps } from "./CardPrice.props";
+import styles from './CardPrice.module.scss';
+import { CardPriceProps } from './CardPrice.props';
 
 function CardPrice({ price, active, ...props }: CardPriceProps): JSX.Element {
   return (

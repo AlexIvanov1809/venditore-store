@@ -1,24 +1,24 @@
-import { useContext, useEffect, useState } from "react";
-import { observer } from "mobx-react-lite";
-import { SortProps } from "@/types/uiTypes";
-import { isKeyOfTypeForObj, isKeyOfTypeForPrimitive } from "@/utils/filterTypesValidator";
-import { IProduct } from "@/types/productType";
-import styles from "./Admin.module.scss";
-import { Button, Loader } from "../../components/ui";
-import { EntityContainer, AdminItemForList, EditItemModule } from "../../components/admin-page";
-import httpService from "../../http/productAPI";
-import { Context } from "../../main";
-import { wayOfSortingItems } from "../../utils";
-import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from "../../utils/consts";
+import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { SortProps } from '@/types/uiTypes';
+import { isKeyOfTypeForObj, isKeyOfTypeForPrimitive } from '@/utils/filterTypesValidator';
+import { IProduct } from '@/types/productType';
+import styles from './Admin.module.scss';
+import { Button, Loader } from '@/components/ui';
+import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
+import httpService from '@/http/productAPI';
+import { wayOfSortingItems } from '@/utils';
+import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/utils/consts';
+import { useRootStore } from '@/context/StoreContext';
 
 const Admin = observer(() => {
-  const { products } = useContext(Context);
+  const { products } = useRootStore();
   const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [updated, setUpdated] = useState(true);
   const [sortType, setSortType] = useState<SortProps>({
-    type: "type",
-    sort: "asc"
+    type: 'type',
+    sort: 'asc'
   });
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Admin = observer(() => {
         .then((data) => products.setProducts(data.rows))
         .catch((e) => console.log(e.response.data.message))
         .finally(() => {
-          products.productSortingObj(sortType.type as "type", sortType.sort);
+          products.productSortingObj(sortType.type as 'type', sortType.sort);
           setUpdated(false);
           setIsLoading(false);
         });

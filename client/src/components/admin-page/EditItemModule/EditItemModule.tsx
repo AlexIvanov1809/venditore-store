@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-import { IProductForEdit, IProductPrice } from "@/types/productType";
-import { ErrorValidation, FnOnChange } from "@/types/uiTypes";
-import styles from "./EditItemModule.module.css";
-import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } from "../../ui";
-import AddPriceValue from "../AddPriceValue/AddPriceValue";
-import httpService from "../../../http/productAPI";
-import { Context } from "../../../main";
-import { makeFormDataFile, imgUploader, removedPriceIds, validator, imgAndPriceValidator } from "../../../utils";
-import { LEVEL, DEFAULT, VALIDATOR_CONFIG } from "../../../utils/consts";
-import EditItemModuleProps from "./EditItemModule.props";
+import React, { useEffect, useState } from 'react';
+import { IProductForEdit, IProductPrice } from '@/types/productType';
+import { ErrorValidation, FnOnChange } from '@/types/uiTypes';
+import styles from './EditItemModule.module.css';
+import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } from '../../ui';
+import AddPriceValue from '../AddPriceValue/AddPriceValue';
+import httpService from '../../../http/productAPI';
+import { makeFormDataFile, imgUploader, removedPriceIds, validator, imgAndPriceValidator } from '../../../utils';
+import { LEVEL, DEFAULT, VALIDATOR_CONFIG } from '../../../utils/consts';
+import EditItemModuleProps from './EditItemModule.props';
+import { useRootStore } from '@/context/StoreContext';
 
 function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
-  const { products } = useContext(Context);
+  const { products } = useRootStore();
   const [data, setData] = useState(product || DEFAULT);
-  const [img, setImg] = useState<(string | File)[]>(["", "", ""]);
-  const [price, setPrice] = useState<IProductPrice[]>(product?.price || [{ id: Date.now(), weight: "", value: "" }]);
+  const [img, setImg] = useState<(string | File)[]>(['', '', '']);
+  const [price, setPrice] = useState<IProductPrice[]>(product?.price || [{ id: Date.now(), weight: '', value: '' }]);
   const [removedPrice, setRemovedPrice] = useState(false);
   const [errors, setErrors] = useState<ErrorValidation>({});
 
@@ -33,8 +33,8 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
   const validate = () => {
     const errors = {
       ...validator(data, VALIDATOR_CONFIG),
-      ...imgAndPriceValidator(price, "price"),
-      ...imgAndPriceValidator(img, "image")
+      ...imgAndPriceValidator(price, 'price'),
+      ...imgAndPriceValidator(img, 'image')
     };
     setErrors(errors as ErrorValidation);
   };
@@ -53,7 +53,7 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
 
   const addPrice = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    setPrice([...price, { id: Date.now(), weight: "", value: "" }]);
+    setPrice([...price, { id: Date.now(), weight: '', value: '' }]);
   };
 
   const removePrice = (e: React.MouseEvent<Element, MouseEvent>, id: number): void => {
@@ -100,7 +100,7 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
   return (
     <div className={styles.edit_module}>
       <div className={styles.edit_container}>
-        <h3>{product ? "Редактировать" : "Создать"}</h3>
+        <h3>{product ? 'Редактировать' : 'Создать'}</h3>
         <form onSubmit={submitHandle}>
           <div className={styles.edit_items}>
             <div className={styles.edit_img}>
@@ -228,7 +228,7 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
               Закрыть
             </Button>
             <Button appearance="primary" type="submit">
-              {product ? "Редактировать" : "Создать"}
+              {product ? 'Редактировать' : 'Создать'}
             </Button>
           </div>
         </form>

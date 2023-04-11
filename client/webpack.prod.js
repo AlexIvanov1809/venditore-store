@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/no-extraneous-dependencies */
-const { merge } = require("webpack-merge");
-const CompressionPlugin = require("compression-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const common = require("./webpack.common");
+const { merge } = require('webpack-merge');
+const CompressionPlugin = require('compression-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const common = require('./webpack.common');
 
 module.exports = (env, argv) => {
   const commonConfig = common(env, argv);
 
   /** @type {import('webpack').Configuration} */
   const extendedConfig = {
-    mode: "production",
+    mode: 'production',
     performance: {
       assetFilter: function assetFilter(assetFilename) {
         return !/(\.map$)|(fonts)|(images)/.test(assetFilename); // ignore these files from perfomance-hints
@@ -32,7 +32,7 @@ module.exports = (env, argv) => {
             mangle: {
               safari10: true // for preventing Safari 10/11 bugs in loop scoping and await
             },
-            compress: { pure_funcs: ["console.info", "console.debug", "console.warn"] } // remove this functions when their return values are not used
+            compress: { pure_funcs: ['console.info', 'console.debug', 'console.warn'] } // remove this functions when their return values are not used
           }
         })
       ]
@@ -40,14 +40,14 @@ module.exports = (env, argv) => {
     plugins: [
       // optional: it creates brotli-compressed files in '[path].gz[query]'
       new CompressionPlugin({
-        algorithm: "gzip",
-        filename: "[path][base].gz[query]",
+        algorithm: 'gzip',
+        filename: '[path][base].gz[query]',
         threshold: common.filesThreshold // (bytes). Only assets bigger than this size are processed
       }),
       // optional: it creates gzip-compressed files in '[path].br[query]'
       new CompressionPlugin({
-        algorithm: "brotliCompress",
-        filename: "[path][base].br[query]",
+        algorithm: 'brotliCompress',
+        filename: '[path][base].br[query]',
         threshold: common.filesThreshold // (bytes). Only assets bigger than this size are processed
       })
     ]

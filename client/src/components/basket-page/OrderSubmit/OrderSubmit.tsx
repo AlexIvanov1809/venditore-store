@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { BasketSubmitFn } from "@/types/basketTypes";
-import { FnOnChange } from "@/types/uiTypes";
-import styles from "./OrderSubmit.module.css";
-import { Button, TextInput, TextAreaField } from "../../ui";
+import { useState } from 'react';
+import { BasketSubmitFn } from '@/types/basketTypes';
+import { FnOnChange } from '@/types/uiTypes';
+import styles from './OrderSubmit.module.css';
+import { Button, TextInput, TextAreaField } from '../../ui';
 
 interface Props {
   onSubmit: BasketSubmitFn;
@@ -10,10 +10,10 @@ interface Props {
 
 function OrderSubmit({ onSubmit }: Props) {
   const [orderData, setOrderData] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    comment: ""
+    name: '',
+    phone: '',
+    address: '',
+    comment: ''
   });
 
   const changeHandler: FnOnChange = ({ name, value }) => {

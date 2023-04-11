@@ -3,9 +3,9 @@ export default interface IUser {
   user: {
     email: string;
     id: number;
-    role: "USER" | "ADMIN" | "OWNER";
+    role: 'USER' | 'ADMIN' | 'OWNER';
     isActivated: boolean;
   };
 }
 
-type TokenJWT = "string";
+type TokenJWT = 'string';

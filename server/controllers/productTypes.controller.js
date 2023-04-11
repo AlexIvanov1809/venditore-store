@@ -1,5 +1,5 @@
-const itemTypesModels = require("../models/models");
-const ApiError = require("../error/ApiError");
+const itemTypesModels = require('../models/models');
+const ApiError = require('../error/ApiError');
 
 class ProductTypesController {
   async create(req, res, next) {
@@ -27,8 +27,8 @@ class ProductTypesController {
     try {
       const { type, typeId } = req.params;
       let data;
-      if (type !== "Type") {
-        const key = "Type" + type;
+      if (type !== 'Type') {
+        const key = 'Type' + type;
         const brand = await itemTypesModels[key].findAll({
           where: { typeId },
         });
@@ -36,7 +36,7 @@ class ProductTypesController {
         const id = [];
         brand.forEach((i) => {
           const entityId = type.charAt(0).toLowerCase() + type.substr(1);
-          id.push(i[entityId + "Id"]);
+          id.push(i[entityId + 'Id']);
         });
         data = await itemTypesModels[type].findAll({
           where: { id },

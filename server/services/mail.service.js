@@ -1,9 +1,9 @@
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
 class MailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -14,8 +14,8 @@ class MailService {
     await this.transporter.sendMail({
       from: process.env.SMTP_USER,
       to,
-      subject: "Activation letter" + process.env.API_URL,
-      text: "",
+      subject: 'Activation letter' + process.env.API_URL,
+      text: '',
       html: `
 			<div>
 				<h1>Для активации перейдите по ссылке</h1>

@@ -11,13 +11,13 @@ interface IProductForEdit {
   acidity: string | null;
   density: string | null;
   active: boolean;
-  countryId: IProductType["id"] | null;
-  typeId: IProductType["id"] | null;
-  brandId: IProductType["id"] | null;
-  makingMethodId: IProductType["id"] | null;
-  manufacturingMethodId: IProductType["id"] | null;
-  teaTypeId: IProductType["id"] | null;
-  packageTypeId: IProductType["id"] | null;
+  countryId: IProductType['id'] | null;
+  typeId: IProductType['id'] | null;
+  brandId: IProductType['id'] | null;
+  makingMethodId: IProductType['id'] | null;
+  manufacturingMethodId: IProductType['id'] | null;
+  teaTypeId: IProductType['id'] | null;
+  packageTypeId: IProductType['id'] | null;
   price: string;
 }
 
@@ -31,13 +31,13 @@ interface IProduct {
   active: boolean;
   createdAt: Date;
   updatedAt: Date;
-  countryId: IProductType["id"] | null;
-  typeId: IProductType["id"];
-  brandId: IProductType["id"];
-  makingMethodId: IProductType["id"] | null;
-  manufacturingMethodId: IProductType["id"] | null;
-  teaTypeId: IProductType["id"] | null;
-  packageTypeId: IProductType["id"] | null;
+  countryId: IProductType['id'] | null;
+  typeId: IProductType['id'];
+  brandId: IProductType['id'];
+  makingMethodId: IProductType['id'] | null;
+  manufacturingMethodId: IProductType['id'] | null;
+  teaTypeId: IProductType['id'] | null;
+  packageTypeId: IProductType['id'] | null;
   image: IProductImage[];
   price: IProductPrice[];
   type: ProductTypeNames;
@@ -51,10 +51,10 @@ interface IProduct {
 
 type FilterTypesForObject = Pick<
   IProduct,
-  "type" | "brand" | "country" | "making_method" | "manufacturing_method" | "tea_type"
+  'type' | 'brand' | 'country' | 'making_method' | 'manufacturing_method' | 'tea_type'
 >;
 
-type FilterTypesPrimitive = Pick<IProduct, "sortName" | "active">;
+type FilterTypesPrimitive = Pick<IProduct, 'sortName' | 'active'>;
 
 interface IProductType {
   id: number;
@@ -69,7 +69,7 @@ interface IProductImage {
   row: number;
   createdAt: Date;
   updatedAt: Date;
-  productId: IProduct["id"];
+  productId: IProduct['id'];
 }
 
 interface IProductPrice {
@@ -78,7 +78,7 @@ interface IProductPrice {
   value: string;
   createdAt?: Date;
   updatedAt?: Date;
-  productId?: IProduct["id"];
+  productId?: IProduct['id'];
 }
 
 type ProductTypeNames = {

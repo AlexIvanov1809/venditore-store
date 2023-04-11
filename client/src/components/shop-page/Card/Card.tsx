@@ -1,25 +1,26 @@
-import { useContext, useEffect, useState } from "react";
-import { observer } from "mobx-react-lite";
-import { Beans, IProduct, IProductPrice } from "@/types/productType";
-import { FnOnChange } from "@/types/uiTypes";
-import { IBasketItem } from "@/types/basketTypes";
-import styles from "./Card.module.css";
-import { Scale, CardPrice, SelectField } from "../../ui";
-import { ImgCarousel, OrderCardBtn } from "..";
-import { Context } from "../../../main";
-import { BASKET_STORAGE_NAME, BEANS } from "../../../utils/consts";
+import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { Beans, IProduct, IProductPrice } from '@/types/productType';
+import { FnOnChange } from '@/types/uiTypes';
+import { IBasketItem } from '@/types/basketTypes';
+import styles from './Card.module.css';
+import { Scale, CardPrice, SelectField } from '../../ui';
+import { ImgCarousel, OrderCardBtn } from '..';
+import { useRootStore } from '@/context/StoreContext';
+import { setToStorage } from '@/service/storage.service';
+import { BEANS } from '@/utils/consts';
 
 interface Props {
   product: IProduct;
 }
 
 const Card = observer(({ product }: Props) => {
-  const { basket } = useContext(Context);
+  const { basket } = useRootStore();
   const [price, setPrice] = useState<IProductPrice>();
   const [quantity, setQuantity] = useState<number>(1);
-  const [order, setOrder] = useState<(IBasketItem | undefined)[]>([]);
+  const [order, setOrder] = useState<IBasketItem[]>([]);
   const [bought, setBought] = useState<boolean>(false);
-  const [beans, setBeans] = useState<Beans>({ id: "", name: "" });
+  const [beans, setBeans] = useState<Beans>({ id: '', name: '' });
 
   useEffect(() => {
     setPrice(product.price[0]);
@@ -28,11 +29,11 @@ const Card = observer(({ product }: Props) => {
   useEffect(() => {
     if (order.length) {
       basket.setOrder(order as IBasketItem[]);
-      localStorage.setItem(BASKET_STORAGE_NAME, JSON.stringify(order));
+      setToStorage(order);
     }
     if (basket.order.length) {
       basket.order.forEach((i) => {
-        if (i?.id.split("-")[0] === product.id.toString()) {
+        if (i?.id.split('-')[0] === product.id.toString()) {
           setBought(true);
         }
       });
@@ -40,7 +41,7 @@ const Card = observer(({ product }: Props) => {
   }, [order]);
 
   const grindType: FnOnChange = ({ value }) => {
-    if (typeof value !== "boolean") {
+    if (typeof value !== 'boolean') {
       setBeans({ id: value, name: BEANS[Number(value)].name });
     }
   };
@@ -51,7 +52,7 @@ const Card = observer(({ product }: Props) => {
       const newOrder = {
         id: `${product.id}-${price.weight}`,
         brand: product.brand?.name,
-        name: `${product.country?.name || ""} ${product.sortName}`,
+        name: `${product.country?.name || ''} ${product.sortName}`,
         beans: beans.name,
         weight: price.weight,
         value: +price.value * quantity,
@@ -70,7 +71,7 @@ const Card = observer(({ product }: Props) => {
           <h4>{product.brand?.name}</h4>
           <h4>{product.tea_type?.name}</h4>
           <h4>
-            {product.country ? `${product.country.name} ` : ""}
+            {product.country ? `${product.country.name} ` : ''}
             {product.sortName}
           </h4>
         </div>

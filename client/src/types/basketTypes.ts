@@ -1,4 +1,4 @@
-type BasketChangeHandler = (id: string, action: "+" | "-" | "del") => void;
+type BasketChangeHandler = (id: string, action: '+' | '-' | 'del') => void;
 
 type BasketSubmitFn = (e: React.FormEvent<HTMLFormElement>, orderData: OrderData) => void;
 

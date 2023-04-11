@@ -1,9 +1,9 @@
-const Router = require("express");
+const Router = require('express');
 const router = new Router();
-const nodemailer = require("nodemailer");
-const request = require("request");
+const nodemailer = require('nodemailer');
+const request = require('request');
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const token = process.env.TOKEN;
     const chatId = process.env.CHAT_ID;
@@ -11,17 +11,17 @@ router.post("/", async (req, res) => {
     const mailTo = process.env.MAIL_TO;
     const mailPass = process.env.SMTP_PASS;
     const { message } = req.body;
-    const url = "https://api.telegram.org/bot" + token + "/sendMessage";
+    const url = 'https://api.telegram.org/bot' + token + '/sendMessage';
     const body = JSON.stringify({
       chat_id: chatId,
-      parse_mode: "Markdown",
+      parse_mode: 'Markdown',
       text: message,
     });
 
     request.post(
       {
         url,
-        headers: { "Content-type": "application/json; charset=utf-8" },
+        headers: { 'Content-type': 'application/json; charset=utf-8' },
         body,
       },
       (err) => {
@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
     );
 
     let transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
       auth: {
         user: mailFrom,
         pass: mailPass,
@@ -39,14 +39,14 @@ router.post("/", async (req, res) => {
     await transporter.sendMail({
       from: mailFrom,
       to: mailTo,
-      subject: "Новый заказ",
+      subject: 'Новый заказ',
       text: message,
     });
 
-    res.json({ message: "Sent" });
+    res.json({ message: 'Sent' });
   } catch (error) {
     res.status(500).json({
-      message: "На сервере произошла ошибка. Попробуйте позже",
+      message: 'На сервере произошла ошибка. Попробуйте позже',
     });
   }
 });

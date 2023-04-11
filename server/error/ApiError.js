@@ -6,7 +6,7 @@ class ApiError extends Error {
   }
 
   static UnauthorizedError() {
-    return new ApiError(401, "Пользователь не авторизован.");
+    return new ApiError(401, 'Пользователь не авторизован.');
   }
 
   static badRequest(message) {
@@ -18,7 +18,7 @@ class ApiError extends Error {
   }
 
   static forbidden() {
-    return new ApiError(403, "Нет доступа");
+    return new ApiError(403, 'Нет доступа');
   }
 }
 

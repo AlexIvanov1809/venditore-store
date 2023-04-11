@@ -1,8 +1,8 @@
-import { useState } from "react";
-import cn from "classnames";
-import { IProductImage } from "@/types/productType";
-import styles from "./ImgCarousel.module.css";
-import config from "../../../config/config.json";
+import { useState } from 'react';
+import cn from 'classnames';
+import { IProductImage } from '@/types/productType';
+import styles from './ImgCarousel.module.css';
+import config from '../../../config/config.json';
 
 interface Props {
   images: IProductImage[];
@@ -26,12 +26,12 @@ function ImgCarousel({ images }: Props) {
       </div>
       {images.length > imgIndex && imgIndex !== 0 && (
         <button className={cn(styles.carousel_btn, styles.btn_prev)} onClick={prev}>
-          {"<"}
+          {'<'}
         </button>
       )}
       {images.length > imgIndex && imgIndex !== images.length - 1 && (
         <button className={cn(styles.carousel_btn, styles.btn_next)} onClick={next}>
-          {">"}
+          {'>'}
         </button>
       )}
     </div>
