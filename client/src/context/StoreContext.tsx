@@ -1,4 +1,4 @@
-import { OrderStore, ProductStore, UserStore } from '@/store';
+import { BasketStore, ProductsStore, UserStore } from '@/store';
 import React, { ReactNode, useContext } from 'react';
 
 interface Props {
@@ -7,8 +7,8 @@ interface Props {
 
 interface IRootStore {
   user: UserStore;
-  products: ProductStore;
-  basket: OrderStore;
+  products: ProductsStore;
+  basket: BasketStore;
 }
 
 const RootStoreContext = React.createContext<IRootStore>({} as IRootStore);
@@ -22,8 +22,8 @@ const RootStoreProvider = ({ children }: Props) => {
     <RootStoreContext.Provider
       value={{
         user: new UserStore(),
-        products: new ProductStore(),
-        basket: new OrderStore()
+        products: new ProductsStore(),
+        basket: new BasketStore()
       }}
     >
       {children}

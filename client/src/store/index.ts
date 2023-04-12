@@ -1,5 +1,5 @@
 import UserStore from './UserStore';
-import ProductStore from './ProductStore';
-import OrderStore from './OrderStore';
+import ProductsStore from './ProductsStore';
+import BasketStore from './BasketStore';
 
-export { UserStore, ProductStore, OrderStore };
+export { UserStore, ProductsStore, BasketStore };

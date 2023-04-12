@@ -1,7 +1,7 @@
 import { IBasketItem } from '@/types/basketTypes';
 import { makeAutoObservable } from 'mobx';
 
-export default class OrderStore {
+export default class BasketStore {
   private _basket: IBasketItem[];
 
   constructor() {

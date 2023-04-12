@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { Button } from '../../ui';
+import { Button, IconButton } from '../../ui';
 
 interface Props {
   className: string;
@@ -13,9 +13,9 @@ function OrderCardBtn({ className, bought, quantity, setQuantity, onOrder }: Pro
   return (
     <div className={className}>
       <div>
-        <Button appearance="primary" onClick={() => setQuantity((prev) => Math.max(1, prev - 1))} icon="Minus" />
+        <IconButton appearance="primary" onClick={() => setQuantity((prev) => Math.max(1, prev - 1))} icon="Minus" />
         <span>{quantity}</span>
-        <Button appearance="primary" onClick={() => setQuantity((prev) => prev + 1)} icon="Plus" />
+        <IconButton appearance="primary" onClick={() => setQuantity((prev) => prev + 1)} icon="Plus" />
       </div>
       <Button appearance="primary" onClick={onOrder}>
         {!bought ? 'Buy' : 'add'}

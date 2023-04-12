@@ -2,7 +2,7 @@ import { IProduct, IProductType, SortTypes } from '@/types/productTypes';
 import orderBy from 'lodash.orderby';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-export default class ProductStore {
+export default class ProductsStore {
   private _types: IProductType[];
 
   private _brands: IProductType[];
