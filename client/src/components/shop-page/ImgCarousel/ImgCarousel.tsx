@@ -12,10 +12,10 @@ function ImgCarousel({ images }: Props) {
   const [imgIndex, setImgIndex] = useState(0);
 
   const prev = () => {
-    setImgIndex((prev) => (prev > 0 ? prev - 1 : prev));
+    setImgIndex((prev) => Math.max(0, prev - 1));
   };
   const next = () => {
-    setImgIndex((prev) => (prev < images.length - 1 ? prev + 1 : prev));
+    setImgIndex((prev) => Math.min(images.length - 1, prev + 1));
   };
   return (
     <div className={styles.carousel}>
