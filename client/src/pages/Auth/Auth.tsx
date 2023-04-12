@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { FnOnChange } from '@/types/uiTypes';
 import { AxiosError } from 'axios';
 import styles from './Auth.module.css';
 import { Button, TextInput } from '@/components/ui';
 import authService from '@/http/userAPI';
-import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '@/constants/consts';
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
 
 const Auth = observer(() => {
+  const navigate = useNavigate();
   const location = useLocation();
   const { user } = useRootStore();
   const isLogin = location.pathname === LOGIN_ROUTE;
@@ -26,34 +27,19 @@ const Auth = observer(() => {
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      let data;
-      if (isLogin) {
-        data = await authService.login(authData.email, authData.password);
-      } else {
-        data = await authService.registration(authData.email, authData.password, authData.role);
-      }
+      const data = await (() => {
+        if (isLogin) {
+          return authService.login(authData.email, authData.password);
+        }
+        return authService.registration(authData.email, authData.password, authData.role);
+      })();
+
       user.setUser(data);
-      // navigate(SHOP_ROUTE);
+      navigate(SHOP_ROUTE);
     } catch (e) {
       const errData = (e as AxiosError).response?.data;
       console.log(errData);
     }
-  };
-
-  const onClick = () => {
-    authService
-      .checkAuth()
-      .then((data) => {
-        user.setUser(data);
-      })
-      .catch((e) => e);
-  };
-
-  const logoutClick = () => {
-    authService
-      .logout()
-      .then()
-      .catch((e) => console.log(e));
   };
 
   return (
@@ -79,8 +65,6 @@ const Auth = observer(() => {
           </Button>
         </div>
       </form>
-      <button onClick={onClick}>refresh</button>
-      <button onClick={logoutClick}>logout</button>
     </div>
   );
 });
