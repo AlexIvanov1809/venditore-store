@@ -11,14 +11,14 @@ function TypeBar({ className }: Props) {
   return (
     <div className={cn(className, styles.item_container)}>
       {products.types.map((type) => (
-        <div
+        <button
           className={styles.item}
           key={type?.id}
           onClick={() => products.setSelectedType(type?.id ? type.id : '')}
           data-active={type?.id === products.selectedType}
         >
           {type?.name}
-        </div>
+        </button>
       ))}
     </div>
   );
