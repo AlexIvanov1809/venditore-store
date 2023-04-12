@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Beans, IProduct, IProductPrice } from '@/types/productType';
+import { Beans, IProduct, IProductPrice } from '@/types/productTypes';
 import { FnOnChange } from '@/types/uiTypes';
 import { IBasketItem } from '@/types/basketTypes';
 import styles from './Card.module.css';
@@ -51,8 +51,8 @@ const Card = observer(({ product }: Props) => {
     if (price) {
       const newOrder = {
         id: `${product.id}-${price.weight}`,
-        brand: product.brand?.name,
-        name: `${product.country?.name || ''} ${product.sortName}`,
+        brand: product.brand,
+        name: `${product.country ?? ''} ${product.sortName}`,
         beans: beans.name,
         weight: price.weight,
         value: +price.value * quantity,
@@ -68,19 +68,19 @@ const Card = observer(({ product }: Props) => {
     <div key={product.id} className={styles.card}>
       <div className={styles.product_container}>
         <div>
-          <h4>{product.brand?.name}</h4>
-          <h4>{product.tea_type?.name}</h4>
+          <h4>{product.brand}</h4>
+          <h4>{product.teaType}</h4>
           <h4>
-            {product.country ? `${product.country.name} ` : ''}
+            {product.country ? `${product.country} ` : ''}
             {product.sortName}
           </h4>
         </div>
         <div>
           <ImgCarousel images={product.image} />
         </div>
-        <span>{product.making_method?.name}</span>
-        <span>{product.manufacturing_method?.name}</span>
-        <span>{product.package_type?.name}</span>
+        <span>{product.makingMethod}</span>
+        <span>{product.manufacturingMethod}</span>
+        <span>{product.packageType}</span>
         {product.acidity && product.density && (
           <div className={styles.product_scale}>
             <Scale value={product.acidity} name="Кислотность" />

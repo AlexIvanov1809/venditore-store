@@ -40,21 +40,27 @@ interface IProduct {
   packageTypeId: IProductType['id'] | null;
   image: IProductImage[];
   price: IProductPrice[];
-  type: ProductTypeNames;
-  brand: ProductTypeNames;
-  country: ProductTypeNames | null;
-  making_method: ProductTypeNames | null;
-  manufacturing_method: ProductTypeNames | null;
-  tea_type: ProductTypeNames | null;
-  package_type: ProductTypeNames | null;
+  type: string;
+  brand: string;
+  country: string | null;
+  makingMethod: string | null;
+  manufacturingMethod: string | null;
+  teaType: string | null;
+  packageType: string | null;
 }
 
-type FilterTypesForObject = Pick<
+type SortTypes = Pick<
   IProduct,
-  'type' | 'brand' | 'country' | 'making_method' | 'manufacturing_method' | 'tea_type'
+  | 'type'
+  | 'brand'
+  | 'country'
+  | 'makingMethod'
+  | 'manufacturingMethod'
+  | 'teaType'
+  | 'packageType'
+  | 'sortName'
+  | 'active'
 >;
-
-type FilterTypesPrimitive = Pick<IProduct, 'sortName' | 'active'>;
 
 interface IProductType {
   id: number;
@@ -81,10 +87,6 @@ interface IProductPrice {
   productId?: IProduct['id'];
 }
 
-type ProductTypeNames = {
-  name: string;
-};
-
 type Beans = {
   id: string | number;
   name: string;
@@ -94,16 +96,33 @@ type FilterTypes = {
   [key in keyof IProduct]?: string[];
 };
 
+interface INewProduct {
+  acidity: string;
+  density: string;
+  sortName: string;
+  shortDescription: string;
+  description: string;
+  brandId: string;
+  package: string;
+  typeId: string;
+  countryId: string;
+  makingMethodId: string;
+  manufacturingMethodId: string;
+  teaTypeId: string;
+  packageTypeId: string;
+  price: string;
+  active: boolean;
+}
+
 export {
   IAllProducts,
   IProduct,
   IProductType,
   IProductImage,
   IProductPrice,
-  ProductTypeNames,
   IProductForEdit,
   Beans,
   FilterTypes,
-  FilterTypesForObject,
-  FilterTypesPrimitive
+  SortTypes,
+  INewProduct
 };

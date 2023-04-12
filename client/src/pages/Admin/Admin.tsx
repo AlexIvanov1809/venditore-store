@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { SortProps } from '@/types/uiTypes';
-import { isKeyOfTypeForObj, isKeyOfTypeForPrimitive } from '@/utils/filterTypesValidator';
-import { IProduct } from '@/types/productType';
+import { IProduct } from '@/types/productTypes';
 import styles from './Admin.module.scss';
 import { Button, Loader } from '@/components/ui';
 import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
-import { wayOfSortingItems } from '@/utils';
+import { frontDataAdapter, wayOfSortingItems } from '@/utils';
 import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
 
@@ -26,10 +25,10 @@ const Admin = observer(() => {
       setIsLoading(true);
       httpService
         .fetchProducts()
-        .then((data) => products.setProducts(data.rows))
+        .then((data) => products.setProducts(frontDataAdapter(data.rows)))
         .catch((e) => console.log(e.response.data.message))
         .finally(() => {
-          products.productSortingObj(sortType.type as 'type', sortType.sort);
+          products.productSorting(sortType.type as 'type', sortType.sort);
           setUpdated(false);
           setIsLoading(false);
         });
@@ -38,12 +37,7 @@ const Admin = observer(() => {
 
   useEffect(() => {
     if (Array.isArray(products.products)) {
-      if (isKeyOfTypeForObj(sortType.type)) {
-        products.productSortingObj(sortType.type, sortType.sort);
-      }
-      if (isKeyOfTypeForPrimitive(sortType.type)) {
-        products.productSortingPrim(sortType.type, sortType.sort);
-      }
+      products.productSorting(sortType.type, sortType.sort);
     }
   }, [sortType]);
 

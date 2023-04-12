@@ -7,13 +7,14 @@ import Loader from './components/ui/Loader/Loader';
 import { getFromStorage } from './service/storage.service';
 import NavBar from './components/header/Navbar/Navbar';
 import { useRootStore } from './context/StoreContext';
+import { BASKET_STORAGE_NAME } from './constants/consts';
 
 const App: FC = observer(() => {
   const { user, basket } = useRootStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const productsInBasket = getFromStorage('venditore_basket');
+    const productsInBasket = getFromStorage(BASKET_STORAGE_NAME);
     if (productsInBasket) {
       basket.setOrder(productsInBasket);
     }

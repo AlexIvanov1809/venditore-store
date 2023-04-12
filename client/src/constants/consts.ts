@@ -77,9 +77,9 @@ export const ADMIN_ITEM_FIELDS: AdminItemFields[] = [
   { id: 2, name: 'Бренд', type: 'brand' },
   { id: 3, name: 'Страна', type: 'country' },
   { id: 4, name: 'Сорт или название', type: 'sortName' },
-  { id: 5, name: 'Метод приготовления', type: 'making_method' },
-  { id: 6, name: 'Метод производства', type: 'manufacturing_method' },
-  { id: 7, name: 'Тип чая', type: 'tea_type' },
+  { id: 5, name: 'Метод приготовления', type: 'makingMethod' },
+  { id: 6, name: 'Метод производства', type: 'manufacturingMethod' },
+  { id: 7, name: 'Тип чая', type: 'teaType' },
   { id: 8, name: 'Активный', type: 'active' }
 ];
 

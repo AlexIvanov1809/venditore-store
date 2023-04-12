@@ -5,6 +5,7 @@ import removedPriceIds from './removerPriceIds';
 import wayOfSortingItems from './wayOfSortingItems';
 import validator from './validator';
 import imgAndPriceValidator from './imgAndPriceValidator';
+import frontDataAdapter from './frontDataAdapter';
 
 export {
   imgUploader,
@@ -13,5 +14,6 @@ export {
   removedPriceIds,
   wayOfSortingItems,
   validator,
-  imgAndPriceValidator
+  imgAndPriceValidator,
+  frontDataAdapter
 };

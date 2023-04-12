@@ -3,7 +3,7 @@ import { FnOnChange } from '@/types/uiTypes';
 import styles from './EntitiesEditor.module.css';
 import { Button, TextInput } from '../../ui';
 import DeleteBtn from '../DeleteBtn/DeleteBtn';
-import httpService from '../../../http/productAPI';
+import httpService from '@/http/productAPI';
 import EntityEditorProps from './EntityEditor.props';
 
 function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEditorProps) {

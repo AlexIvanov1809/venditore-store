@@ -1,20 +1,4 @@
-export interface INewProduct {
-  acidity: string;
-  density: string;
-  sortName: string;
-  shortDescription: string;
-  description: string;
-  brandId: string;
-  package: string;
-  typeId: string;
-  countryId: string;
-  makingMethodId: string;
-  manufacturingMethodId: string;
-  teaTypeId: string;
-  packageTypeId: string;
-  price: string;
-  active: boolean;
-}
+import { INewProduct } from '@/types/productTypes';
 
 export default function makeFormDataFile(item: INewProduct, img: (string | File)[]) {
   const formData = new FormData();

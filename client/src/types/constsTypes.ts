@@ -1,5 +1,5 @@
 import { ProductStore } from '@/store';
-import { IProduct } from './productType';
+import { IProduct } from './productTypes';
 
 type EntityTypes = {
   id: number;

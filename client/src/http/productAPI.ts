@@ -1,5 +1,6 @@
-import { IProductForEdit, IProductType } from '@/types/productType';
+import { IProductForEdit, IProductType } from '@/types/productTypes';
 import { $authHost, $host } from './index';
+import { IFetchPayload } from '@/types/httpTypes';
 
 const TYPES_ENDPOINT = 'api/v1/productTypes';
 const PRODUCT_ENDPOINT = 'api/v1/product';
@@ -58,30 +59,13 @@ const httpService = {
     return data;
   },
 
-  async fetchProducts(
-    typeId?: number | string | null,
-    brandId?: string,
-    countryId?: string,
-    makingMethodId?: string,
-    manufacturingMethodId?: string,
-    teaTypeId?: string,
-    packageTypeId?: string,
-    page = 1,
-    limit = 9
-  ) {
-    const { data } = await $host.get(`${PRODUCT_ENDPOINT}`, {
+  async fetchProducts(payload?: IFetchPayload) {
+    const { data } = await $host.get(PRODUCT_ENDPOINT, {
       params: {
-        typeId,
-        brandId,
-        countryId,
-        makingMethodId,
-        manufacturingMethodId,
-        teaTypeId,
-        packageTypeId,
-        page,
-        limit
+        ...payload
       }
     });
+
     return data;
   },
   async fetchOneProduct(id: number | string) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import cn from 'classnames';
-import { FilterTypes } from '@/types/productType';
+import { FilterTypes } from '@/types/productTypes';
 import { FilterFn } from '@/types/uiTypes';
 import styles from './Aside.module.css';
 import { Button } from '../../../ui';

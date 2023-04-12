@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { IProductForEdit, IProductPrice } from '@/types/productType';
+import { IProductForEdit, IProductPrice, INewProduct } from '@/types/productTypes';
 import { ErrorValidation, FnOnChange } from '@/types/uiTypes';
 import styles from './EditItemModule.module.css';
 import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } from '../../ui';
 import AddPriceValue from '../AddPriceValue/AddPriceValue';
-import httpService from '../../../http/productAPI';
-import { makeFormDataFile, imgUploader, removedPriceIds, validator, imgAndPriceValidator } from '../../../utils';
+import httpService from '@/http/productAPI';
+import { makeFormDataFile, imgUploader, removedPriceIds, validator, imgAndPriceValidator } from '@/utils';
 import { LEVEL, DEFAULT, VALIDATOR_CONFIG } from '@/constants/consts';
 import EditItemModuleProps from './EditItemModule.props';
 import { useRootStore } from '@/context/StoreContext';
-import { INewProduct } from '@/utils/makeFormDataFile';
 
 function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
   const { products } = useRootStore();

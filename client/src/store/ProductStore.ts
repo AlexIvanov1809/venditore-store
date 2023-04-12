@@ -1,4 +1,4 @@
-import { FilterTypesForObject, FilterTypesPrimitive, IProduct, IProductType } from '@/types/productType';
+import { IProduct, IProductType, SortTypes } from '@/types/productTypes';
 import orderBy from 'lodash.orderby';
 import { makeAutoObservable, runInAction } from 'mobx';
 
@@ -132,13 +132,7 @@ export default class ProductStore {
     this._selectedPackageType = packageType;
   }
 
-  productSortingObj(type: keyof FilterTypesForObject, sort: 'asc' | 'desc') {
-    if (this._products && Array.isArray(this._products)) {
-      this._products = orderBy(this._products, (p) => p[type]?.name, sort);
-    }
-  }
-
-  productSortingPrim(type: keyof FilterTypesPrimitive, sort: 'asc' | 'desc') {
+  productSorting(type: keyof SortTypes, sort: 'asc' | 'desc') {
     if (this._products) {
       this._products = orderBy(this._products, type, sort);
     }

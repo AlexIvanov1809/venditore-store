@@ -1,4 +1,4 @@
-import { FilterTypesForObject, FilterTypesPrimitive } from '@/types/productType';
+import { FilterTypesForObject, FilterTypesPrimitive } from '@/types/productTypes';
 
 function isKeyOfTypeForObj(type: string): type is keyof FilterTypesForObject {
   const keys = ['type', 'brand', 'country', 'making_method', 'manufacturing_method', 'tea_type'];

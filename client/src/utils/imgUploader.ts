@@ -1,4 +1,4 @@
-import { IProduct } from '@/types/productType';
+import { IProduct } from '@/types/productTypes';
 import httpService from '../http/productAPI';
 import makeFormDataFile from './makeFormDataFile';
 

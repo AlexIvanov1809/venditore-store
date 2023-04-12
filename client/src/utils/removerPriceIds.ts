@@ -1,4 +1,4 @@
-import { IProductPrice } from '@/types/productType';
+import { IProductPrice } from '@/types/productTypes';
 
 export default function removedPriceIds(newPrice: IProductPrice[], price: IProductPrice[]) {
   const arr = [...newPrice, ...price];

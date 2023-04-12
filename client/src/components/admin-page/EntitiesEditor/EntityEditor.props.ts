@@ -1,5 +1,5 @@
-import { IProductType } from "@/types/productType";
-import { DeleteFn, HideFn } from "@/types/uiTypes";
+import { IProductType } from '@/types/productTypes';
+import { DeleteFn, HideFn } from '@/types/uiTypes';
 
 export default interface EntityEditorProps {
   label: string;

@@ -6,6 +6,7 @@ import { TypeBar, Aside, CardList, Pagination } from '@/components/shop-page';
 import httpService from '@/http/productAPI';
 import { ENTITY_TYPES } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
+import { frontDataAdapter } from '@/utils';
 
 const Shop = observer(() => {
   const { products } = useRootStore();
@@ -30,19 +31,19 @@ const Shop = observer(() => {
 
   useEffect(() => {
     httpService
-      .fetchProducts(
-        products.selectedType,
-        products.selectedBrand,
-        products.selectedCountry,
-        products.selectedMakingMethod,
-        products.selectedManufacturingMethod,
-        products.selectedTeaType,
-        products.selectedPackageType,
-        products.page,
-        products.limit
-      )
+      .fetchProducts({
+        typeId: products.selectedType,
+        brandId: products.selectedBrand,
+        countryId: products.selectedCountry,
+        makingMethodId: products.selectedMakingMethod,
+        manufacturingMethodId: products.selectedManufacturingMethod,
+        teaTypeId: products.selectedTeaType,
+        packageTypeId: products.selectedPackageType,
+        page: products.page,
+        limit: products.limit
+      })
       .then((data) => {
-        products.setProducts(data.rows);
+        products.setProducts(frontDataAdapter(data.rows));
         products.setTotalCount(data.count / 2);
       })
       .catch((e) => console.log(e.response.data.message));

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import cn from 'classnames';
-import { IProductType } from '@/types/productType';
+import { IProductType } from '@/types/productTypes';
 import { HideFn } from '@/types/uiTypes';
 import { ProdGetter, ProdSetters } from '@/types/constsTypes';
 import styles from './EntityContainer.module.css';
 import { Button } from '../../ui';
 import EntitiesEditor from '../EntitiesEditor/EntitiesEditor';
-import httpService from '../../../http/productAPI';
+import httpService from '@/http/productAPI';
 import { useRootStore } from '@/context/StoreContext';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { IProduct } from './productType';
+import { IProduct, SortTypes } from './productTypes';
 
 type FnOnChange = (data: { name: string; value: boolean | string | number }, id?: number) => void;
 
@@ -15,7 +15,7 @@ type HideFn = (data?: boolean) => void;
 type DeleteFn = (id: string | number) => void;
 
 type SortProps = {
-  type: keyof IProduct;
+  type: keyof SortTypes;
   sort: 'asc' | 'desc';
 };
 

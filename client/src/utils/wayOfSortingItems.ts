@@ -1,4 +1,4 @@
-import { IProduct } from '@/types/productType';
+import { IProduct } from '@/types/productTypes';
 import { SortProps } from '@/types/uiTypes';
 
 export default function wayOfSortingItems(type: keyof IProduct, state: SortProps): SortProps {

@@ -1,4 +1,4 @@
-import { IProductPrice } from '@/types/productType';
+import { IProductPrice } from '@/types/productTypes';
 
 type DataImage = string | File;
 
