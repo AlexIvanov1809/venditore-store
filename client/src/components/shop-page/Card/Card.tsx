@@ -47,7 +47,7 @@ const Card = observer(({ product }: Props) => {
   };
 
   const orderHandler = () => {
-    const inBasket = basket.order;
+    const productsInBasket = basket.order;
     if (price) {
       const newOrder = {
         id: `${product.id}-${price.weight}`,
@@ -58,7 +58,7 @@ const Card = observer(({ product }: Props) => {
         value: +price.value * quantity,
         quantity
       };
-      const filtered = inBasket.filter((item) => item?.id !== newOrder.id);
+      const filtered = productsInBasket.filter((item) => item?.id !== newOrder.id);
       filtered.push(newOrder);
       setOrder(filtered);
     }
@@ -90,7 +90,7 @@ const Card = observer(({ product }: Props) => {
         <p>{product.shortDescription}</p>
         <p>{product.description}</p>
         <div>
-          <SelectField label="Выберете помол" options={BEANS} value={beans.id} onChange={grindType} />
+          <SelectField label="Выберите помол" options={BEANS} value={beans.id} onChange={grindType} />
         </div>
         <div className={styles.price_buy}>
           <div className={styles.price}>
