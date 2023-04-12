@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { IProduct } from '@/types/productTypes';
-import styles from './AdminItem.module.css';
 import httpService from '@/http/productAPI';
 import { EditItemModule, DeleteBtn } from '@/components/admin-page';
 import { Loader, Button, Scale, IconButton } from '@/components/ui';
@@ -11,6 +10,7 @@ import { ADMIN_ROUTE, ENTITY_TYPES } from '@/constants/consts';
 import config from '@/config/config.json';
 import { useRootStore } from '@/context/StoreContext';
 import { frontDataAdapter } from '@/utils';
+import styles from './AdminItem.module.css';
 
 const AdminItem = observer(() => {
   const navigate = useNavigate();

@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { BASKET_STORAGE_NAME } from '@/constants/consts';
 import { BasketChangeHandler, BasketSubmitFn } from '@/types/basketTypes';
-import styles from './Basket.module.css';
 import { Button } from '@/components/ui';
 import { OrderSubmit, BasketItem } from '@/components/basket-page';
 import { sendOrder } from '@/http/orderAPI';
 import { messageConverter } from '@/utils';
 import { useRootStore } from '@/context/StoreContext';
 import { setToStorage } from '@/service/storage.service';
+import styles from './Basket.module.css';
 
 const Basket = observer(() => {
   const navigate = useNavigate();

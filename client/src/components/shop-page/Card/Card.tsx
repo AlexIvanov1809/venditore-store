@@ -3,12 +3,12 @@ import { observer } from 'mobx-react-lite';
 import { Beans, IProduct, IProductPrice } from '@/types/productTypes';
 import { FnOnChange } from '@/types/uiTypes';
 import { IBasketItem } from '@/types/basketTypes';
-import styles from './Card.module.css';
-import { Scale, CardPrice, SelectField } from '../../ui';
-import { ImgCarousel, OrderCardBtn } from '..';
 import { useRootStore } from '@/context/StoreContext';
 import { setToStorage } from '@/service/storage.service';
 import { BEANS } from '@/constants/consts';
+import styles from './Card.module.css';
+import { Scale, CardPrice, SelectField } from '../../ui';
+import { ImgCarousel, OrderCardBtn } from '..';
 
 interface Props {
   product: IProduct;

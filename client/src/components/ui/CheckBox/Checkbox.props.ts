@@ -1,5 +1,5 @@
-import { ErrorMsg, FnOnChange } from "@/types/uiTypes";
-import { ReactNode } from "react";
+import { ErrorMsg, FnOnChange } from '@/types/uiTypes';
+import { ReactNode } from 'react';
 
 export interface CheckboxProps {
   error?: ErrorMsg;

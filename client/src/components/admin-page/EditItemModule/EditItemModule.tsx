@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { IProductForEdit, IProductPrice, INewProduct } from '@/types/productTypes';
 import { ErrorValidation, FnOnChange } from '@/types/uiTypes';
-import styles from './EditItemModule.module.css';
-import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } from '../../ui';
-import AddPriceValue from '../AddPriceValue/AddPriceValue';
 import httpService from '@/http/productAPI';
 import { makeFormDataFile, imgUploader, removedPriceIds, validator, imgAndPriceValidator } from '@/utils';
 import { LEVEL, DEFAULT, VALIDATOR_CONFIG } from '@/constants/consts';
-import EditItemModuleProps from './EditItemModule.props';
 import { useRootStore } from '@/context/StoreContext';
+import styles from './EditItemModule.module.css';
+import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } from '../../ui';
+import AddPriceValue from '../AddPriceValue/AddPriceValue';
+import EditItemModuleProps from './EditItemModule.props';
 
 function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   const { products } = useRootStore();
@@ -25,23 +25,23 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   useEffect(() => {
     if (product) {
       product.image.forEach((image) => {
-        setImg((img) => img.map((i, ind) => (ind === image.row ? image.name : i)));
+        setImg((imgs) => imgs.map((i, ind) => (ind === image.row ? image.name : i)));
       });
     }
   }, [product]);
 
-  useEffect(() => {
-    validate();
-  }, [data, price, img]);
-
   const validate = () => {
-    const errors = {
+    const validErrors = {
       ...validator(data, VALIDATOR_CONFIG),
       ...imgAndPriceValidator(price, 'price'),
       ...imgAndPriceValidator(img, 'image')
     };
-    setErrors(errors as ErrorValidation);
+    setErrors(validErrors as ErrorValidation);
   };
+
+  useEffect(() => {
+    validate();
+  }, [data, price, img]);
 
   const changeHandle: FnOnChange = ({ name, value }) => {
     setData((prevState) => ({ ...prevState, [name]: value }));
@@ -52,7 +52,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   };
 
   const changeImgHandle = (index: number, file: File | string): void => {
-    setImg((img) => img.map((i, ind) => (ind === index ? file : i)));
+    setImg((imgs) => imgs.map((i, ind) => (ind === index ? file : i)));
   };
 
   const addPrice = (e: React.MouseEvent<HTMLButtonElement>): void => {

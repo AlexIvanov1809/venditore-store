@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import styles from './Navbar.module.scss';
 import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
+import styles from './Navbar.module.scss';
 
 const Navbar = observer(() => {
   const { basket } = useRootStore();

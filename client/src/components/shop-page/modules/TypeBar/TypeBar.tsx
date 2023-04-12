@@ -1,7 +1,7 @@
 import cn from 'classnames';
-import styles from './TypeBar.module.scss';
 import { useRootStore } from '@/context/StoreContext';
 import { Button } from '@/components/ui';
+import styles from './TypeBar.module.scss';
 
 interface Props {
   className: string;

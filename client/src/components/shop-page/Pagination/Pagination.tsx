@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import cn from 'classnames';
-import styles from './Pagination.module.css';
 import { useRootStore } from '@/context/StoreContext';
+import styles from './Pagination.module.css';
 
 interface Props {
   className: string;

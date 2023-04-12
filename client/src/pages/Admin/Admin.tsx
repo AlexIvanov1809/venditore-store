@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { SortProps } from '@/types/uiTypes';
 import { IProduct } from '@/types/productTypes';
-import styles from './Admin.module.scss';
 import { IconButton, Loader } from '@/components/ui';
 import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
 import { frontDataAdapter, wayOfSortingItems } from '@/utils';
 import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
+import styles from './Admin.module.scss';
 
 const Admin = observer(() => {
   const { products } = useRootStore();

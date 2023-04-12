@@ -3,11 +3,11 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { FnOnChange } from '@/types/uiTypes';
 import { AxiosError } from 'axios';
-import styles from './Auth.module.css';
 import { Button, TextInput } from '@/components/ui';
 import authService from '@/http/userAPI';
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
+import styles from './Auth.module.css';
 
 const Auth = observer(() => {
   const navigate = useNavigate();

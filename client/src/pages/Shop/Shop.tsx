@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import styles from './Shop.module.css';
 import { Loader } from '@/components/ui';
 import { TypeBar, Aside, CardList, Pagination } from '@/components/shop-page';
 import httpService from '@/http/productAPI';
 import { ENTITY_TYPES } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
 import { frontDataAdapter } from '@/utils';
+import styles from './Shop.module.css';
 
 const Shop = observer(() => {
   const { products } = useRootStore();

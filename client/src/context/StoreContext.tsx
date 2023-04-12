@@ -17,7 +17,7 @@ export function useRootStore() {
   return useContext(RootStoreContext);
 }
 
-const RootStoreProvider = ({ children }: Props) => {
+function RootStoreProvider({ children }: Props) {
   return (
     <RootStoreContext.Provider
       value={{
@@ -29,6 +29,6 @@ const RootStoreProvider = ({ children }: Props) => {
       {children}
     </RootStoreContext.Provider>
   );
-};
+}
 
 export default RootStoreProvider;

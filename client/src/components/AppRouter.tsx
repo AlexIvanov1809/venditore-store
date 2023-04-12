@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { authRoutes, publicRoutes } from '../routes';
 import { useRootStore } from '@/context/StoreContext';
+import { authRoutes, publicRoutes } from '../routes';
 
 const AppRouter = observer(() => {
   const { user } = useRootStore();

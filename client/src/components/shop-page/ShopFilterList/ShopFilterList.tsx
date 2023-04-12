@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { IProduct } from '@/types/productTypes';
 import { FilterFn, FnOnChange } from '@/types/uiTypes';
 import { ProdGetter } from '@/types/constsTypes';
+import { useRootStore } from '@/context/StoreContext';
 import styles from './ShopFilterList.module.css';
 import { CheckBox } from '../../ui';
-import { useRootStore } from '@/context/StoreContext';
 
 interface Props {
   refresh: boolean;

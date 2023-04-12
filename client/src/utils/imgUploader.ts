@@ -2,14 +2,13 @@ import { IProduct } from '@/types/productTypes';
 import httpService from '../http/productAPI';
 import makeFormDataFile from './makeFormDataFile';
 
-export default function imgUploader(img: (string | File)[], product: IProduct) {
+export default function imgUploader(imgs: (string | File)[], product: IProduct) {
   const imgIds: (null | number)[] = [null, null, null];
-  imgIds[0];
   product.image.forEach((img) => {
     imgIds[img.row] = img.id;
   });
 
-  img.forEach(async (file, index) => {
+  imgs.forEach(async (file, index) => {
     try {
       if (typeof file === 'object') {
         const formData = makeFormDataFile(null, [file]);

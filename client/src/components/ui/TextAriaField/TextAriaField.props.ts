@@ -1,4 +1,4 @@
-import { ErrorMsg, FnOnChange } from "@/types/uiTypes";
+import { ErrorMsg, FnOnChange } from '@/types/uiTypes';
 
 export default interface TextAreaFieldProps {
   label: string;

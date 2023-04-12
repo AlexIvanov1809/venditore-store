@@ -20,4 +20,5 @@ export default function imgAndPriceValidator(data: DataImage[] | IProductPrice[]
   if (type === 'image') {
     if (errors.img) return { image: 'Нужно прикрепить фото' };
   } else if (errors.price) return { price: 'Поле необходимое для заполнения' };
+  return;
 }

@@ -1,6 +1,6 @@
 import cn from 'classnames';
-import { SelectField, TextInput, Button } from '../../ui';
 import { WEIGHT } from '@/constants/consts';
+import { SelectField, TextInput, Button } from '../../ui';
 import AddPriceValueProps from './AddPriceValue.props';
 
 function AddPriceValue({ price, className, onChange, removePrice, error }: AddPriceValueProps) {

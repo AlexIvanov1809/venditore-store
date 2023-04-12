@@ -1,6 +1,6 @@
 import { IProductForEdit, IProductType } from '@/types/productTypes';
-import { $authHost, $host } from './index';
 import { IFetchPayload } from '@/types/httpTypes';
+import { $authHost, $host } from './index';
 
 const TYPES_ENDPOINT = 'v1/productTypes';
 const PRODUCT_ENDPOINT = 'v1/product';

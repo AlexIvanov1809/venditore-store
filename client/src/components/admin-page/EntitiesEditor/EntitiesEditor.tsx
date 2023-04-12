@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { FnOnChange } from '@/types/uiTypes';
+import httpService from '@/http/productAPI';
 import styles from './EntitiesEditor.module.css';
 import { Button, TextInput } from '../../ui';
 import DeleteBtn from '../DeleteBtn/DeleteBtn';
-import httpService from '@/http/productAPI';
 import EntityEditorProps from './EntityEditor.props';
 
 function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEditorProps) {
