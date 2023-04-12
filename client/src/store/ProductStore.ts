@@ -17,7 +17,7 @@ export default class ProductStore {
 
   private _packageTypes: IProductType[];
 
-  private _products: IProduct[] | IProduct;
+  private _products: IProduct[];
 
   private _selectedType: string | number;
 
