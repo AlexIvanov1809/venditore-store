@@ -19,19 +19,19 @@ const Aside = observer(({ className }: Props) => {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    ENTITY_TYPES.forEach((t) => {
-      if (t.endpoint !== 'Type') {
-        setData((prev) => ({ ...prev, [t.filter]: [] }));
+    ENTITY_TYPES.forEach((type) => {
+      if (type.endpoint !== 'Type') {
+        setData((prev) => ({ ...prev, [type.filter]: [] }));
       }
     });
   }, [refresh]);
 
-  const sendRequest = () => {
+  const acceptFiltration = () => {
     if (data) {
-      ENTITY_TYPES.forEach((t) => {
-        if (t.setSelected !== 'setSelectedType') {
-          const select = data[t.filter]?.join('-');
-          products[t.setSelected](select || '');
+      ENTITY_TYPES.forEach((type) => {
+        if (type.setSelected !== 'setSelectedType') {
+          const select = data[type.filter]?.join('-');
+          products[type.setSelected](select || '');
         }
       });
     }
@@ -59,7 +59,7 @@ const Aside = observer(({ className }: Props) => {
       <Button appearance="danger" onClick={() => setRefresh(!refresh)}>
         Сбросить
       </Button>
-      <Button appearance="primary" onClick={sendRequest}>
+      <Button appearance="primary" onClick={acceptFiltration}>
         Применить
       </Button>
     </aside>
