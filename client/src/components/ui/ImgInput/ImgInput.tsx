@@ -5,7 +5,7 @@ import noPic from '../../../assets/noImg.jpg';
 import ImgInputProps from './ImgInput.props';
 import config from '../../../config/config.json';
 
-function ImgInput({ name, index, onChange, isRemoved, error, picName }: ImgInputProps) {
+function ImgInput({ name, index, onChange, error, picName }: ImgInputProps) {
   const [imgSrc, setImgSrc] = useState<string>(noPic);
   const reader = new FileReader();
   reader.onloadend = () => {
@@ -47,11 +47,9 @@ function ImgInput({ name, index, onChange, isRemoved, error, picName }: ImgInput
           onChange={handleChange}
           accept="image/*,.png,.jpg,.jpeg,.webp,"
         />
-        {isRemoved && (
-          <div className={styles.img_btn} role="button" onClick={handleRemoveImage}>
-            X
-          </div>
-        )}
+        <div className={styles.img_btn} role="button" onClick={handleRemoveImage}>
+          X
+        </div>
       </div>
       {error && <p className="error">{error}</p>}
     </div>

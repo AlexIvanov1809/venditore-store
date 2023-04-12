@@ -22,11 +22,13 @@ const AdminItem = observer(() => {
   const [updated, setUpdated] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log('start');
-    if ((products && products.products) || !Array.isArray(products.products) || updated) {
+    if (products.products.length === 0 || updated) {
       (async () => {
         try {
           ENTITY_TYPES.forEach(async (prop) => {
+            if (products[prop.getter].length) {
+              return;
+            }
             const data = await httpService.fetchEntityItems(prop.endpoint);
             products[prop.setter](data);
           });
@@ -84,8 +86,8 @@ const AdminItem = observer(() => {
           </h4>
         </div>
         <div>
-          {item.image.map((i) => (
-            <img key={i.id} width={120} src={config.apiURL + i.name} alt="item" />
+          {item.image.map((img) => (
+            <img key={img.id} width={120} src={config.apiURL + img.name} alt="item" />
           ))}
         </div>
         <span>{item.makingMethod}</span>
@@ -99,10 +101,10 @@ const AdminItem = observer(() => {
         <span>{item.packageType}</span>
         <p>{item.shortDescription}</p>
         <p>{item.description}</p>
-        {item.price.map((p) => (
-          <div key={p.id}>
-            <div>{p.weight}</div>
-            <div>{p.value} &#8381;</div>
+        {item.price.map((price) => (
+          <div key={price.id}>
+            <div>{price.weight}</div>
+            <div>{price.value} &#8381;</div>
           </div>
         ))}
         <div>{item.active ? 'true' : 'false'}</div>
@@ -111,7 +113,7 @@ const AdminItem = observer(() => {
           <IconButton appearance="primary" onClick={editHandle} icon="Edit" />
         </div>
       </div>
-      {editing && <EditItemModule product={item} updated={setUpdated} onHide={editHandle} />}
+      {editing && <EditItemModule product={item} onUpdated={setUpdated} onHide={editHandle} />}
     </div>
   );
 });

@@ -10,7 +10,7 @@ import { LEVEL, DEFAULT, VALIDATOR_CONFIG } from '@/constants/consts';
 import EditItemModuleProps from './EditItemModule.props';
 import { useRootStore } from '@/context/StoreContext';
 
-function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
+function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   const { products } = useRootStore();
   function initialState() {
     return product?.price || [{ id: Date.now(), weight: '', value: '' }];
@@ -88,7 +88,7 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
         const prod = { ...data, price: JSON.stringify(filteredPrice) } as IProductForEdit;
         await httpService.editProduct(prod);
         onHide(false);
-        updated(true);
+        onUpdated(true);
       } catch (e) {
         console.log(e);
       }
@@ -98,7 +98,7 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
         const formData = makeFormDataFile(items, img);
         await httpService.createProduct(formData);
         onHide(false);
-        updated(true);
+        onUpdated(true);
       } catch (e) {
         console.log(e);
       }
@@ -118,7 +118,6 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
                     name={`img${index}`}
                     index={index}
                     onChange={changeImgHandle}
-                    remove
                     picName={item}
                     error={errors.image}
                   />

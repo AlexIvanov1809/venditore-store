@@ -5,5 +5,5 @@ import { Dispatch, SetStateAction } from 'react';
 export default interface EditItemModuleProps {
   product?: IProduct;
   onHide: HideFn;
-  updated: Dispatch<SetStateAction<boolean>>;
+  onUpdated: Dispatch<SetStateAction<boolean>>;
 }
