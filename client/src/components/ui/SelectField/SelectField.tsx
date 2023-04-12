@@ -3,9 +3,9 @@ import cn from 'classnames';
 import styles from './SelectField.module.css';
 import SelectFieldProps from './SelectField.props';
 
-function SelectField({ label, value, onChange, defaultOption, options, error, name, _id }: SelectFieldProps) {
+function SelectField({ label, value, onChange, defaultOption, options, error, name, id }: SelectFieldProps) {
   const handleChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange({ name: target.name, value: target.value }, _id);
+    onChange({ name: target.name, value: target.value, id });
   };
 
   const className = cn(styles.select_field, { error });

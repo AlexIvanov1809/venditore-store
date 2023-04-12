@@ -7,16 +7,16 @@ function AddPriceValue({ price, className, onChange, removePrice, error }: AddPr
   const priceClassName = cn(className, { error });
   return (
     <>
-      <div key={price.id} className={priceClassName}>
+      <div className={priceClassName}>
         <SelectField
-          _id={price.id}
+          id={price.id}
           value={price.weight}
           name="weight"
           label="Вес"
           options={WEIGHT}
           onChange={onChange}
         />
-        <TextInput _id={price.id} name="value" value={price.value} onChange={onChange} label="Цена" />
+        <TextInput id={price.id} name="value" value={price.value} onChange={onChange} label="Цена" />
         <Button appearance="primary" onClick={(e) => removePrice(e, price.id)}>
           Удалить
         </Button>

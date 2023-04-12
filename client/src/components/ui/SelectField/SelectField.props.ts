@@ -1,4 +1,4 @@
-import { ErrorMsg, FnOnChange, Options } from "@/types/uiTypes";
+import { ErrorMsg, FnOnChange, Options } from '@/types/uiTypes';
 
 export default interface SelectFieldProps {
   label: string;
@@ -8,5 +8,5 @@ export default interface SelectFieldProps {
   options: (Options | undefined)[];
   error?: ErrorMsg;
   name?: string;
-  _id?: number;
+  id?: number;
 }

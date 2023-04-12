@@ -1,4 +1,4 @@
-import { ErrorMsg, FnOnChange } from "@/types/uiTypes";
+import { ErrorMsg, FnOnChange } from '@/types/uiTypes';
 
 export default interface TextInputProps {
   label?: string;
@@ -8,6 +8,6 @@ export default interface TextInputProps {
   error?: ErrorMsg;
   placeholder?: string;
   className?: string;
-  _id?: number;
-  type?: HTMLInputElement["type"];
+  id?: number;
+  type?: HTMLInputElement['type'];
 }

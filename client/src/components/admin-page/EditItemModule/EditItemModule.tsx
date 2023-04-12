@@ -43,7 +43,7 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
     setData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const changePrice: FnOnChange = ({ name, value }, id) => {
+  const changePrice: FnOnChange = ({ name, value, id }) => {
     setPrice(price.map((p) => (p.id === id ? { ...p, [name]: value } : p)));
   };
 

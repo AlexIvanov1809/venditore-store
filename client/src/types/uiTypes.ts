@@ -1,6 +1,6 @@
 import { IProduct, SortTypes } from './productTypes';
 
-type FnOnChange = (data: { name: string; value: boolean | string | number }, id?: number) => void;
+type FnOnChange = (data: { name: string; value: boolean | string | number; id?: number }) => void;
 
 type ErrorMsg = string;
 
