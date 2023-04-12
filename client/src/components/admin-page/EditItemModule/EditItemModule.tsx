@@ -12,9 +12,13 @@ import { useRootStore } from '@/context/StoreContext';
 
 function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
   const { products } = useRootStore();
+  function initialState() {
+    return product?.price || [{ id: Date.now(), weight: '', value: '' }];
+  }
+
   const [data, setData] = useState(product || DEFAULT);
   const [img, setImg] = useState<(string | File)[]>(['', '', '']);
-  const [price, setPrice] = useState<IProductPrice[]>(product?.price || [{ id: Date.now(), weight: '', value: '' }]);
+  const [price, setPrice] = useState<IProductPrice[]>(initialState);
   const [removedPrice, setRemovedPrice] = useState(false);
   const [errors, setErrors] = useState<ErrorValidation>({});
 
@@ -64,38 +68,39 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
 
   const submitHandle = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (Object.keys(errors).length === 0) {
-      const filteredPrice = price.filter((p) => p.weight && p.value);
-      if (product) {
-        if (removedPrice) {
-          const removedPriceId = removedPriceIds(price, product.price);
-          removedPriceId.forEach((id) => {
-            try {
-              httpService.removePriceProduct(id);
-            } catch (e) {
-              console.log(e);
-            }
-          });
-        }
-        try {
-          imgUploader(img, product);
-          const prod = { ...data, price: JSON.stringify(filteredPrice) } as IProductForEdit;
-          await httpService.editProduct(prod);
-          onHide(false);
-          updated(true);
-        } catch (e) {
-          console.log(e);
-        }
-      } else {
-        try {
-          const items = { ...data, price: JSON.stringify(filteredPrice) } as INewProduct;
-          const formData = makeFormDataFile(items, img);
-          await httpService.createProduct(formData);
-          onHide(false);
-          updated(true);
-        } catch (e) {
-          console.log(e);
-        }
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+    const filteredPrice = price.filter((p) => p.weight && p.value);
+    if (product) {
+      if (removedPrice) {
+        const removedPriceId = removedPriceIds(price, product.price);
+        removedPriceId.forEach((id) => {
+          try {
+            httpService.removePriceProduct(id);
+          } catch (e) {
+            console.log(e);
+          }
+        });
+      }
+      try {
+        imgUploader(img, product);
+        const prod = { ...data, price: JSON.stringify(filteredPrice) } as IProductForEdit;
+        await httpService.editProduct(prod);
+        onHide(false);
+        updated(true);
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      try {
+        const items = { ...data, price: JSON.stringify(filteredPrice) } as INewProduct;
+        const formData = makeFormDataFile(items, img);
+        await httpService.createProduct(formData);
+        onHide(false);
+        updated(true);
+      } catch (e) {
+        console.log(e);
       }
     }
   };
