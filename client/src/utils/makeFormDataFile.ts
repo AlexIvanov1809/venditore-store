@@ -1,6 +1,6 @@
 import { INewProduct } from '@/types/productTypes';
 
-export default function makeFormDataFile(item: INewProduct, img: (string | File)[]) {
+export default function makeFormDataFile(item: INewProduct | null, img: (string | File)[]) {
   const formData = new FormData();
   if (img) {
     img.forEach((i) => {

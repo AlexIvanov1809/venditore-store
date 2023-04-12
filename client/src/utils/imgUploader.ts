@@ -3,34 +3,27 @@ import httpService from '../http/productAPI';
 import makeFormDataFile from './makeFormDataFile';
 
 export default function imgUploader(img: (string | File)[], product: IProduct) {
-  const imgIds: (string | number)[] = ['', '', ''];
+  const imgIds: (null | number)[] = [null, null, null];
   imgIds[0];
   product.image.forEach((img) => {
     imgIds[img.row] = img.id;
   });
 
-  img.forEach((file, index) => {
-    if (imgIds[index] && typeof file === 'object') {
-      const formData = makeFormDataFile(null, [file]);
-      httpService
-        .editProductImage(imgIds[index], formData)
-        .then((data) => console.log(data))
-        .catch((e) => console.log(e));
-    }
-
-    if (!imgIds[index] && typeof file === 'object') {
-      const formData = makeFormDataFile(null, [file]);
-      httpService
-        .createProductImage(product.id, index, formData)
-        .then((data) => console.log(data))
-        .catch((e) => console.log(e.message));
-    }
-
-    if (imgIds[index] && !file) {
-      httpService
-        .removeProductImage(imgIds[index])
-        .then((data) => console.log(data))
-        .catch((e) => console.log(e.message));
+  img.forEach(async (file, index) => {
+    try {
+      if (typeof file === 'object') {
+        const formData = makeFormDataFile(null, [file]);
+        if (imgIds[index]) {
+          await httpService.editProductImage(imgIds[index] as number, formData);
+        } else {
+          await httpService.createProductImage(product.id, index, formData);
+        }
+      }
+      if (imgIds[index] && !file) {
+        await httpService.removeProductImage(imgIds[index] as number);
+      }
+    } catch (e) {
+      console.log(e);
     }
   });
 }

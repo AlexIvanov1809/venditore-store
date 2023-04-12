@@ -20,7 +20,7 @@ const Basket = observer(() => {
   useEffect(() => {
     setInBasket(basket.order);
     setToStorage(basket.order);
-  }, [basket, basket.order]);
+  }, [basket.order]);
 
   const changeHandler: BasketChangeHandler = (id, action) => {
     switch (action) {
