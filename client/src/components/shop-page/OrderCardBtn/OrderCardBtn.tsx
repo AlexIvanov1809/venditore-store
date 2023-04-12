@@ -13,11 +13,7 @@ function OrderCardBtn({ className, bought, quantity, setQuantity, onOrder }: Pro
   return (
     <div className={className}>
       <div>
-        <Button
-          appearance="primary"
-          onClick={() => setQuantity((prev) => (prev - 1 !== 0 ? prev - 1 : prev))}
-          icon="Minus"
-        />
+        <Button appearance="primary" onClick={() => setQuantity((prev) => Math.max(1, prev - 1))} icon="Minus" />
         <span>{quantity}</span>
         <Button appearance="primary" onClick={() => setQuantity((prev) => prev + 1)} icon="Plus" />
       </div>
