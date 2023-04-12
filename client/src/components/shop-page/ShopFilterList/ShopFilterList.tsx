@@ -17,7 +17,6 @@ interface Props {
 function ShopFilterList({ refresh, label, list, onChange, filterType }: Props) {
   const { products } = useRootStore();
   const [data, setData] = useState<null | { [key: string]: boolean }>(null);
-  const [isChanged, setIsChanged] = useState(true);
 
   useEffect(() => {
     products[list].forEach((prodType) => {
@@ -36,12 +35,11 @@ function ShopFilterList({ refresh, label, list, onChange, filterType }: Props) {
     }
 
     onChange(filterType, filterList);
-  }, [isChanged]);
+  }, [data]);
 
   const changeHandler: FnOnChange = ({ name, value }) => {
     if (typeof value === 'boolean') {
       setData((prev) => ({ ...prev, [name]: value }));
-      setIsChanged(!isChanged);
     }
   };
   return (
