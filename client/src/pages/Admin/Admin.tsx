@@ -23,15 +23,18 @@ const Admin = observer(() => {
   useEffect(() => {
     if (updated) {
       setIsLoading(true);
-      httpService
-        .fetchProducts()
-        .then((data) => products.setProducts(frontDataAdapter(data.rows)))
-        .catch((e) => console.log(e.response.data.message))
-        .finally(() => {
+      (async () => {
+        try {
+          const data = await httpService.fetchProducts();
+          products.setProducts(frontDataAdapter(data.rows));
+        } catch (e) {
+          console.log(e);
+        } finally {
           products.productSorting(sortType.type as 'type', sortType.sort);
           setUpdated(false);
           setIsLoading(false);
-        });
+        }
+      })();
     }
   }, [products, updated]);
 

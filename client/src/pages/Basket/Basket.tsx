@@ -42,27 +42,28 @@ const Basket = observer(() => {
     }
   };
 
-  const submitHandler: BasketSubmitFn = (e, orderData) => {
+  const submitHandler: BasketSubmitFn = async (e, orderData) => {
     e.preventDefault();
-    let total = 0;
-    inBasket.forEach((i) => {
-      total += i ? i.value : 0;
-    });
+    try {
+      let total = 0;
+      inBasket.forEach((i) => {
+        total += i ? i.value : 0;
+      });
 
-    const message = messageConverter({
-      ...orderData,
-      items: inBasket,
-      total,
-      id: Date.now()
-    });
+      const message = messageConverter({
+        ...orderData,
+        items: inBasket,
+        total,
+        id: Date.now()
+      });
 
-    sendOrder(message)
-      .then(() => {
-        basket.setOrder([]);
-        localStorage.removeItem(BASKET_STORAGE_NAME);
-        navigate('/');
-      })
-      .catch((e) => console.log(e.response.data.message));
+      await sendOrder(message);
+      basket.setOrder([]);
+      localStorage.removeItem(BASKET_STORAGE_NAME);
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

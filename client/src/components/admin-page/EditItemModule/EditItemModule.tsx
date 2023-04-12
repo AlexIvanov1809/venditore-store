@@ -62,39 +62,40 @@ function EditItemModule({ product, onHide, updated }: EditItemModuleProps) {
     setRemovedPrice(true);
   };
 
-  const submitHandle = (e: React.MouseEvent<HTMLFormElement>) => {
+  const submitHandle = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (Object.keys(errors).length === 0) {
       const filteredPrice = price.filter((p) => p.weight && p.value);
       if (product) {
         if (removedPrice) {
           const removedPriceId = removedPriceIds(price, product.price);
-          removedPriceId.forEach((i) =>
-            httpService
-              .removePriceProduct(i)
-              .then((data) => console.log(data))
-              .catch((e) => console.log(e))
-          );
+          removedPriceId.forEach((id) => {
+            try {
+              httpService.removePriceProduct(id);
+            } catch (e) {
+              console.log(e);
+            }
+          });
         }
-        imgUploader(img, product);
-        const prod = { ...data, price: JSON.stringify(filteredPrice) } as IProductForEdit;
-        httpService
-          .editProduct(prod)
-          .then(() => {
-            onHide(false);
-            updated(true);
-          })
-          .catch((e) => console.log(e.response.data));
+        try {
+          imgUploader(img, product);
+          const prod = { ...data, price: JSON.stringify(filteredPrice) } as IProductForEdit;
+          await httpService.editProduct(prod);
+          onHide(false);
+          updated(true);
+        } catch (e) {
+          console.log(e);
+        }
       } else {
-        const items = { ...data, price: JSON.stringify(filteredPrice) } as INewProduct;
-        const formData = makeFormDataFile(items, img);
-        httpService
-          .createProduct(formData)
-          .then(() => {
-            onHide(false);
-            updated(true);
-          })
-          .catch((e) => console.log(e.message));
+        try {
+          const items = { ...data, price: JSON.stringify(filteredPrice) } as INewProduct;
+          const formData = makeFormDataFile(items, img);
+          await httpService.createProduct(formData);
+          onHide(false);
+          updated(true);
+        } catch (e) {
+          console.log(e);
+        }
       }
     }
   };

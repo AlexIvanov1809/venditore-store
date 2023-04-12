@@ -21,7 +21,7 @@ function ImgCarousel({ images }: Props) {
     <div className={styles.carousel}>
       <div className={styles.carousel_main}>
         <div className={styles.carousel_container} style={{ transform: `translateX(-${imgIndex * 200}px)` }}>
-          {images && images.map((i) => <img key={i.id} width={200} src={config.apiURL + 'api/' + i.name} alt="item" />)}
+          {images && images.map((i) => <img key={i.id} width={200} src={config.apiURL + i.name} alt="item" />)}
         </div>
       </div>
       {images.length > imgIndex && imgIndex !== 0 && (

@@ -14,39 +14,43 @@ const Shop = observer(() => {
 
   useEffect(() => {
     setIsLoading(true);
-    ENTITY_TYPES.forEach((item) => {
-      httpService
-        .fetchEntityItems(item.endpoint)
-        .then((data) => {
+    (() => {
+      ENTITY_TYPES.forEach(async (item) => {
+        try {
+          const data = await httpService.fetchEntityItems(item.endpoint);
           products[item.setter](data);
-        })
-        .catch((e) => e)
-        .finally(() => {
+        } catch (e) {
+          console.log(e);
+        } finally {
           if (item.getter === 'types') {
-            products.setSelectedType(products.types[0]?.id ? products.types[0]?.id : '');
+            products.setSelectedType(products.types[0]?.id ? products.types[0].id : '');
           }
-        });
-    });
+          setIsLoading(false);
+        }
+      });
+    })();
   }, [products]);
 
   useEffect(() => {
-    httpService
-      .fetchProducts({
-        typeId: products.selectedType,
-        brandId: products.selectedBrand,
-        countryId: products.selectedCountry,
-        makingMethodId: products.selectedMakingMethod,
-        manufacturingMethodId: products.selectedManufacturingMethod,
-        teaTypeId: products.selectedTeaType,
-        packageTypeId: products.selectedPackageType,
-        page: products.page,
-        limit: products.limit
-      })
-      .then((data) => {
+    (async () => {
+      try {
+        const data = await httpService.fetchProducts({
+          typeId: products.selectedType,
+          brandId: products.selectedBrand,
+          countryId: products.selectedCountry,
+          makingMethodId: products.selectedMakingMethod,
+          manufacturingMethodId: products.selectedManufacturingMethod,
+          teaTypeId: products.selectedTeaType,
+          packageTypeId: products.selectedPackageType,
+          page: products.page,
+          limit: products.limit
+        });
         products.setProducts(frontDataAdapter(data.rows));
         products.setTotalCount(data.count / 2);
-      })
-      .catch((e) => console.log(e.response.data.message));
+      } catch (e) {
+        console.log(e);
+      }
+    })();
   }, [
     products.selectedType,
     products.selectedBrand,
@@ -60,15 +64,16 @@ const Shop = observer(() => {
 
   useEffect(() => {
     if (products.selectedType) {
-      ENTITY_TYPES.forEach((item) => {
-        httpService
-          .fetchEntityFilterItems(item.endpoint, products.selectedType)
-          .then((data) => {
+      (() => {
+        try {
+          ENTITY_TYPES.forEach(async (item) => {
+            const data = await httpService.fetchEntityFilterItems(item.endpoint, products.selectedType);
             products[item.setter](data);
-            setIsLoading(false);
-          })
-          .catch((e) => console.log(e.response.data.message));
-      });
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      })();
     }
   }, [products.selectedType]);
 

@@ -10,6 +10,7 @@ import { Loader, Button, Scale } from '@/components/ui';
 import { ADMIN_ROUTE, ENTITY_TYPES } from '@/constants/consts';
 import config from '@/config/config.json';
 import { useRootStore } from '@/context/StoreContext';
+import { frontDataAdapter } from '@/utils';
 
 const AdminItem = observer(() => {
   const navigate = useNavigate();
@@ -21,24 +22,26 @@ const AdminItem = observer(() => {
   const [updated, setUpdated] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log('start');
     if ((products && products.products) || !Array.isArray(products.products) || updated) {
-      ENTITY_TYPES.forEach((prop) => {
-        httpService.fetchEntityItems(prop.endpoint).then((data) => {
-          products[prop.setter](data);
-        });
-      });
-      if (id) {
-        httpService
-          .fetchOneProduct(id)
-          .then((data) => products.setProducts(data))
-          .finally(() => {
-            if (products.products && !Array.isArray(products.products)) {
-              setItem(products.products);
-              setIsLoading(false);
-              setUpdated(false);
-            }
+      (async () => {
+        try {
+          ENTITY_TYPES.forEach(async (prop) => {
+            const data = await httpService.fetchEntityItems(prop.endpoint);
+            products[prop.setter](data);
           });
-      }
+          if (id) {
+            const data = await httpService.fetchOneProduct(id);
+            frontDataAdapter([data]);
+            setItem(frontDataAdapter([data])[0]);
+          }
+        } catch (e) {
+          console.log(e);
+        } finally {
+          setUpdated(false);
+          setIsLoading(false);
+        }
+      })();
     } else {
       const data = products.products.filter((item) => item.id === parseInt(id || ''));
       setItem(data[0]);
@@ -73,11 +76,11 @@ const AdminItem = observer(() => {
       </Button>
       <div className={styles.item_container}>
         <div>
-          <h3>{item.type?.name}</h3>
-          <h4>{item.brand?.name}</h4>
-          <h4>{item.tea_type?.name}</h4>
+          <h3>{item.type}</h3>
+          <h4>{item.brand}</h4>
+          <h4>{item.teaType}</h4>
           <h4>
-            {item.country?.name} {item.sortName}
+            {item.country} {item.sortName}
           </h4>
         </div>
         <div>
@@ -85,15 +88,15 @@ const AdminItem = observer(() => {
             <img key={i.id} width={120} src={config.apiURL + i.name} alt="item" />
           ))}
         </div>
-        <span>{item.making_method?.name}</span>
-        <span>{item.manufacturing_method?.name}</span>
+        <span>{item.makingMethod}</span>
+        <span>{item.manufacturingMethod}</span>
         {item.acidity && item.density && (
           <div className={styles.item_scale}>
             <Scale value={item.acidity} name="Кислотность" />
             <Scale value={item.density} name="Плотность" />
           </div>
         )}
-        <span>{item.package_type?.name}</span>
+        <span>{item.packageType}</span>
         <p>{item.shortDescription}</p>
         <p>{item.description}</p>
         {item.price.map((p) => (

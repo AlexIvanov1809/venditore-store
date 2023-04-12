@@ -5,7 +5,7 @@ export const LOGIN_ROUTE = '/login';
 export const REGISTRATION_ROUTE = '/registration';
 export const SHOP_ROUTE = '/';
 export const BASKET_ROUTE = '/basket';
-export const ITEM_ROUTE = '/admin/item/:id';
+export const ITEM_ROUTE = '/admin/product/:id';
 export const BASKET_STORAGE_NAME = 'venditore_basket';
 export const ENTITY_TYPES: EntityTypes[] = [
   {

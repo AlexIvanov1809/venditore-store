@@ -28,12 +28,14 @@ const EntityContainer = observer(({ endpoint, label, getter, setter }: Props) =>
   });
 
   useEffect(() => {
-    httpService
-      .fetchEntityItems(endpoint)
-      .then((data) => {
+    (async () => {
+      try {
+        const data = await httpService.fetchEntityItems(endpoint);
         products[setter](data);
-      })
-      .catch((e) => e);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
   }, [refresh, products]);
 
   const onHide: HideFn = (bool) => {
@@ -44,17 +46,18 @@ const EntityContainer = observer(({ endpoint, label, getter, setter }: Props) =>
     }
   };
 
-  const removeItem = (id: string | number) => {
-    httpService.removeEntityItem(endpoint, id).then(() => {
+  const removeItem = async (id: string | number) => {
+    try {
+      await httpService.removeEntityItem(endpoint, id);
       onHide(false);
-    });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const editItem = (item: IProductType | undefined) => {
-    if (item) {
-      setItem(item);
-      setShow(true);
-    }
+  const editItem = (item: IProductType) => {
+    setItem(item);
+    setShow(true);
   };
 
   return (

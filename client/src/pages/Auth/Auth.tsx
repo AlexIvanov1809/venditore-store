@@ -5,7 +5,7 @@ import { FnOnChange } from '@/types/uiTypes';
 import { AxiosError } from 'axios';
 import styles from './Auth.module.css';
 import { Button, TextInput } from '@/components/ui';
-import { check, login, logout, registration } from '@/http/userAPI';
+import authService from '@/http/userAPI';
 import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
 
@@ -28,12 +28,11 @@ const Auth = observer(() => {
     try {
       let data;
       if (isLogin) {
-        data = await login(authData.email, authData.password);
+        data = await authService.login(authData.email, authData.password);
       } else {
-        data = await registration(authData.email, authData.password, authData.role);
+        data = await authService.registration(authData.email, authData.password, authData.role);
       }
       user.setUser(data);
-      user.setIsAuth(true);
       // navigate(SHOP_ROUTE);
     } catch (e) {
       const errData = (e as AxiosError).response?.data;
@@ -42,16 +41,17 @@ const Auth = observer(() => {
   };
 
   const onClick = () => {
-    check()
+    authService
+      .checkAuth()
       .then((data) => {
         user.setUser(data);
-        user.setIsAuth(true);
       })
       .catch((e) => e);
   };
 
   const logoutClick = () => {
-    logout()
+    authService
+      .logout()
       .then()
       .catch((e) => console.log(e));
   };

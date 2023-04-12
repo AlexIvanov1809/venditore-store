@@ -15,14 +15,16 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
     }
   };
 
-  const onSubmit = () => {
-    if (item) {
-      httpService
-        .editEntityItem(endpoint, item.id, value)
-        .then(() => onHide(false))
-        .catch((e) => console.log(e));
-    } else {
-      httpService.createEntityItem(endpoint, value).then(() => onHide(false));
+  const onSubmit = async () => {
+    try {
+      if (item) {
+        await httpService.editEntityItem(endpoint, item.id, value);
+      } else {
+        await httpService.createEntityItem(endpoint, value);
+      }
+      onHide(false);
+    } catch (e) {
+      console.log(e);
     }
   };
 
