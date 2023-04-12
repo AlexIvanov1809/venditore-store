@@ -76,14 +76,7 @@ const Admin = observer(() => {
           ))}
           <IconButton appearance="primary" onClick={onHide} icon="Add" />
         </div>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          products.products &&
-          Array.isArray(products.products) &&
-          products.products.length > 0 &&
-          products.products.map((i) => <AdminItemForList key={i.id} product={i} />)
-        )}
+        {isLoading ? <Loader /> : products.products.map((i) => <AdminItemForList key={i.id} product={i} />)}
       </div>
       {show && <EditItemModule updated={setUpdated} onHide={onHide} />}
     </main>
