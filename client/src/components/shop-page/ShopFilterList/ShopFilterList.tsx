@@ -17,12 +17,12 @@ interface Props {
 function ShopFilterList({ refresh, label, list, onChange, filterType }: Props) {
   const { products } = useRootStore();
   const [data, setData] = useState<null | { [key: string]: boolean }>(null);
-  const [changes, setChanges] = useState(true);
+  const [isChanged, setIsChanged] = useState(true);
 
   useEffect(() => {
-    products[list].forEach((b) => {
-      if (b) {
-        setData((prev) => ({ ...prev, [b.id.toString()]: false }));
+    products[list].forEach((prodType) => {
+      if (prodType) {
+        setData((prev) => ({ ...prev, [prodType.id.toString()]: false }));
       }
     });
   }, [products, refresh]);
@@ -36,12 +36,12 @@ function ShopFilterList({ refresh, label, list, onChange, filterType }: Props) {
     }
 
     onChange(filterType, filterList);
-  }, [changes]);
+  }, [isChanged]);
 
   const changeHandler: FnOnChange = ({ name, value }) => {
     if (typeof value === 'boolean') {
       setData((prev) => ({ ...prev, [name]: value }));
-      setChanges(!changes);
+      setIsChanged(!isChanged);
     }
   };
   return (
