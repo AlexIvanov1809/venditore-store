@@ -9,6 +9,7 @@ type EntityTypes = {
   setter: keyof ProdSetters;
   filter: keyof IProduct;
   setSelected: keyof ProdSetSel;
+  isBlack: boolean;
 };
 type ProdGetter = Pick<
   ProductStore,

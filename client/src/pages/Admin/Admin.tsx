@@ -62,6 +62,7 @@ const Admin = observer(() => {
             label={type.label}
             getter={type.getter}
             setter={type.setter}
+            isBlack={type.isBlack}
           />
         ))}
       </div>

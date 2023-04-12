@@ -15,7 +15,8 @@ export const ENTITY_TYPES: EntityTypes[] = [
     getter: 'types',
     setter: 'setTypes',
     filter: 'typeId',
-    setSelected: 'setSelectedType'
+    setSelected: 'setSelectedType',
+    isBlack: true
   },
   {
     id: 2,
@@ -24,7 +25,8 @@ export const ENTITY_TYPES: EntityTypes[] = [
     getter: 'brands',
     setter: 'setBrands',
     filter: 'brandId',
-    setSelected: 'setSelectedBrand'
+    setSelected: 'setSelectedBrand',
+    isBlack: false
   },
   {
     id: 3,
@@ -33,7 +35,8 @@ export const ENTITY_TYPES: EntityTypes[] = [
     getter: 'countries',
     setter: 'setCountries',
     filter: 'countryId',
-    setSelected: 'setSelectedCountry'
+    setSelected: 'setSelectedCountry',
+    isBlack: false
   },
   {
     id: 4,
@@ -42,7 +45,8 @@ export const ENTITY_TYPES: EntityTypes[] = [
     getter: 'makingMethods',
     setter: 'setMakingMethods',
     filter: 'makingMethodId',
-    setSelected: 'setSelectedMakingMethod'
+    setSelected: 'setSelectedMakingMethod',
+    isBlack: false
   },
   {
     id: 5,
@@ -51,7 +55,8 @@ export const ENTITY_TYPES: EntityTypes[] = [
     getter: 'manufacturingMethods',
     setter: 'setManufacturingMethods',
     filter: 'manufacturingMethodId',
-    setSelected: 'setSelectedManufacturingMethod'
+    setSelected: 'setSelectedManufacturingMethod',
+    isBlack: false
   },
   {
     id: 6,
@@ -60,7 +65,8 @@ export const ENTITY_TYPES: EntityTypes[] = [
     getter: 'teaTypes',
     setter: 'setTeaTypes',
     filter: 'teaTypeId',
-    setSelected: 'setSelectedTeaType'
+    setSelected: 'setSelectedTeaType',
+    isBlack: false
   },
   {
     id: 7,
@@ -69,7 +75,8 @@ export const ENTITY_TYPES: EntityTypes[] = [
     getter: 'packageTypes',
     setter: 'setPackageTypes',
     filter: 'packageTypeId',
-    setSelected: 'setSelectedPackageType'
+    setSelected: 'setSelectedPackageType',
+    isBlack: false
   }
 ];
 export const ADMIN_ITEM_FIELDS: AdminItemFields[] = [

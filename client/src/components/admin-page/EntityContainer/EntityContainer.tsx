@@ -15,16 +15,17 @@ interface Props {
   label: string;
   getter: keyof ProdGetter;
   setter: keyof ProdSetters;
+  isBlack: boolean;
 }
 
-const EntityContainer = observer(({ endpoint, label, getter, setter }: Props) => {
+const EntityContainer = observer(({ endpoint, label, getter, setter, isBlack }: Props) => {
   const { products } = useRootStore();
   const [show, setShow] = useState<boolean>(false);
   const [item, setItem] = useState<null | IProductType>(null);
   const [refresh, setRefresh] = useState<boolean>(false);
 
   const containerName = cn(styles.types_container, {
-    [styles.type_black]: label === 'Типы'
+    [styles.type_black]: isBlack
   });
 
   useEffect(() => {
