@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { SortProps } from '@/types/uiTypes';
 import { IProduct } from '@/types/productTypes';
 import styles from './Admin.module.scss';
-import { Button, Loader } from '@/components/ui';
+import { IconButton, Loader } from '@/components/ui';
 import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
 import { frontDataAdapter, wayOfSortingItems } from '@/utils';
@@ -74,7 +74,7 @@ const Admin = observer(() => {
               {i.name}
             </div>
           ))}
-          <Button appearance="primary" onClick={onHide} icon="Add" />
+          <IconButton appearance="primary" onClick={onHide} icon="Add" />
         </div>
         {isLoading ? (
           <Loader />

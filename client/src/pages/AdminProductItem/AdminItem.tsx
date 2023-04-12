@@ -5,7 +5,7 @@ import { IProduct } from '@/types/productTypes';
 import styles from './AdminItem.module.css';
 import httpService from '@/http/productAPI';
 import { EditItemModule, DeleteBtn } from '@/components/admin-page';
-import { Loader, Button, Scale } from '@/components/ui';
+import { Loader, Button, Scale, IconButton } from '@/components/ui';
 
 import { ADMIN_ROUTE, ENTITY_TYPES } from '@/constants/consts';
 import config from '@/config/config.json';
@@ -108,7 +108,7 @@ const AdminItem = observer(() => {
         <div>{item.active ? 'true' : 'false'}</div>
         <div className={styles.item_buttons}>
           <DeleteBtn onDelete={removeHandle} id={id || ''} />
-          <Button appearance="primary" onClick={editHandle} icon="Edit" />
+          <IconButton appearance="primary" onClick={editHandle} icon="Edit" />
         </div>
       </div>
       {editing && <EditItemModule product={item} updated={setUpdated} onHide={editHandle} />}

@@ -5,7 +5,7 @@ import { IProductType } from '@/types/productTypes';
 import { HideFn } from '@/types/uiTypes';
 import { ProdGetter, ProdSetters } from '@/types/constsTypes';
 import styles from './EntityContainer.module.css';
-import { Button } from '../../ui';
+import { Button, IconButton } from '../../ui';
 import EntitiesEditor from '../EntitiesEditor/EntitiesEditor';
 import httpService from '@/http/productAPI';
 import { useRootStore } from '@/context/StoreContext';
@@ -70,7 +70,7 @@ const EntityContainer = observer(({ endpoint, label, getter, setter, isBlack }: 
             <div className={styles.types_item} key={item?.id}>
               <div>{item?.name}</div>
               <div>
-                <Button appearance="primary" onClick={() => editItem(item)} icon="Edit" />
+                <IconButton appearance="primary" onClick={() => editItem(item)} icon="Edit" />
               </div>
             </div>
           ))}

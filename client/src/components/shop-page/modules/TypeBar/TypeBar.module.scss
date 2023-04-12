@@ -8,3 +8,8 @@
 .item {
 	cursor: pointer;
 }
+
+[data-active="true"] {
+	background-color: $primary-color;
+	color: white;
+}

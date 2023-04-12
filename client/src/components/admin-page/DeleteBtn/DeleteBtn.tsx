@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DeleteFn } from '@/types/uiTypes';
 import styles from './DeleteBtn.module.css';
-import { CheckBox, Button } from '../../ui';
+import { CheckBox, IconButton } from '../../ui';
 
 interface DeleteBtn {
   onDelete: DeleteFn;
@@ -20,7 +20,7 @@ function DeleteBtn({ onDelete, id }: DeleteBtn) {
       <CheckBox name="del" value={confirm} onChange={removeHandler}>
         Подтверждение удаления
       </CheckBox>
-      <Button appearance="danger" onClick={() => onDelete(id)} icon="Delete" disabled={!confirm} />
+      <IconButton appearance="danger" onClick={() => onDelete(id)} icon="Delete" disabled={!confirm} />
     </div>
   );
 }
