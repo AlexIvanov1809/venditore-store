@@ -9,7 +9,11 @@ const INCLUDES_MODELS = [
     attributes: ['name'],
   },
   { model: models.Brand, as: 'brand', attributes: ['name'] },
-  { model: models.Country, as: 'country', attributes: ['name'] },
+  {
+    model: models.Country,
+    as: 'country',
+    attributes: ['name'],
+  },
   {
     model: models.MakingMethod,
     as: 'making_method',
@@ -20,7 +24,11 @@ const INCLUDES_MODELS = [
     as: 'manufacturing_method',
     attributes: ['name'],
   },
-  { model: models.TeaType, as: 'tea_type', attributes: ['name'] },
+  {
+    model: models.TeaType,
+    as: 'tea_type',
+    attributes: ['name'],
+  },
   {
     model: models.PackageType,
     as: 'package_type',

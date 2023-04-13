@@ -4,6 +4,7 @@ const uuid = require('uuid');
 const { INCLUDES_MODELS } = require('../constants/consts');
 const makeEntitiesForFilters = require('../utils/makeEntitiesForFilters');
 const { convertAndSavePic, removePic } = require('../utils/saveAndRemovePic');
+const nullConverterForIdFields = require('../utils/nullConverterForIdFields');
 
 class ProductController {
   // async test(req, res, next) {
@@ -79,6 +80,7 @@ class ProductController {
             [{ model: ProductPrice, as: 'price' }, 'value', 'ASC'],
             [{ model: ProductImg, as: 'image' }, 'row', 'ASC'],
           ],
+          distinct: true,
         });
       }
       if (Object.keys(filterParams).length) {
@@ -91,6 +93,7 @@ class ProductController {
             [{ model: ProductPrice, as: 'price' }, 'value', 'ASC'],
             [{ model: ProductImg, as: 'image' }, 'row', 'ASC'],
           ],
+          distinct: true,
         });
       }
 
@@ -122,7 +125,8 @@ class ProductController {
       const { id } = req.params;
       let data = req.body;
 
-      await Product.update(data, { where: { id } });
+      const preparedData = nullConverterForIdFields(data);
+      await Product.update(preparedData, { where: { id } });
       const product = await Product.findOne({ where: { id } });
 
       makeEntitiesForFilters(product);

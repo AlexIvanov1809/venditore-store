@@ -46,6 +46,9 @@ module.exports = function (env, argv) {
     },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'], // using import without file-extensions
+      alias: {
+        '@': path.resolve(__dirname, 'src/')
+      },
       plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })] // plugin makes mapping from tsconfig.json to weback:alias
     },
     optimization: {

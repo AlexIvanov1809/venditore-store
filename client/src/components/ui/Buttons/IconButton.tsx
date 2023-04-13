@@ -1,4 +1,4 @@
-import { icons } from '../../../assets/images';
+import icons from '@/assets/icons/index';
 import { ButtonProps } from './IconButton.props';
 import { getAppearance } from './Button';
 

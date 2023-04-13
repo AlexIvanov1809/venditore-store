@@ -86,7 +86,8 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
       try {
         imgUploader(img, product);
         const prod = { ...data, price: JSON.stringify(filteredPrice) } as IProductForEdit;
-        await httpService.editProduct(prod);
+        const editedProduct = await httpService.editProduct(prod);
+        console.log(editedProduct);
         onHide(false);
         onUpdated(true);
       } catch (e) {
@@ -111,17 +112,16 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
         <form onSubmit={submitHandle}>
           <div className={styles.edit_items}>
             <div className={styles.edit_img}>
-              {img.length > 0 &&
-                img.map((item, index) => (
-                  <ImgInput
-                    key={index}
-                    name={`img${index}`}
-                    index={index}
-                    onChange={changeImgHandle}
-                    picName={item}
-                    error={errors.image}
-                  />
-                ))}
+              {img.map((picName, index) => (
+                <ImgInput
+                  key={index}
+                  name={`img${index}`}
+                  index={index}
+                  onChange={changeImgHandle}
+                  picName={picName}
+                  error={errors.image}
+                />
+              ))}
             </div>
             <SelectField
               value={data.typeId}

@@ -46,7 +46,7 @@ const Shop = observer(() => {
           limit: products.limit
         });
         products.setProducts(frontDataAdapter(data.rows));
-        products.setTotalCount(data.count / 2);
+        products.setTotalCount(data.count);
       } catch (e) {
         console.log(e);
       }
