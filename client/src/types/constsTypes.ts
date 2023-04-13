@@ -1,5 +1,5 @@
-import { ProductStore } from '@/store';
-import { IProduct } from './productTypes';
+import { ProductsStore } from '@/store';
+import { IProduct, SortTypes } from './productTypes';
 
 type EntityTypes = {
   id: number;
@@ -12,11 +12,11 @@ type EntityTypes = {
   isBlack: boolean;
 };
 type ProdGetter = Pick<
-  ProductStore,
+  ProductsStore,
   'types' | 'brands' | 'countries' | 'makingMethods' | 'manufacturingMethods' | 'teaTypes' | 'packageTypes'
 >;
 type ProdSetters = Pick<
-  ProductStore,
+  ProductsStore,
   | 'setTypes'
   | 'setBrands'
   | 'setCountries'
@@ -27,7 +27,7 @@ type ProdSetters = Pick<
 >;
 
 type ProdSetSel = Pick<
-  ProductStore,
+  ProductsStore,
   | 'setSelectedType'
   | 'setSelectedBrand'
   | 'setSelectedCountry'
@@ -40,15 +40,28 @@ type ProdSetSel = Pick<
 type AdminItemFields = {
   id: number;
   name: string;
-  type: keyof IProduct;
+  type: keyof SortTypes;
 };
 
-type ValidatorConfig = {
-  [key in keyof IProduct]?: {
-    isRequired: {
+type ProductFieldsForValidation = Pick<IProduct, 'brandId' | 'typeId' | 'sortName' | 'shortDescription'>;
+
+type ValidatorConfig<T> = {
+  [key in keyof T]: {
+    [method in ValidationMethods]?: {
       message: string;
     };
   };
 };
 
-export { EntityTypes, AdminItemFields, ValidatorConfig, ProdGetter, ProdSetters, ProdSetSel };
+type ValidationMethods = 'isRequired' | 'isEmail' | 'isContainDigit' | 'isCapitalSymbol';
+
+export {
+  ValidationMethods,
+  EntityTypes,
+  AdminItemFields,
+  ValidatorConfig,
+  ProdGetter,
+  ProdSetters,
+  ProdSetSel,
+  ProductFieldsForValidation
+};

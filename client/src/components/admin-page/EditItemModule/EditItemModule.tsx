@@ -31,8 +31,14 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   }, [product]);
 
   const validate = () => {
+    const validationFields = {
+      brandId: data.brandId,
+      typeId: data.typeId,
+      sortName: data.sortName,
+      shortDescription: data.shortDescription
+    };
     const validErrors = {
-      ...validator(data, VALIDATOR_CONFIG),
+      ...validator(validationFields, VALIDATOR_CONFIG),
       ...imgAndPriceValidator(price, 'price'),
       ...imgAndPriceValidator(img, 'image')
     };

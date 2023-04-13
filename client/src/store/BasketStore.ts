@@ -15,7 +15,7 @@ export default class BasketStore {
 
   setIncrementQty(id: IBasketItem['id']) {
     const data = this._basket.map((prod) => {
-      if (prod?.id === id) {
+      if (prod.id === id) {
         prod.quantity += 1;
       }
       return prod;
@@ -25,9 +25,9 @@ export default class BasketStore {
 
   setDecrementQty(id: IBasketItem['id']) {
     const data = this._basket.map((prod) => {
-      if (prod?.id !== id) return prod;
+      if (prod.id !== id) return prod;
 
-      if (prod?.id === id && prod?.quantity > 1) {
+      if (prod.id === id && prod.quantity > 1) {
         prod.quantity -= 1;
         return prod;
       }

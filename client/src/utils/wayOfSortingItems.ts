@@ -1,7 +1,7 @@
-import { IProduct } from '@/types/productTypes';
+import { SortTypes } from '@/types/productTypes';
 import { SortProps } from '@/types/uiTypes';
 
-export default function wayOfSortingItems(type: keyof IProduct, state: SortProps): SortProps {
+export default function wayOfSortingItems(type: keyof SortTypes, state: SortProps): SortProps {
   if (state.type === type && state.sort === 'asc') {
     return { type, sort: 'desc' };
   }

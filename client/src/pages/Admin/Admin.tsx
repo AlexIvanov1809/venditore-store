@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { SortProps } from '@/types/uiTypes';
-import { IProduct } from '@/types/productTypes';
+import { SortTypes } from '@/types/productTypes';
 import { IconButton, Loader } from '@/components/ui';
 import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
@@ -44,7 +44,7 @@ const Admin = observer(() => {
     }
   }, [sortType]);
 
-  const onClick = (type: keyof IProduct) => {
+  const onClick = (type: keyof SortTypes) => {
     const sort = wayOfSortingItems(type, sortType);
     setSortType(sort);
   };
@@ -78,7 +78,7 @@ const Admin = observer(() => {
         </div>
         {isLoading ? <Loader /> : products.products.map((i) => <AdminItemForList key={i.id} product={i} />)}
       </div>
-      {show && <EditItemModule updated={setUpdated} onHide={onHide} />}
+      {show && <EditItemModule onUpdated={setUpdated} onHide={onHide} />}
     </main>
   );
 });
