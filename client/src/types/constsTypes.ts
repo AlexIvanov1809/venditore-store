@@ -47,16 +47,22 @@ type ProductFieldsForValidation = Pick<IProduct, 'brandId' | 'typeId' | 'sortNam
 
 type ValidatorConfig<T> = {
   [key in keyof T]: {
-    [method in ValidationMethods]?: {
+    isRequired: {
+      message: string;
+    };
+    isEmail?: {
+      message: string;
+    };
+    isContainDigit?: {
+      message: string;
+    };
+    isCapitalSymbol?: {
       message: string;
     };
   };
 };
 
-type ValidationMethods = 'isRequired' | 'isEmail' | 'isContainDigit' | 'isCapitalSymbol';
-
 export {
-  ValidationMethods,
   EntityTypes,
   AdminItemFields,
   ValidatorConfig,
