@@ -2,10 +2,10 @@ import { IProductForEdit, IProductType } from '@/types/productTypes';
 import { IFetchPayload } from '@/types/httpTypes';
 import { $authHost, $host } from './index';
 
-const TYPES_ENDPOINT = 'v1/productTypes';
-const PRODUCT_ENDPOINT = 'v1/product';
-const PIC_ENDPOINT = 'v1/pictures';
-const PRICE_ENDPOINT = 'v1/price';
+const TYPES_ENDPOINT = 'productTypes';
+const PRODUCT_ENDPOINT = 'product';
+const PIC_ENDPOINT = 'pictures';
+const PRICE_ENDPOINT = 'price';
 
 interface Entity {
   name: string;

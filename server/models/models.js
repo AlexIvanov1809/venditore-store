@@ -60,13 +60,13 @@ const PackageType = sequelize.define('package_type', {
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 });
 
-const ProductImg = sequelize.define('product_img', {
+const ProductImg = sequelize.define('product_imgs', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, allowNull: false },
   row: { type: DataTypes.INTEGER, allowNull: false },
 });
 
-const ProductPrice = sequelize.define('product_price', {
+const ProductPrice = sequelize.define('product_prices', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   weight: { type: DataTypes.STRING, allowNull: false },
   value: { type: DataTypes.STRING, allowNull: false },
@@ -117,10 +117,10 @@ Product.belongsTo(TeaType);
 PackageType.hasMany(Product);
 Product.belongsTo(PackageType);
 
-Product.hasMany(ProductImg, { as: 'image' });
+Product.hasMany(ProductImg, { as: 'images' });
 ProductImg.belongsTo(Product);
 
-Product.hasMany(ProductPrice, { as: 'price' });
+Product.hasMany(ProductPrice, { as: 'prices' });
 ProductPrice.belongsTo(Product);
 
 User.hasOne(Token);

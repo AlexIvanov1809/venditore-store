@@ -1,6 +1,6 @@
 import { $authHost, $host } from './index';
 
-const ENDPOINT = 'v1/user';
+const ENDPOINT = 'user';
 
 const authService = {
   registration: async (email: string, password: string, role: string) => {

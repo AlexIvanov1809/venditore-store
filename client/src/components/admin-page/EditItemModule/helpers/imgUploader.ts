@@ -1,10 +1,10 @@
 import { IProduct } from '@/types/productTypes';
-import httpService from '../http/productAPI';
+import httpService from '@/http/productAPI';
 import makeFormDataFile from './makeFormDataFile';
 
 export default function imgUploader(imgs: (string | File)[], product: IProduct) {
   const imgIds: (null | number)[] = [null, null, null];
-  product.image.forEach((img) => {
+  product.images.forEach((img) => {
     imgIds[img.row] = img.id;
   });
 

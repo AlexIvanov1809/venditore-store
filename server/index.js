@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use('/api', express.static(path.resolve(__dirname, 'static')));
+app.use('/api/v1', express.static(path.resolve(__dirname, 'static')));
 app.use(fileUpload({}));
 app.use('/api/v1', router);
 

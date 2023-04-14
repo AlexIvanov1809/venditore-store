@@ -1,8 +1,8 @@
 const models = require('../models/models');
 
 const INCLUDES_MODELS = [
-  { model: models.ProductImg, as: 'image' },
-  { model: models.ProductPrice, as: 'price' },
+  { model: models.ProductImg, as: 'images' },
+  { model: models.ProductPrice, as: 'prices' },
   {
     model: models.Type,
     as: 'type',
