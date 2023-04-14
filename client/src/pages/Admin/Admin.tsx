@@ -5,7 +5,8 @@ import { SortTypes } from '@/types/productTypes';
 import { IconButton, Loader } from '@/components/ui';
 import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
-import { frontDataAdapter, wayOfSortingItems } from '@/utils';
+import { frontDataAdapter } from '@/utils';
+import changeProductSortWay from './wayOfSortingItems';
 import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './Admin.module.scss';
@@ -45,7 +46,7 @@ const Admin = observer(() => {
   }, [sortType]);
 
   const onClick = (type: keyof SortTypes) => {
-    const sort = wayOfSortingItems(type, sortType);
+    const sort = changeProductSortWay(type, sortType);
     setSortType(sort);
   };
 
