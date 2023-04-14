@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Loader } from '@/components/ui';
-import { TypeBar, Aside, CardList, Pagination } from '@/components/shop-page';
+import { TypeBar, Aside, CardList, Pagination } from '@/components/shop-page/modules';
 import httpService from '@/http/productAPI';
 import { ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
