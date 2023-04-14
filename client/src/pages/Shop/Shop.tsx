@@ -7,10 +7,13 @@ import { ENTITY_TYPES } from '@/constants/consts';
 import { useRootStore } from '@/context/StoreContext';
 import { frontDataAdapter } from '@/utils';
 import styles from './Shop.module.css';
+import { useErrorBoundary, withErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '@/components/ErrorBoundary/ErrorFallback';
 
 const Shop = observer(() => {
   const { products } = useRootStore();
   const [isLoading, setIsLoading] = useState(false);
+  const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
     setIsLoading(true);
@@ -20,7 +23,7 @@ const Shop = observer(() => {
           const data = await httpService.fetchEntityItems(item.endpoint);
           products[item.setter](data);
         } catch (e) {
-          console.log(e);
+          showBoundary(e);
         } finally {
           if (item.getter === 'types') {
             products.setSelectedType(products.types[0]?.id ? products.types[0].id : '');
@@ -48,7 +51,7 @@ const Shop = observer(() => {
         products.setProducts(frontDataAdapter(data.rows));
         products.setTotalCount(data.count);
       } catch (e) {
-        console.log(e);
+        showBoundary(e);
       }
     })();
   }, [
@@ -71,7 +74,7 @@ const Shop = observer(() => {
             products[item.setter](data);
           });
         } catch (e) {
-          console.log(e);
+          showBoundary(e);
         }
       })();
     }
@@ -90,4 +93,4 @@ const Shop = observer(() => {
   );
 });
 
-export default Shop;
+export default withErrorBoundary(Shop, { FallbackComponent: ErrorFallback });

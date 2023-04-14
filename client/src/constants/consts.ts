@@ -1,5 +1,4 @@
 import { AdminItemFields, EntityTypes, ProductFieldsForValidation, ValidatorConfig } from '@/types/constsTypes';
-import { IProduct } from '@/types/productTypes';
 
 export const ADMIN_ROUTE = '/admin';
 export const LOGIN_ROUTE = '/login';
