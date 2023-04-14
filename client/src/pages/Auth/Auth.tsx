@@ -5,7 +5,7 @@ import { FnOnChange } from '@/types/uiTypes';
 import { AxiosError } from 'axios';
 import { Button, TextInput } from '@/components/ui';
 import authService from '@/http/userAPI';
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '@/constants/consts';
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '@/constants/routesConstants';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './Auth.module.css';
 

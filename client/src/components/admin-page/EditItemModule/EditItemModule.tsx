@@ -3,12 +3,13 @@ import { IProductForEdit, IProductPrice, INewProduct } from '@/types/productType
 import { ErrorValidation, FnOnChange } from '@/types/uiTypes';
 import httpService from '@/http/productAPI';
 import { makeFormDataFile, imgUploader, removedPriceIds, validator, imgAndPriceValidator } from '@/utils';
-import { LEVEL, DEFAULT, VALIDATOR_CONFIG } from '@/constants/consts';
+import { VALIDATOR_CONFIG } from '@/constants/otherConstants';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './EditItemModule.module.css';
 import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } from '../../ui';
 import AddPriceValue from '../AddPriceValue/AddPriceValue';
 import EditItemModuleProps from './EditItemModule.props';
+import { DEFAULT, LEVEL } from '@/constants/adminPageConstants';
 
 function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   const { products } = useRootStore();

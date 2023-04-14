@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import cn from 'classnames';
 import { FilterTypes } from '@/types/productTypes';
 import { FilterFn } from '@/types/uiTypes';
-import { ENTITY_TYPES } from '@/constants/consts';
+import { ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './Aside.module.css';
 import { Button } from '../../../ui';

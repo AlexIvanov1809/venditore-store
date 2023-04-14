@@ -6,11 +6,12 @@ import httpService from '@/http/productAPI';
 import { EditItemModule, DeleteBtn } from '@/components/admin-page';
 import { Loader, Button, Scale, IconButton } from '@/components/ui';
 
-import { ADMIN_ROUTE, ENTITY_TYPES } from '@/constants/consts';
+import { ADMIN_ROUTE } from '@/constants/routesConstants';
 import config from '@/config/config.json';
 import { useRootStore } from '@/context/StoreContext';
 import { frontDataAdapter } from '@/utils';
 import styles from './AdminItem.module.css';
+import { ENTITY_TYPES } from '@/constants/adminPageConstants';
 
 const AdminItem = observer(() => {
   const navigate = useNavigate();

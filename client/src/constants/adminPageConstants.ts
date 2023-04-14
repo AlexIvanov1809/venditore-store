@@ -1,12 +1,5 @@
-import { AdminItemFields, EntityTypes, ProductFieldsForValidation, ValidatorConfig } from '@/types/constsTypes';
+import { AdminItemFields, EntityTypes } from '@/types/constsTypes';
 
-export const ADMIN_ROUTE = '/admin';
-export const LOGIN_ROUTE = '/login';
-export const REGISTRATION_ROUTE = '/registration';
-export const SHOP_ROUTE = '/';
-export const BASKET_ROUTE = '/basket';
-export const ITEM_ROUTE = '/admin/product/:id';
-export const BASKET_STORAGE_NAME = 'venditore_basket';
 export const ENTITY_TYPES: EntityTypes[] = [
   {
     id: 1,
@@ -90,12 +83,6 @@ export const ADMIN_ITEM_FIELDS: AdminItemFields[] = [
   { id: 8, name: 'Активный', type: 'active' }
 ];
 
-export const BEANS = [
-  { id: '0', name: 'для чашки' },
-  { id: '1', name: 'для фильтра' },
-  { id: '2', name: 'для эспрессо' }
-];
-
 export const DEFAULT = {
   acidity: '',
   density: '',
@@ -140,18 +127,3 @@ export const WEIGHT = [
   { id: '0.5 л', name: '0.5 л' },
   { id: '1 л', name: '1 л' }
 ];
-
-export const VALIDATOR_CONFIG: ValidatorConfig<ProductFieldsForValidation> = {
-  brandId: {
-    isRequired: { message: 'Поле необходимое для заполнения' }
-  },
-  typeId: {
-    isRequired: { message: 'Поле необходимое для заполнения' }
-  },
-  sortName: {
-    isRequired: { message: 'Поле необходимое для заполнения' }
-  },
-  shortDescription: {
-    isRequired: { message: 'Поле необходимое для заполнения' }
-  }
-};

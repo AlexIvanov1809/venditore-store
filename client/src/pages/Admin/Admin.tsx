@@ -6,7 +6,7 @@ import { IconButton, Loader } from '@/components/ui';
 import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
 import { frontDataAdapter, wayOfSortingItems } from '@/utils';
-import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/consts';
+import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './Admin.module.scss';
 
