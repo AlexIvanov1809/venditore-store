@@ -10,12 +10,15 @@ import { messageConverter } from '@/utils';
 import { useRootStore } from '@/context/StoreContext';
 import { setToStorage } from '@/service/storage.service';
 import styles from './Basket.module.css';
+import { useErrorBoundary, withErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '@/components/ErrorBoundary/ErrorFallback';
 
 const Basket = observer(() => {
   const navigate = useNavigate();
   const { basket } = useRootStore();
   const [inBasket, setInBasket] = useState(basket.order);
   const [confirm, setConfirm] = useState(false);
+  const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
     setInBasket(basket.order);
@@ -62,7 +65,7 @@ const Basket = observer(() => {
       localStorage.removeItem(BASKET_STORAGE_NAME);
       navigate('/');
     } catch (e) {
-      console.log(e);
+      showBoundary(e);
     }
   };
 
@@ -84,4 +87,4 @@ const Basket = observer(() => {
   );
 });
 
-export default Basket;
+export default withErrorBoundary(Basket, { FallbackComponent: ErrorFallback });
