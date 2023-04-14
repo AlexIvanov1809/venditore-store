@@ -29,8 +29,8 @@ export interface IResponseProduct {
   manufacturingMethodId: IProductType['id'] | null;
   teaTypeId: IProductType['id'] | null;
   packageTypeId: IProductType['id'] | null;
-  image: IProductImage[];
-  price: IProductPrice[];
+  images: IProductImage[];
+  prices: IProductPrice[];
   type: ProductTypeNames;
   brand: ProductTypeNames;
   country: ProductTypeNames | null;

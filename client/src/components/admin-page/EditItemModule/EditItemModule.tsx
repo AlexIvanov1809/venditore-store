@@ -15,7 +15,7 @@ import { DEFAULT, LEVEL } from '@/constants/adminPageConstants';
 function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   const { products } = useRootStore();
   function initialState() {
-    return product?.price || [{ id: Date.now(), weight: '', value: '' }];
+    return product?.prices || [{ id: Date.now(), weight: '', value: '' }];
   }
 
   const [data, setData] = useState(product || DEFAULT);
@@ -26,7 +26,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
 
   useEffect(() => {
     if (product) {
-      product.image.forEach((image) => {
+      product.images.forEach((image) => {
         setImg((imgs) => imgs.map((i, ind) => (ind === image.row ? image.name : i)));
       });
     }
@@ -82,7 +82,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
     const filteredPrice = price.filter((p) => p.weight && p.value);
     if (product) {
       if (removedPrice) {
-        const removedPriceId = removedPriceIds(price, product.price);
+        const removedPriceId = removedPriceIds(price, product.prices);
         removedPriceId.forEach((id) => {
           try {
             httpService.removePriceProduct(id);

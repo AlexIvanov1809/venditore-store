@@ -38,8 +38,8 @@ interface IProduct {
   manufacturingMethodId: IProductType['id'] | null;
   teaTypeId: IProductType['id'] | null;
   packageTypeId: IProductType['id'] | null;
-  image: IProductImage[];
-  price: IProductPrice[];
+  images: IProductImage[];
+  prices: IProductPrice[];
   type: string;
   brand: string;
   country: string | null;

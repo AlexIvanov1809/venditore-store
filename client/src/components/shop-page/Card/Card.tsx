@@ -23,7 +23,7 @@ const Card = observer(({ product }: Props) => {
   const [beans, setBeans] = useState<Beans>({ id: '', name: '' });
 
   useEffect(() => {
-    setPrice(product.price[0]);
+    setPrice(product.prices[0]);
   }, [product]);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const Card = observer(({ product }: Props) => {
           </h4>
         </div>
         <div>
-          <ImgCarousel images={product.image} />
+          <ImgCarousel images={product.images} />
         </div>
         <span>{product.makingMethod}</span>
         <span>{product.manufacturingMethod}</span>
@@ -94,8 +94,13 @@ const Card = observer(({ product }: Props) => {
         </div>
         <div className={styles.price_buy}>
           <div className={styles.price}>
-            {product.price.map((p) => (
-              <CardPrice key={p.id} onClick={() => setPrice(p)} price={p} active={p.id === price?.id} />
+            {product.prices.map((priceItem) => (
+              <CardPrice
+                key={priceItem.id}
+                onClick={() => setPrice(priceItem)}
+                price={priceItem}
+                active={priceItem.id === price?.id}
+              />
             ))}
           </div>
           <OrderCardBtn

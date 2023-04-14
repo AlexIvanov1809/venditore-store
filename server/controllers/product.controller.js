@@ -77,8 +77,8 @@ class ProductController {
         products = await Product.findAndCountAll({
           include: INCLUDES_MODELS,
           order: [
-            [{ model: ProductPrice, as: 'price' }, 'value', 'ASC'],
-            [{ model: ProductImg, as: 'image' }, 'row', 'ASC'],
+            [{ model: ProductPrice, as: 'prices' }, 'value', 'ASC'],
+            [{ model: ProductImg, as: 'images' }, 'row', 'ASC'],
           ],
           distinct: true,
         });
@@ -90,8 +90,8 @@ class ProductController {
           offset,
           include: INCLUDES_MODELS,
           order: [
-            [{ model: ProductPrice, as: 'price' }, 'value', 'ASC'],
-            [{ model: ProductImg, as: 'image' }, 'row', 'ASC'],
+            [{ model: ProductPrice, as: 'prices' }, 'value', 'ASC'],
+            [{ model: ProductImg, as: 'images' }, 'row', 'ASC'],
           ],
           distinct: true,
         });
@@ -110,8 +110,8 @@ class ProductController {
         where: { id },
         include: INCLUDES_MODELS,
         order: [
-          [{ model: ProductPrice, as: 'price' }, 'value', 'ASC'],
-          [{ model: ProductImg, as: 'image' }, 'row', 'ASC'],
+          [{ model: ProductPrice, as: 'prices' }, 'value', 'ASC'],
+          [{ model: ProductImg, as: 'images' }, 'row', 'ASC'],
         ],
       });
       return res.json(products);
