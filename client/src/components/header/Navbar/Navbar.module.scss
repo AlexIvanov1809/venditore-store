@@ -1,4 +1,5 @@
 .header {
+	position: relative;
 	background-color: $primary-color;
 	padding: 20px;
 	display: flex;
@@ -6,8 +7,34 @@
 	align-items: center;
 }
 
+.logo {
+	color: #fff;
+	svg {
+		width: 120px;
+		height: 50px;
+	}
+}
+
 .links {
 	display: flex;
+	align-items: center;
+
+	svg {
+		width: 30px;
+		height: 30px;
+
+		path {
+			fill: #fff;
+		}
+	}
+
+	button {
+		background-color: transparent;
+		border: none;
+		color: #fff;
+		font-size: 16px;
+		margin-top: 1px;
+	}
 }
 
 .links a:not(:last-child) {
@@ -21,11 +48,13 @@
 
 .basket {
 	position: relative;
+	background-size: 50px 30px;
 }
 
 .order_qty {
 	position: absolute;
-	top: -50%;
+	font-size: 13px;
+	top: -45%;
 	right: -20%;
 	background-color: red;
 	color: #fff;
