@@ -46,10 +46,6 @@ const Admin = observer(() => {
     }
   }, [sortType]);
 
-  // useEffect(() => {
-
-  // }, [searchQuery]);
-
   const handleSearch: FnOnChange = ({ value }) => {
     if (typeof value !== 'string') {
       return;
