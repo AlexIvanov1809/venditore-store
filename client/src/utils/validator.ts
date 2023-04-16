@@ -14,6 +14,7 @@ export default function validator<T>(data: T, config: ValidatorConfig<T>): Error
         break;
       case 'isEmail': {
         if (typeof data !== 'string') {
+          statusValidation = true;
           break;
         }
         const emailRegExp = /^\S+@\S+\.\S+$/g;
@@ -22,24 +23,30 @@ export default function validator<T>(data: T, config: ValidatorConfig<T>): Error
       }
       case 'isCapitalSymbol': {
         if (typeof data !== 'string') {
+          statusValidation = true;
           break;
         }
-        const capitalSymbol = /[A-Z]+/g;
+        const capitalSymbol = /[A-ZА-Я]+/g;
         statusValidation = !capitalSymbol.test(data);
         break;
       }
       case 'isContainDigit': {
         if (typeof data !== 'string') {
+          statusValidation = true;
           break;
         }
         const containDigit = /\d+/g;
         statusValidation = !containDigit.test(data);
         break;
       }
-      // case 'minMax': {
-      //   statusValidation = (data[0] === '+' ? data.length - 2 : data.length) !== config.value;
-      //   break;
-      // }
+      case 'isLength': {
+        if (typeof data !== 'string') {
+          statusValidation = true;
+          break;
+        }
+        statusValidation = !(data.length >= 8);
+        break;
+      }
       default:
         break;
     }

@@ -7,7 +7,7 @@ class UserController {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return next(ApiError.BadRequest('Ошибка при валидации'));
+        return next(ApiError.badRequest(errors.errors[0].msg));
       }
       const { email, password, role } = req.body;
 
@@ -21,7 +21,7 @@ class UserController {
 
       return res.json(userData);
     } catch (e) {
-      next(ApiError.internal(e.message));
+      next(e);
     }
   }
 

@@ -5,8 +5,10 @@ const userController = require('../controllers/user.controller');
 
 router.post(
   '/registration',
-  body('email').isEmail(),
-  body('password').isLength({ min: 3, max: 32 }),
+  body('email').isEmail().withMessage('Указан неверный email'),
+  body('password')
+    .isLength({ min: 8, max: 32 })
+    .withMessage('Пароль содержит меньше 8 символов'),
   userController.registration,
 );
 router.post('/login', userController.login);

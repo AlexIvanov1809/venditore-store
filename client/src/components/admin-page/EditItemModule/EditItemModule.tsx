@@ -127,7 +127,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
                   index={index}
                   onChange={changeImgHandle}
                   picName={picName}
-                  error={errors.image}
+                  error={errors.images}
                 />
               ))}
             </div>
@@ -232,7 +232,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
                   onChange={changePrice}
                   removePrice={removePrice}
                   className={styles.edit_price}
-                  error={errors.price}
+                  error={errors.prices}
                 />
               ))}
             </div>

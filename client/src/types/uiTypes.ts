@@ -7,7 +7,7 @@ type ErrorMsg = string;
 type Options = { id: string | number; name: string | number };
 
 type ErrorValidation = {
-  [key in keyof Pick<IProduct, 'brandId' | 'typeId' | 'sortName' | 'shortDescription' | 'image' | 'price'>]?: string;
+  [key in keyof Pick<IProduct, 'brandId' | 'typeId' | 'sortName' | 'shortDescription' | 'images' | 'prices'>]?: string;
 };
 
 type HideFn = (data?: boolean) => void;
