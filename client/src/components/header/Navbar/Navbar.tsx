@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 const Navbar = observer(() => {
   const { basket, user } = useRootStore();
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header className={styles.header}>
       <NavLink className={styles.logo} to={SHOP_ROUTE}>

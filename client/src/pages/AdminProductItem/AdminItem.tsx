@@ -87,7 +87,7 @@ const AdminItem = observer(() => {
           </h4>
         </div>
         <div>
-          {item.image.map((img) => (
+          {item.images.map((img) => (
             <img key={img.id} width={120} src={config.apiURL + img.name} alt="item" />
           ))}
         </div>
@@ -102,7 +102,7 @@ const AdminItem = observer(() => {
         <span>{item.packageType}</span>
         <p>{item.shortDescription}</p>
         <p>{item.description}</p>
-        {item.price.map((price) => (
+        {item.prices.map((price) => (
           <div key={price.id}>
             <div>{price.weight}</div>
             <div>{price.value} &#8381;</div>
