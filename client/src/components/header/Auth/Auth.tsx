@@ -33,6 +33,7 @@ const Auth = observer(({ onOpen }: Props) => {
       } catch (e) {
         console.log(e);
       }
+      return;
     }
 
     try {

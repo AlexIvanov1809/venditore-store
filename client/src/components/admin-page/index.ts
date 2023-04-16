@@ -4,5 +4,14 @@ import DeleteBtn from './DeleteBtn/DeleteBtn';
 import EditItemModule from './EditItemModule/EditItemModule';
 import EntitiesEditor from './EntitiesEditor/EntitiesEditor';
 import EntityContainer from './EntityContainer/EntityContainer';
+import AdminRegistration from './AdminRegistration/AdminRegistration';
 
-export { AddPriceValue, AdminItemForList, DeleteBtn, EntitiesEditor, EditItemModule, EntityContainer };
+export {
+  AddPriceValue,
+  AdminItemForList,
+  DeleteBtn,
+  EntitiesEditor,
+  EditItemModule,
+  EntityContainer,
+  AdminRegistration
+};

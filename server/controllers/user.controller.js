@@ -78,7 +78,7 @@ class UserController {
 
       return res.json(userData);
     } catch (e) {
-      next(ApiError.internal(e.message));
+      next(e);
     }
   }
 }

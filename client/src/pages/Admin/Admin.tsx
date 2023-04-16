@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { FnOnChange, SortProps } from '@/types/uiTypes';
 import { IProduct, SortTypes } from '@/types/productTypes';
-import { IconButton, Loader, TextInput } from '@/components/ui';
-import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
+import { Button, IconButton, Loader, TextInput } from '@/components/ui';
+import { EntityContainer, AdminItemForList, EditItemModule, AdminRegistration } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
 import { frontDataAdapter } from '@/utils';
 import changeProductSortWay from './wayOfSortingItems';
@@ -14,6 +14,7 @@ import styles from './Admin.module.scss';
 const Admin = observer(() => {
   const { products } = useRootStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [entityIsOpen, setEntityIsOpen] = useState(false);
   const [show, setShow] = useState(false);
   const [updated, setUpdated] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -74,17 +75,23 @@ const Admin = observer(() => {
 
   return (
     <main className={styles.admin}>
-      <div className={styles.admin_types}>
-        {ENTITY_TYPES.map((type) => (
-          <EntityContainer
-            key={type.id}
-            endpoint={type.endpoint}
-            label={type.label}
-            getter={type.getter}
-            setter={type.setter}
-            isBlack={type.isBlack}
-          />
-        ))}
+      <AdminRegistration />
+      <div>
+        <div data-entity={entityIsOpen} className={styles.admin_types}>
+          {ENTITY_TYPES.map((type) => (
+            <EntityContainer
+              key={type.id}
+              endpoint={type.endpoint}
+              label={type.label}
+              getter={type.getter}
+              setter={type.setter}
+              isBlack={type.isBlack}
+            />
+          ))}
+        </div>
+        <Button onClick={() => setEntityIsOpen(!entityIsOpen)} appearance="primary">
+          {entityIsOpen ? 'close' : 'open'}
+        </Button>
       </div>
       <hr />
       <div className={styles.admin_items}>

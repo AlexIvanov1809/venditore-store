@@ -2,8 +2,14 @@ import { $authHost, $host } from './index';
 
 const ENDPOINT = 'user';
 
+interface RegData {
+  email: string;
+  password: string;
+  role: string;
+}
+
 const authService = {
-  registration: async (email: string, password: string, role: string) => {
+  registration: async ({ email, password, role }: RegData) => {
     const { data } = await $host.post(`${ENDPOINT}/registration`, {
       email,
       password,
