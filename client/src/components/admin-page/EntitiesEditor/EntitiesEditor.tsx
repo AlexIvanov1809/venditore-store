@@ -8,6 +8,7 @@ import EntityEditorProps from './EntityEditor.props';
 
 function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEditorProps) {
   const [value, setValue] = useState<{ name: string }>({ name: item ? item.name : '' });
+  const [error, setError] = useState<string>('');
 
   const changeHandle: FnOnChange = ({ value }) => {
     if (typeof value === 'string') {
@@ -16,6 +17,10 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
   };
 
   const onSubmit = async () => {
+    if (value.name.trim() === '') {
+      setError('Поле не может быть пустым');
+      return;
+    }
     try {
       if (item) {
         await httpService.editEntityItem(endpoint, item.id, value);
@@ -33,7 +38,14 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
       <div className={styles.entity_container}>
         <h5>{label}</h5>
         <div className={styles.entity_form}>
-          <TextInput name="name" value={value.name} onChange={changeHandle} type="text" placeholder="Enter value" />
+          <TextInput
+            error={error}
+            name="name"
+            value={value.name}
+            onChange={changeHandle}
+            type="text"
+            placeholder="Enter value"
+          />
           <div className={styles.buttons}>
             {item && <DeleteBtn onDelete={onDelete} id={item.id} />}
             <Button appearance="danger" onClick={() => onHide(false)}>
