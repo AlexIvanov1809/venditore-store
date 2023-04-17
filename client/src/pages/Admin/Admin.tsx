@@ -95,14 +95,16 @@ const Admin = observer(() => {
       </div>
       <hr />
       <div className={styles.admin_items}>
-        <TextInput name="searchQuery" value={searchQuery} onChange={handleSearch} placeholder="Поиск по названию" />
+        <div className={styles.on_top}>
+          <TextInput name="searchQuery" value={searchQuery} onChange={handleSearch} placeholder="Поиск по названию" />
+          <IconButton appearance="primary" onClick={onHide} icon="Add" />
+        </div>
         <div className={styles.items_fields}>
           {ADMIN_ITEM_FIELDS.map((i) => (
             <div onClick={() => onClick(i.type)} key={i.id}>
               {i.name}
             </div>
           ))}
-          <IconButton appearance="primary" onClick={onHide} icon="Add" />
         </div>
         {isLoading ? <Loader /> : filteredItems.map((i) => <AdminItemForList key={i.id} product={i} />)}
       </div>
