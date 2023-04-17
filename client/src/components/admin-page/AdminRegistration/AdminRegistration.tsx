@@ -57,7 +57,7 @@ const AdminRegistration = (): JSX.Element => {
     };
     const validErrors = { ...validator(validationFields, CONFIG_VALID), ...same() };
 
-    setErrors(validErrors as ErrorPassValidation);
+    setErrors(validErrors);
   };
 
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {

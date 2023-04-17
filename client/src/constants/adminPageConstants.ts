@@ -90,7 +90,6 @@ export const DEFAULT = {
   shortDescription: '',
   description: '',
   brandId: '',
-  package: '',
   typeId: '',
   countryId: '',
   makingMethodId: '',

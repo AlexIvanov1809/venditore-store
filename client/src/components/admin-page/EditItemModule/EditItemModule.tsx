@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IProductForEdit, IProductPrice, INewProduct } from '@/types/productTypes';
+import { IProductPrice } from '@/types/productTypes';
 import { ErrorValidation, FnOnChange } from '@/types/uiTypes';
 import httpService from '@/http/productAPI';
 import { validator } from '@/utils';
@@ -27,7 +27,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   useEffect(() => {
     if (product) {
       product.images.forEach((image) => {
-        setImg((imgs) => imgs.map((i, ind) => (ind === image.row ? image.name : i)));
+        setImg((prev) => prev.map((i, ind) => (ind === image.row ? image.name : i)));
       });
     }
   }, [product]);
@@ -44,7 +44,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
       ...imgAndPriceValidator(price, 'price'),
       ...imgAndPriceValidator(img, 'image')
     };
-    setErrors(validErrors as ErrorValidation);
+    setErrors(validErrors);
   };
 
   useEffect(() => {
@@ -93,7 +93,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
       }
       try {
         imgUploader(img, product);
-        const prod = { ...data, price: JSON.stringify(filteredPrice) } as IProductForEdit;
+        const prod = { ...data, price: JSON.stringify(filteredPrice) };
         const editedProduct = await httpService.editProduct(prod);
         console.log(editedProduct);
         onHide(false);
@@ -103,7 +103,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
       }
     } else {
       try {
-        const items = { ...data, price: JSON.stringify(filteredPrice) } as INewProduct;
+        const items = { ...data, price: JSON.stringify(filteredPrice) };
         const formData = makeFormDataFile(items, img);
         await httpService.createProduct(formData);
         onHide(false);

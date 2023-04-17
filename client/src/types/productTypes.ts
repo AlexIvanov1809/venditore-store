@@ -4,12 +4,12 @@ interface IAllProducts {
 }
 
 interface IProductForEdit {
-  id: number;
+  id?: number;
   sortName: string;
   description: string | null;
   shortDescription: string;
-  acidity: string | null;
-  density: string | null;
+  acidity: number | string | null;
+  density: number | string | null;
   active: boolean;
   countryId: IProductType['id'] | null;
   typeId: IProductType['id'] | null;
@@ -63,7 +63,7 @@ type SortTypes = Pick<
 >;
 
 interface IProductType {
-  id: number;
+  id: number | string;
   name: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -97,19 +97,18 @@ type FilterTypes = {
 };
 
 interface INewProduct {
-  acidity: string;
-  density: string;
+  acidity: number | string | null;
+  density: number | string | null;
   sortName: string;
   shortDescription: string;
-  description: string;
-  brandId: string;
-  package: string;
-  typeId: string;
-  countryId: string;
-  makingMethodId: string;
-  manufacturingMethodId: string;
-  teaTypeId: string;
-  packageTypeId: string;
+  description: string | null;
+  brandId: number | string | null;
+  typeId: number | string | null;
+  countryId: number | string | null;
+  makingMethodId: number | string | null;
+  manufacturingMethodId: number | string | null;
+  teaTypeId: number | string | null;
+  packageTypeId: number | string | null;
   price: string;
   active: boolean;
 }
