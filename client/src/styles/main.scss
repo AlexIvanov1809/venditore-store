@@ -6,6 +6,7 @@
 body {
 	color: $basicColor;
 	font-family: "OpenSans-Regular", sans-serif;
+	overflow-x: hidden;
 }
 
 ::-webkit-resizer,

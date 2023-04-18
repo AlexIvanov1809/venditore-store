@@ -6,7 +6,7 @@ import { HideFn } from '@/types/uiTypes';
 import { ProdGetter, ProdSetters } from '@/types/constsTypes';
 import httpService from '@/http/productAPI';
 import { useRootStore } from '@/context/StoreContext';
-import styles from './EntityContainer.module.css';
+import styles from './EntityContainer.module.scss';
 import { Button, IconButton } from '../../ui';
 import EntitiesEditor from '../EntitiesEditor/EntitiesEditor';
 
@@ -29,14 +29,22 @@ const EntityContainer = observer(({ endpoint, label, getter, setter, isBlack }: 
   });
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     (async () => {
       try {
-        const data = await httpService.fetchEntityItems(endpoint);
+        const data = await httpService.fetchEntityItems(endpoint, signal);
         products[setter](data);
-      } catch (e) {
-        console.log(e);
+      } catch (e: any) {
+        if (e.message !== 'canceled') {
+          console.log(e);
+        }
       }
     })();
+    return () => {
+      controller.abort();
+    };
   }, [refresh, products]);
 
   const onHide: HideFn = (bool) => {

@@ -6,7 +6,7 @@ import httpService from '@/http/productAPI';
 import { ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
 import { frontDataAdapter } from '@/utils';
-import styles from './Shop.module.css';
+import styles from './Shop.module.scss';
 import { useErrorBoundary, withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '@/components/ErrorBoundary/ErrorFallback';
 
@@ -46,7 +46,6 @@ const Shop = observer(() => {
     const signal = controller.signal;
     (async () => {
       try {
-        console.log(products.selectedType);
         const data = await httpService.fetchProducts(
           {
             typeId: products.selectedType,
