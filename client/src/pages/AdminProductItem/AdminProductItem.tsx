@@ -5,7 +5,7 @@ import { IProduct } from '@/types/productTypes';
 import httpService from '@/http/productAPI';
 import { EditItemModule, DeleteBtn } from '@/components/admin-page';
 import { Loader, Button, Scale, IconButton } from '@/components/ui';
-
+import Active from '@/assets/icons/active.svg';
 import { ADMIN_ROUTE } from '@/constants/routesConstants';
 import config from '@/config/config.json';
 import { useRootStore } from '@/context/StoreContext';
@@ -116,7 +116,9 @@ const AdminProductItem = observer(() => {
             <div>{price.value} &#8381;</div>
           </div>
         ))}
-        <div>{item.active ? 'true' : 'false'}</div>
+        <div data-is-active={item.active}>
+          В продаже: <Active />
+        </div>
         <div className={styles.item_buttons}>
           <DeleteBtn onDelete={removeHandle} id={id || ''} />
           <IconButton appearance="primary" onClick={editHandle} icon="Edit" />

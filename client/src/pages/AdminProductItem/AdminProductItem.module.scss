@@ -6,16 +6,32 @@
 	padding: 20px;
 	position: absolute;
 	width: 500px;
-	top: 70px;
+	top: 20%;
 	left: 50%;
 	transform: translateX(-50%);
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px 2px #8c8c8c;
 	text-align: center;
+
+	> div:not(:first-child, :last-child) {
+		margin: 10px 0;
+	}
+
+	span {
+		display: block;
+	}
 }
 
-.item_container > :not(:first-child, :last-child) {
-	margin: 10px 0;
+[data-is-active="true"] {
+	svg {
+		fill: green;
+	}
+}
+
+[data-is-active="false"] {
+	svg {
+		fill: red;
+	}
 }
 
 .item_scale {
