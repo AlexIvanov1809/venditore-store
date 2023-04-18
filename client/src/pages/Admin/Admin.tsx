@@ -24,21 +24,28 @@ const Admin = observer(() => {
   });
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     if (updated) {
       setIsLoading(true);
       (async () => {
         try {
-          const data = await httpService.fetchProducts();
+          const data = await httpService.fetchProducts({}, signal);
           products.setProducts(frontDataAdapter(data.rows));
-        } catch (e) {
-          console.log(e);
-        } finally {
-          products.productSorting(sortType.type as 'type', sortType.sort);
           setUpdated(false);
+        } catch (e: any) {
+          if (e.message !== 'canceled') {
+            console.log(e);
+          }
+        } finally {
+          products.productSorting(sortType.type, sortType.sort);
           setIsLoading(false);
         }
       })();
     }
+    return () => {
+      controller.abort();
+    };
   }, [updated]);
 
   useEffect(() => {
@@ -71,7 +78,7 @@ const Admin = observer(() => {
     return filteredData;
   }
 
-  const filteredItems = searchItems(products.products);
+  const filteredProducts = searchItems(products.products);
 
   return (
     <main className={styles.admin}>
@@ -100,13 +107,17 @@ const Admin = observer(() => {
           <IconButton appearance="primary" onClick={onHide} icon="Add" />
         </div>
         <div className={styles.items_fields}>
-          {ADMIN_ITEM_FIELDS.map((i) => (
-            <div onClick={() => onClick(i.type)} key={i.id}>
-              {i.name}
+          {ADMIN_ITEM_FIELDS.map((field) => (
+            <div onClick={() => onClick(field.type)} key={field.id}>
+              {field.name}
             </div>
           ))}
         </div>
-        {isLoading ? <Loader /> : filteredItems.map((i) => <AdminItemForList key={i.id} product={i} />)}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          filteredProducts.map((product) => <AdminItemForList key={product.id} product={product} />)
+        )}
       </div>
       {show && <EditItemModule onUpdated={setUpdated} onHide={onHide} />}
     </main>
