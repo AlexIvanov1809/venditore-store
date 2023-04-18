@@ -10,10 +10,10 @@ import { ADMIN_ROUTE } from '@/constants/routesConstants';
 import config from '@/config/config.json';
 import { useRootStore } from '@/context/StoreContext';
 import { frontDataAdapter } from '@/utils';
-import styles from './AdminItem.module.css';
+import styles from './AdminProductItem.module.scss';
 import { ENTITY_TYPES } from '@/constants/adminPageConstants';
 
-const AdminItem = observer(() => {
+const AdminProductItem = observer(() => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { products } = useRootStore();
@@ -23,6 +23,8 @@ const AdminItem = observer(() => {
   const [updated, setUpdated] = useState<boolean>(false);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     if (products.products.length === 0 || updated) {
       (async () => {
         try {
@@ -30,7 +32,7 @@ const AdminItem = observer(() => {
             if (products[prop.getter].length) {
               return;
             }
-            const data = await httpService.fetchEntityItems(prop.endpoint);
+            const data = await httpService.fetchEntityItems(prop.endpoint, signal);
             products[prop.setter](data);
           });
           if (id) {
@@ -38,8 +40,10 @@ const AdminItem = observer(() => {
             frontDataAdapter([data]);
             setItem(frontDataAdapter([data])[0]);
           }
-        } catch (e) {
-          console.log(e);
+        } catch (e: any) {
+          if (e.message !== 'canceled') {
+            console.log(e);
+          }
         } finally {
           setUpdated(false);
           setIsLoading(false);
@@ -50,6 +54,10 @@ const AdminItem = observer(() => {
       setItem(data[0]);
       setIsLoading(false);
     }
+
+    return () => {
+      controller.abort();
+    };
   }, [products, updated, id]);
 
   const removeHandle = (id: string | number) => {
@@ -119,4 +127,4 @@ const AdminItem = observer(() => {
   );
 });
 
-export default AdminItem;
+export default AdminProductItem;

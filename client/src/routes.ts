@@ -1,4 +1,4 @@
-import { Admin, Basket, Shop, AdminItem } from './pages';
+import { Admin, Basket, Shop, AdminProductItem } from './pages';
 import { ADMIN_ROUTE, BASKET_ROUTE, ITEM_ROUTE, SHOP_ROUTE } from './constants/routesConstants';
 
 export const authRoutes = [
@@ -6,7 +6,7 @@ export const authRoutes = [
     path: ADMIN_ROUTE,
     Component: Admin
   },
-  { path: ITEM_ROUTE, Component: AdminItem }
+  { path: ITEM_ROUTE, Component: AdminProductItem }
 ];
 
 export const publicRoutes = [
