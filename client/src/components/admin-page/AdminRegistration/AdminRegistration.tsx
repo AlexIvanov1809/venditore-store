@@ -60,6 +60,11 @@ const AdminRegistration = (): JSX.Element => {
     setErrors(validErrors);
   };
 
+  const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsOpen(false);
+  };
+
   const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     validate();
@@ -115,6 +120,9 @@ const AdminRegistration = (): JSX.Element => {
             />
             {errors.main && <p style={{ color: 'red' }}>{errors.main}</p>}
             <Button appearance="primary">Зарегистрировать</Button>
+            <Button onClick={handleClose} appearance="danger">
+              Закрыть
+            </Button>
           </form>
         </div>
       )}

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FnOnChange } from '@/types/uiTypes';
 import httpService from '@/http/productAPI';
-import styles from './EntitiesEditor.module.css';
+import styles from './EntitiesEditor.module.scss';
 import { Button, TextInput } from '../../ui';
 import DeleteBtn from '../DeleteBtn/DeleteBtn';
 import EntityEditorProps from './EntityEditor.props';
