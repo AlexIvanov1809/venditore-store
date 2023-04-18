@@ -14,21 +14,30 @@ const App: FC = observer(() => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const productsInBasket = getFromStorage(BASKET_STORAGE_NAME);
     if (productsInBasket) {
       basket.setOrder(productsInBasket);
     }
+    const controller = new AbortController();
+    const signal = controller.signal;
 
     (async () => {
       try {
-        const data = await authService.checkAuth();
+        const data = await authService.checkAuth(signal);
         user.setUser(data);
-      } catch (e) {
-        console.log(e);
+      } catch (e: any) {
+        if (e.message !== 'canceled') {
+          console.log(e);
+        }
       } finally {
         setLoading(false);
       }
     })();
+
+    return () => {
+      controller.abort();
+    };
   }, [user]);
 
   if (loading) {

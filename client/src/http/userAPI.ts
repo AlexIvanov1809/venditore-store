@@ -35,8 +35,8 @@ const authService = {
     localStorage.removeItem('token');
   },
 
-  checkAuth: async () => {
-    const { data } = await $authHost.get(`${ENDPOINT}/refresh`);
+  checkAuth: async (signal: AbortSignal) => {
+    const { data } = await $authHost.get(`${ENDPOINT}/refresh`, { signal });
     localStorage.setItem('token', data.accessToken);
 
     return data.user;
