@@ -30,14 +30,14 @@ const httpService = {
     return data;
   },
 
-  async fetchEntityFilterItems(type: string, typeId: number | string) {
-    const { data } = await $host.get(`${TYPES_ENDPOINT}/${type}/filter/${typeId}`);
+  async fetchEntityFilterItems(type: string, typeId: number | string, signal: AbortSignal) {
+    const { data } = await $host.get(`${TYPES_ENDPOINT}/${type}/filter/${typeId}`, { signal });
 
     return data;
   },
 
-  async fetchEntityItems(type: string) {
-    const { data } = await $host.get<IProductType[]>(`${TYPES_ENDPOINT}/${type}`);
+  async fetchEntityItems(type: string, signal: AbortSignal) {
+    const { data } = await $host.get<IProductType[]>(`${TYPES_ENDPOINT}/${type}`, { signal });
 
     return data;
   },
@@ -59,11 +59,12 @@ const httpService = {
     return data;
   },
 
-  async fetchProducts(payload?: IFetchPayload) {
+  async fetchProducts(payload?: IFetchPayload, signal?: AbortSignal) {
     const { data } = await $host.get(PRODUCT_ENDPOINT, {
       params: {
         ...payload
-      }
+      },
+      signal
     });
 
     return data;

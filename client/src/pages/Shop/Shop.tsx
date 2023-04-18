@@ -16,44 +16,65 @@ const Shop = observer(() => {
   const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
-    setIsLoading(true);
+    const controller = new AbortController();
+    const signal = controller.signal;
     (() => {
       ENTITY_TYPES.forEach(async (item) => {
         try {
-          const data = await httpService.fetchEntityItems(item.endpoint);
+          const data = await httpService.fetchEntityItems(item.endpoint, signal);
           products[item.setter](data);
-        } catch (e) {
-          showBoundary(e);
+        } catch (e: any) {
+          if (e.message !== 'canceled') {
+            showBoundary(e);
+          }
         } finally {
           if (item.getter === 'types') {
             products.setSelectedType(products.types[0]?.id ? products.types[0].id : '');
           }
-          setIsLoading(false);
         }
       });
     })();
+
+    return () => {
+      controller.abort();
+    };
   }, [products]);
 
   useEffect(() => {
+    setIsLoading(true);
+    const controller = new AbortController();
+    const signal = controller.signal;
     (async () => {
       try {
-        const data = await httpService.fetchProducts({
-          typeId: products.selectedType,
-          brandId: products.selectedBrand,
-          countryId: products.selectedCountry,
-          makingMethodId: products.selectedMakingMethod,
-          manufacturingMethodId: products.selectedManufacturingMethod,
-          teaTypeId: products.selectedTeaType,
-          packageTypeId: products.selectedPackageType,
-          page: products.page,
-          limit: products.limit
-        });
+        console.log(products.selectedType);
+        const data = await httpService.fetchProducts(
+          {
+            typeId: products.selectedType,
+            brandId: products.selectedBrand,
+            countryId: products.selectedCountry,
+            makingMethodId: products.selectedMakingMethod,
+            manufacturingMethodId: products.selectedManufacturingMethod,
+            teaTypeId: products.selectedTeaType,
+            packageTypeId: products.selectedPackageType,
+            page: products.page,
+            limit: products.limit
+          },
+          signal
+        );
         products.setProducts(frontDataAdapter(data.rows));
         products.setTotalCount(data.count);
-      } catch (e) {
-        showBoundary(e);
+      } catch (e: any) {
+        if (e.message !== 'canceled') {
+          showBoundary(e);
+        }
+      } finally {
+        setIsLoading(false);
       }
     })();
+
+    return () => {
+      controller.abort();
+    };
   }, [
     products.selectedType,
     products.selectedBrand,
@@ -66,18 +87,27 @@ const Shop = observer(() => {
   ]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     if (products.selectedType) {
       (() => {
         try {
           ENTITY_TYPES.forEach(async (item) => {
-            const data = await httpService.fetchEntityFilterItems(item.endpoint, products.selectedType);
+            const data = await httpService.fetchEntityFilterItems(item.endpoint, products.selectedType, signal);
             products[item.setter](data);
           });
-        } catch (e) {
-          showBoundary(e);
+        } catch (e: any) {
+          if (e.message !== 'canceled') {
+            showBoundary(e);
+          }
         }
       })();
     }
+
+    return () => {
+      controller.abort();
+    };
   }, [products.selectedType]);
 
   if (isLoading) {

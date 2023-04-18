@@ -6,7 +6,7 @@ import { IBasketItem } from '@/types/basketTypes';
 import { useRootStore } from '@/context/StoreContext';
 import { setToStorage } from '@/service/storage.service';
 import { BEANS } from '@/constants/otherConstants';
-import styles from './Card.module.css';
+import styles from './Card.module.scss';
 import { Scale, CardPrice, SelectField } from '../../ui';
 import { ImgCarousel, OrderCardBtn } from '..';
 
@@ -89,9 +89,17 @@ const Card = observer(({ product }: Props) => {
         )}
         <p>{product.shortDescription}</p>
         <p>{product.description}</p>
-        <div>
-          <SelectField label="Выберите помол" options={BEANS} value={beans.id} onChange={grindType} />
-        </div>
+        {product.type === 'Кофе' && (
+          <div>
+            <SelectField
+              label="Выберите помол"
+              options={BEANS}
+              value={beans.id}
+              defaultOption="Зерно"
+              onChange={grindType}
+            />
+          </div>
+        )}
         <div className={styles.price_buy}>
           <div className={styles.price}>
             {product.prices.map((priceItem) => (

@@ -8,7 +8,7 @@ interface Props {
 }
 
 const AdminItemForList = observer(({ product }: Props) => (
-  <div data-active={product.active ? true : false} className={styles.admin_item}>
+  <div data-active-product={product.active ? true : false} className={styles.admin_item}>
     <NavLink className={styles.container} to={`/admin/product/${product.id}`}>
       <div>{product.type}</div>
       <div>{product.brand}</div>
