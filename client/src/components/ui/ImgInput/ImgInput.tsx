@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
-import styles from './imgInput.module.css';
+import styles from './imgInput.module.scss';
 import noPic from '@/assets/images/noImg.jpg';
 import ImgInputProps from './ImgInput.props';
 import config from '../../../config/config.json';
@@ -47,9 +47,11 @@ function ImgInput({ name, index, onChange, error, picName }: ImgInputProps) {
           onChange={handleChange}
           accept="image/*,.png,.jpg,.jpeg,.webp,"
         />
-        <div className={styles.img_btn} role="button" onClick={handleRemoveImage}>
-          X
-        </div>
+        {imgSrc !== noPic && (
+          <div className={styles.img_btn} role="button" onClick={handleRemoveImage}>
+            X
+          </div>
+        )}
       </div>
       {error && <p className="error">{error}</p>}
     </div>
