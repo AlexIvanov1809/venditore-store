@@ -2,50 +2,34 @@ const { ProductImg } = require('../models/models');
 const ApiError = require('../error/ApiError');
 const { convertAndSavePic, removePic } = require('../utils/saveAndRemovePic');
 const uuid = require('uuid');
+const pictureService = require('../services/picture.service');
 
 class PictureController {
   async create(req, res, next) {
-    const { productId, index } = req.params;
+    try {
+      const { productId, index } = req.params;
+      if (!req.files) {
+        return next(ApiError.badRequest('Не отправили фото'));
+      }
+      const images = [req.files.img].flat();
 
-    if (!req.files) {
-      next(ApiError.badRequest('Не отправили фото'));
+      await pictureService.createPicture(productId, index, images);
+      return res.json('Image created');
+    } catch (e) {
+      next(ApiError.internal(e.message));
     }
-    let { img } = req.files;
-    Array.isArray(img) ? img : (img = [img]);
-    img.forEach(async (i) => {
-      let fileName = uuid.v4() + '.jpg';
-      convertAndSavePic(i, fileName);
-
-      await ProductImg.create({
-        name: fileName,
-        productId,
-        row: parseInt(index),
-      });
-    });
   }
 
   async update(req, res, next) {
     try {
       const { id } = req.params;
       if (!req.files) {
-        next(ApiError.badRequest('Не отправили фото'));
-        console.log({ id });
+        return next(ApiError.badRequest('Не отправили фото'));
       }
-      let { img } = req.files;
-      const image = await ProductImg.findOne({ where: { id } });
+      const { img } = req.files;
+      await pictureService.editPicture(id, img);
 
-      let fileName = uuid.v4() + '.jpg';
-      convertAndSavePic(img, fileName);
-      removePic(image.name);
-
-      await ProductImg.update(
-        {
-          name: fileName,
-        },
-        { where: { id: image.id } },
-      );
-
-      return res.json('updated');
+      return res.json('Image updated');
     } catch (e) {
       next(ApiError.internal(e.message));
     }
@@ -54,11 +38,8 @@ class PictureController {
   async delete(req, res, next) {
     try {
       const { id } = req.params;
-      const image = await ProductImg.findOne({ where: { id } });
-      removePic(image.name);
-
-      await ProductImg.destroy({ where: { id } });
-      return res.json('deleted');
+      await pictureService.deletePicture(id);
+      return res.json('Image deleted');
     } catch (e) {
       next(ApiError.internal(e.message));
     }
