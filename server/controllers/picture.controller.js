@@ -1,7 +1,4 @@
-const { ProductImg } = require('../models/models');
 const ApiError = require('../error/ApiError');
-const { convertAndSavePic, removePic } = require('../utils/saveAndRemovePic');
-const uuid = require('uuid');
 const pictureService = require('../services/picture.service');
 
 class PictureController {

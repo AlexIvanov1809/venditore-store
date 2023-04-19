@@ -7,7 +7,7 @@ class PictureController {
       const { id } = req.params;
 
       await ProductPrice.destroy({ where: { id } });
-      return res.json('deleted');
+      return res.json('Price deleted');
     } catch (e) {
       next(ApiError.internal(e.message));
     }
