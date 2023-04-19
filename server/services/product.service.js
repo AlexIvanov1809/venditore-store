@@ -25,10 +25,9 @@ class ProductService {
       );
     }
 
-    const img = Array.isArray(images) ? images : (images = [images]);
-    img.forEach(async (image, index) => {
+    images.map(async (image, index) => {
       let fileName = uuid.v4() + '.jpg';
-      convertAndSavePic(image, fileName);
+      await convertAndSavePic(image, fileName);
 
       await ProductImg.create({
         name: fileName,

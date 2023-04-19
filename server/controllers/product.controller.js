@@ -6,11 +6,11 @@ class ProductController {
     try {
       const payload = req.body;
       if (!req.files) {
-        next(ApiError.badRequest('Не отправили фото'));
+        return next(ApiError.badRequest('Не отправили фото'));
       }
-      let { img } = req.files;
+      const images = [req.files.img].flat();
 
-      const product = await productService.createProduct(payload, img);
+      const product = await productService.createProduct(payload, images);
 
       return res.json(product);
     } catch (e) {
