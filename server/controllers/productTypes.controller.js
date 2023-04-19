@@ -1,12 +1,12 @@
-const itemTypesModels = require('../models/models');
 const ApiError = require('../error/ApiError');
+const productTypesService = require('../services/productTypes.service');
 
 class ProductTypesController {
   async create(req, res, next) {
     try {
       const { type } = req.params;
       const { name } = req.body;
-      const data = await itemTypesModels[type].create({ name });
+      const data = await productTypesService.createType(type, name);
       return res.json(data);
     } catch (e) {
       next(ApiError.internal(e.message));
@@ -16,7 +16,7 @@ class ProductTypesController {
   async getAll(req, res, next) {
     try {
       const { type } = req.params;
-      const data = await itemTypesModels[type].findAll();
+      const data = await productTypesService.getAllTypes(type);
       return res.json(data);
     } catch (e) {
       next(ApiError.internal(e.message));
@@ -26,24 +26,8 @@ class ProductTypesController {
   async getAllForFilter(req, res, next) {
     try {
       const { type, typeId } = req.params;
-      let data;
-      if (type !== 'Type') {
-        const key = 'Type' + type;
-        const brand = await itemTypesModels[key].findAll({
-          where: { typeId },
-        });
+      const data = await productTypesService.getAllForFilterTypes(type, typeId);
 
-        const id = [];
-        brand.forEach((i) => {
-          const entityId = type.charAt(0).toLowerCase() + type.substr(1);
-          id.push(i[entityId + 'Id']);
-        });
-        data = await itemTypesModels[type].findAll({
-          where: { id },
-        });
-      } else {
-        data = await itemTypesModels.Type.findAll();
-      }
       return res.json(data);
     } catch (e) {
       next(ApiError.internal(e.message));
@@ -54,10 +38,7 @@ class ProductTypesController {
     try {
       const { id, type } = req.params;
       const { name } = req.body;
-      const data = await itemTypesModels[type].update(
-        { name },
-        { where: { id } },
-      );
+      const data = await productTypesService.editTypes(id, type, name);
 
       return res.json(data);
     } catch (e) {
@@ -68,8 +49,8 @@ class ProductTypesController {
   async delete(req, res, next) {
     try {
       const { id, type } = req.params;
-      const data = await itemTypesModels[type].destroy({ where: { id } });
-      return res.json(data);
+      await productTypesService.deleteType(id, type);
+      return res.json('removed');
     } catch (e) {
       next(ApiError.internal(e.message));
     }
