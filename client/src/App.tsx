@@ -35,9 +35,9 @@ const App: FC = observer(() => {
       }
     })();
 
-    return () => {
-      controller.abort();
-    };
+    // return () => {
+    //   controller.abort();
+    // };
   }, [user]);
 
   if (loading) {

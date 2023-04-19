@@ -2,8 +2,8 @@ import { IResponseProduct } from '@/types/httpTypes';
 import { IProduct } from '@/types/productTypes';
 
 export default function frontDataAdapter(response: IResponseProduct[]): IProduct[] {
-  const normalizeData = response.reduce((acc, product) => {
-    const data = {
+  const normalizeData = response.map((product) => {
+    return {
       id: product.id,
       sortName: product.sortName,
       description: product.description,
@@ -30,9 +30,7 @@ export default function frontDataAdapter(response: IResponseProduct[]): IProduct
       teaType: product.tea_type ? product.tea_type.name : null,
       packageType: product.package_type ? product.package_type.name : null
     };
-
-    return [...acc, data];
-  }, [] as IProduct[]);
+  });
 
   return normalizeData;
 }

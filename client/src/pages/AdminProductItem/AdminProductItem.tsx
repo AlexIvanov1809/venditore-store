@@ -25,32 +25,42 @@ const AdminProductItem = observer(() => {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-    if (products.products.length === 0 || updated) {
+    if (!products.products.length || updated) {
+      setIsLoading(true);
       (async () => {
         try {
           ENTITY_TYPES.forEach(async (prop) => {
             if (products[prop.getter].length) {
               return;
             }
-            const data = await httpService.fetchEntityItems(prop.endpoint, signal);
-            products[prop.setter](data);
+            try {
+              const data = await httpService.fetchEntityItems(prop.endpoint, signal);
+              products[prop.setter](data);
+            } catch (e: any) {
+              if (e.message !== 'canceled') {
+                console.log(e);
+              }
+            }
           });
           if (id) {
-            const data = await httpService.fetchOneProduct(id);
-            frontDataAdapter([data]);
-            setItem(frontDataAdapter([data])[0]);
+            const response = await httpService.fetchOneProduct(id);
+            const product = frontDataAdapter([response])[0];
+            setItem(() => product);
           }
         } catch (e: any) {
           if (e.message !== 'canceled') {
             console.log(e);
           }
         } finally {
-          setUpdated(false);
           setIsLoading(false);
+          setUpdated(false);
         }
       })();
-    } else {
-      const data = products.products.filter((item) => item.id === parseInt(id || ''));
+    }
+
+    if (typeof id === 'string' && !item) {
+      setIsLoading(true);
+      const data = products.products.filter((item) => item.id === parseInt(id));
       setItem(data[0]);
       setIsLoading(false);
     }
@@ -58,21 +68,21 @@ const AdminProductItem = observer(() => {
     return () => {
       controller.abort();
     };
-  }, [products, updated, id]);
+  }, [updated, id]);
 
-  const removeHandle = (id: string | number) => {
+  const removeHandle = async (id: string | number) => {
     setIsLoading(true);
-    httpService
-      .removeProduct(id)
-      .then((d) => {
-        console.log(d);
-        navigate(ADMIN_ROUTE);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => setIsLoading(false));
+    try {
+      await httpService.removeProduct(id);
+      navigate(ADMIN_ROUTE);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const editHandle = () => {
+  const openEditModule = () => {
     setEditing(!editing);
   };
 
@@ -121,10 +131,10 @@ const AdminProductItem = observer(() => {
         </div>
         <div className={styles.item_buttons}>
           <DeleteBtn onDelete={removeHandle} id={id || ''} />
-          <IconButton appearance="primary" onClick={editHandle} icon="Edit" />
+          <IconButton appearance="primary" onClick={openEditModule} icon="Edit" />
         </div>
       </div>
-      {editing && <EditItemModule product={item} onUpdated={setUpdated} onHide={editHandle} />}
+      {editing && <EditItemModule product={item} onUpdated={setUpdated} onHide={openEditModule} />}
     </div>
   );
 });

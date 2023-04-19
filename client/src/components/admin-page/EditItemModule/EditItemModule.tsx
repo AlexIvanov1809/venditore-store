@@ -94,8 +94,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
       try {
         imgUploader(img, product);
         const prod = { ...data, price: JSON.stringify(filteredPrice) };
-        const editedProduct = await httpService.editProduct(prod);
-        console.log(editedProduct);
+        await httpService.editProduct(prod);
         onHide(false);
         onUpdated(true);
       } catch (e) {
