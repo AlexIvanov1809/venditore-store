@@ -37,6 +37,7 @@
 	div:not(:last-child) {
 		border-right: 1px solid #000;
 		margin-right: 5px;
+		width: 145px;
 	}
 
 	div {
@@ -44,7 +45,6 @@
 		font-weight: bold;
 		text-align: start;
 		padding: 3px 10px;
-		width: 140px;
 		min-height: 100%;
 		cursor: pointer;
 	}

@@ -13,6 +13,7 @@
 	align-items: center;
 	color: #000;
 	text-decoration: none;
+	max-height: 100px;
 
 	div:not(:last-child) {
 		border-right: 1px solid #000;
@@ -20,10 +21,11 @@
 	}
 
 	div {
+		align-self: stretch;
 		font-size: 14px;
 		text-align: start;
-		padding: 3px 10px;
-		width: 140px;
+		padding: 3px 0px;
+		width: 145px;
 		min-height: 100%;
 	}
 }
