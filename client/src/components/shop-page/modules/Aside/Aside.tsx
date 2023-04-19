@@ -16,7 +16,7 @@ interface Props {
 const Aside = observer(({ className }: Props) => {
   const { products } = useRootStore();
   const [data, setData] = useState<null | FilterTypes>(null);
-  const [refresh, setRefresh] = useState(false);
+  const [refresh, setRefresh] = useState(() => false);
 
   useEffect(() => {
     ENTITY_TYPES.forEach((type) => {
@@ -37,7 +37,7 @@ const Aside = observer(({ className }: Props) => {
     }
   };
 
-  const onChange: FilterFn = (filterType, item) => {
+  const handleChange: FilterFn = (filterType, item) => {
     setData((prev) => ({ ...prev, [filterType]: item }));
   };
   return (
@@ -52,7 +52,7 @@ const Aside = observer(({ className }: Props) => {
               list={type.getter}
               label={type.label}
               filterType={type.filter}
-              onChange={onChange}
+              onChange={handleChange}
             />
           )
       )}

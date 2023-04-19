@@ -41,11 +41,11 @@ const Shop = observer(() => {
   }, [products]);
 
   useEffect(() => {
-    setIsLoading(true);
     const controller = new AbortController();
     const signal = controller.signal;
     (async () => {
       try {
+        setIsLoading(true);
         const data = await httpService.fetchProducts(
           {
             typeId: products.selectedType,
@@ -62,12 +62,13 @@ const Shop = observer(() => {
         );
         products.setProducts(frontDataAdapter(data.rows));
         products.setTotalCount(data.count);
+        setIsLoading(false);
       } catch (e: any) {
+        console.log(e);
         if (e.message !== 'canceled') {
           showBoundary(e);
+          setIsLoading(false);
         }
-      } finally {
-        setIsLoading(false);
       }
     })();
 
@@ -90,18 +91,16 @@ const Shop = observer(() => {
     const signal = controller.signal;
 
     if (products.selectedType) {
-      (() => {
+      ENTITY_TYPES.forEach(async (item) => {
         try {
-          ENTITY_TYPES.forEach(async (item) => {
-            const data = await httpService.fetchEntityFilterItems(item.endpoint, products.selectedType, signal);
-            products[item.setter](data);
-          });
+          const data = await httpService.fetchEntityFilterItems(item.endpoint, products.selectedType, signal);
+          products[item.setter](data);
         } catch (e: any) {
           if (e.message !== 'canceled') {
             showBoundary(e);
           }
         }
-      })();
+      });
     }
 
     return () => {
@@ -109,15 +108,13 @@ const Shop = observer(() => {
     };
   }, [products.selectedType]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
   return (
     <main className={styles.main_shop}>
       <TypeBar className={styles.type} />
       <Aside className={styles.aside} />
       <CardList className={styles.shop} />
       <Pagination className={styles.pagination} />
+      {isLoading && <Loader />}
     </main>
   );
 });
