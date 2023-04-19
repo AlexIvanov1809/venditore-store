@@ -64,7 +64,6 @@ const Shop = observer(() => {
         products.setTotalCount(data.count);
         setIsLoading(false);
       } catch (e: any) {
-        console.log(e);
         if (e.message !== 'canceled') {
           showBoundary(e);
           setIsLoading(false);
