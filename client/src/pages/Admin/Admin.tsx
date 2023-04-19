@@ -15,7 +15,7 @@ const Admin = observer(() => {
   const { products } = useRootStore();
   const [isLoading, setIsLoading] = useState(false);
   const [entityIsOpen, setEntityIsOpen] = useState(false);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [updated, setUpdated] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortType, setSortType] = useState<SortProps>({

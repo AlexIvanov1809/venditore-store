@@ -6,7 +6,7 @@ import { validator } from '@/utils';
 import { makeFormDataFile, imgUploader, removedPriceIds, imgAndPriceValidator } from './helpers/';
 import { VALIDATOR_CONFIG } from '@/constants/otherConstants';
 import { useRootStore } from '@/context/StoreContext';
-import styles from './EditItemModule.module.css';
+import styles from './EditItemModule.module.scss';
 import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } from '../../ui';
 import AddPriceValue from '../AddPriceValue/AddPriceValue';
 import EditItemModuleProps from './EditItemModule.props';
@@ -130,79 +130,87 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
                 />
               ))}
             </div>
-            <SelectField
-              value={data.typeId}
-              name="typeId"
-              label="Вид товара"
-              options={products.types}
-              onChange={changeHandle}
-              error={errors.typeId}
-            />
-            <SelectField
-              value={data.brandId}
-              name="brandId"
-              label="Бренд"
-              options={products.brands}
-              onChange={changeHandle}
-              error={errors.brandId}
-            />
-            <SelectField
-              value={data.countryId}
-              name="countryId"
-              label="Страна"
-              options={products.countries}
-              onChange={changeHandle}
-            />
-            <TextInput
-              label="Сорт или название"
-              name="sortName"
-              value={data.sortName}
-              onChange={changeHandle}
-              error={errors.sortName}
-            />
-            <SelectField
-              value={data.manufacturingMethodId}
-              name="manufacturingMethodId"
-              label="Метод производства"
-              options={products.manufacturingMethods}
-              onChange={changeHandle}
-            />
-            <SelectField
-              value={data.packageTypeId}
-              name="packageTypeId"
-              label="Вид упаковки"
-              options={products.packageTypes}
-              onChange={changeHandle}
-            />
-            <SelectField
-              value={data.teaTypeId}
-              name="teaTypeId"
-              label="Тип чая"
-              options={products.teaTypes}
-              onChange={changeHandle}
-            />
-            <SelectField
-              value={data.makingMethodId}
-              name="makingMethodId"
-              label="Метод приготовления"
-              options={products.makingMethods}
-              onChange={changeHandle}
-            />
-            <SelectField
-              value={data.acidity}
-              name="acidity"
-              label="Кислотность"
-              options={LEVEL}
-              onChange={changeHandle}
-            />
-            <SelectField
-              value={data.density}
-              name="density"
-              label="Плотность"
-              options={LEVEL}
-              onChange={changeHandle}
-            />
-            <div>
+            <div className={styles.edit_item}>
+              <SelectField
+                value={data.typeId}
+                name="typeId"
+                label="Вид товара"
+                options={products.types}
+                onChange={changeHandle}
+                error={errors.typeId}
+              />
+              <SelectField
+                value={data.brandId}
+                name="brandId"
+                label="Бренд"
+                options={products.brands}
+                onChange={changeHandle}
+                error={errors.brandId}
+              />
+              <SelectField
+                value={data.countryId}
+                name="countryId"
+                label="Страна"
+                options={products.countries}
+                onChange={changeHandle}
+              />
+            </div>
+            <div className={styles.edit_item}>
+              <SelectField
+                value={data.makingMethodId}
+                name="makingMethodId"
+                label="Метод приготовления"
+                options={products.makingMethods}
+                onChange={changeHandle}
+              />
+              <TextInput
+                label="Сорт или название"
+                name="sortName"
+                value={data.sortName}
+                onChange={changeHandle}
+                error={errors.sortName}
+              />
+            </div>
+            <div className={styles.edit_item}>
+              <SelectField
+                value={data.manufacturingMethodId}
+                name="manufacturingMethodId"
+                label="Особенности кофе"
+                options={products.manufacturingMethods}
+                onChange={changeHandle}
+              />
+              <SelectField
+                value={data.acidity}
+                name="acidity"
+                label="Кислотность"
+                options={LEVEL}
+                onChange={changeHandle}
+              />
+              <SelectField
+                value={data.density}
+                name="density"
+                label="Плотность"
+                options={LEVEL}
+                onChange={changeHandle}
+              />
+            </div>
+            <div className={styles.edit_item}>
+              <SelectField
+                value={data.teaTypeId}
+                name="teaTypeId"
+                label="Тип чая"
+                options={products.teaTypes}
+                onChange={changeHandle}
+              />
+              <SelectField
+                value={data.packageTypeId}
+                name="packageTypeId"
+                label="Вид упаковки"
+                options={products.packageTypes}
+                onChange={changeHandle}
+              />
+            </div>
+            <div className={styles.s}>
               <TextAreaField
                 label="Короткое описание"
                 name="shortDescription"
