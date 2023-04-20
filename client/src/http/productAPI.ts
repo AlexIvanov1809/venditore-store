@@ -59,6 +59,15 @@ const httpService = {
     return data;
   },
 
+  async searchingProducts(search: string) {
+    const { data } = await $host.get(`${PRODUCT_ENDPOINT}/search`, {
+      params: {
+        search
+      }
+    });
+    return data;
+  },
+
   async fetchProducts(payload?: IFetchPayload, signal?: AbortSignal) {
     const { data } = await $host.get(PRODUCT_ENDPOINT, {
       params: {
