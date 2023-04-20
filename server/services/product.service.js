@@ -72,7 +72,7 @@ class ProductService {
     }
     if (Object.keys(filterParams).length) {
       return await Product.findAndCountAll({
-        where: { ...filterParams },
+        where: { ...filterParams, active: true },
         limit,
         offset,
         include: INCLUDES_MODELS,
