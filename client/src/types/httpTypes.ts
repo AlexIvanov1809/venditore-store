@@ -15,6 +15,8 @@ export interface IFetchPayload {
 export interface IResponseProduct {
   id: number;
   sortName: string;
+  fullName: string;
+  minPriceValue: number;
   description: string | null;
   shortDescription: string;
   acidity: number | null;

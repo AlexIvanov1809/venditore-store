@@ -52,7 +52,7 @@ const Card = observer(({ product }: Props) => {
       const newOrder = {
         id: `${product.id}-${price.weight}`,
         brand: product.brand,
-        name: `${product.country ?? ''} ${product.sortName}`,
+        name: product.fullName,
         beans: beans.name,
         weight: price.weight,
         value: +price.value * quantity,

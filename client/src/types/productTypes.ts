@@ -24,10 +24,12 @@ interface IProductForEdit {
 interface IProduct {
   id: number;
   sortName: string;
+  fullName: string;
   description: string | null;
   shortDescription: string;
   acidity: number | null;
   density: number | null;
+  minPriceValue: number;
   active: boolean;
   createdAt: Date;
   updatedAt: Date;

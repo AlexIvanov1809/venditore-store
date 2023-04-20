@@ -6,6 +6,8 @@ export default function frontDataAdapter(response: IResponseProduct[]): IProduct
     return {
       id: product.id,
       sortName: product.sortName,
+      fullName: product.fullName,
+      minPriceValue: product.minPriceValue,
       description: product.description,
       shortDescription: product.shortDescription,
       acidity: product.acidity,
