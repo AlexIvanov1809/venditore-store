@@ -18,10 +18,12 @@ const Token = sequelize.define('token', {
 const Product = sequelize.define('product', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   sortName: { type: DataTypes.STRING, allowNull: false },
+  fullName: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING },
   shortDescription: { type: DataTypes.STRING },
   acidity: { type: DataTypes.STRING },
   density: { type: DataTypes.STRING },
+  minPriceValue: { type: DataTypes.STRING, allowNull: false },
   active: { type: DataTypes.BOOLEAN, defaultValue: true, allowNull: false },
 });
 

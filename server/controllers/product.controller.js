@@ -4,13 +4,16 @@ const productService = require('../services/product.service');
 class ProductController {
   async create(req, res, next) {
     try {
-      const payload = req.body;
+      const data = req.body;
       if (!req.files) {
         return next(ApiError.badRequest('Не отправили фото'));
       }
+      if (!data.price) {
+        return next(ApiError.badRequest('Не отправили цены'));
+      }
       const images = [req.files.img].flat();
 
-      const product = await productService.createProduct(payload, images);
+      const product = await productService.createProduct(data, images);
 
       return res.json(product);
     } catch (e) {
@@ -65,6 +68,9 @@ class ProductController {
     try {
       const { id } = req.params;
       const data = req.body;
+      if (!data.price) {
+        return next(ApiError.badRequest('Не отправили цены'));
+      }
 
       await productService.editProduct(id, data);
       return res.json('Product was edited');
