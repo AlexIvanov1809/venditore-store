@@ -4,6 +4,7 @@ const nullConverterForIdFields = require('../utils/nullConverterForIdFields');
 const makeEntitiesForFilters = require('../utils/makeEntitiesForFilters');
 const { INCLUDES_MODELS } = require('../constants/consts');
 const { convertAndSavePic } = require('../utils/saveAndRemovePic');
+const sequelize = require('../db');
 
 class ProductService {
   async createProduct({ price, ...data }, images) {
@@ -37,6 +38,23 @@ class ProductService {
     });
 
     return product;
+  }
+
+  async searchProduct(name) {
+    return await Product.findAll({
+      where: {
+        sortName: sequelize.where(
+          sequelize.fn('LOWER', sequelize.col('sortName')),
+          'LIKE',
+          '%' + name + '%',
+        ),
+      },
+      include: INCLUDES_MODELS,
+      order: [
+        [{ model: ProductPrice, as: 'prices' }, 'value', 'ASC'],
+        [{ model: ProductImg, as: 'images' }, 'row', 'ASC'],
+      ],
+    });
   }
 
   async getAllProducts(limit, page, filterParams) {
