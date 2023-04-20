@@ -46,6 +46,7 @@ class ProductController {
   async search(req, res, next) {
     try {
       const { search } = req.query;
+      if (!search) return;
       const result = await productService.searchProduct(search.toLowerCase());
 
       return res.json(result);

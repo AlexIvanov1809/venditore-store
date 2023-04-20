@@ -45,8 +45,8 @@ class ProductService {
   async searchProduct(name) {
     return await Product.findAll({
       where: {
-        sortName: sequelize.where(
-          sequelize.fn('LOWER', sequelize.col('sortName')),
+        fullName: sequelize.where(
+          sequelize.fn('LOWER', sequelize.col('fullName')),
           'LIKE',
           '%' + name + '%',
         ),
