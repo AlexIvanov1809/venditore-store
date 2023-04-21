@@ -29,7 +29,9 @@ const ProductSearch = ({ className }: Props) => {
       (async () => {
         await getFoundProduct();
       })();
+      return;
     }
+    setProducts([]);
   }, [productName]);
 
   const handleChange: FnOnChange = ({ value }) => {
