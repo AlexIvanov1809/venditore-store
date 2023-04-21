@@ -8,6 +8,7 @@ export interface IFetchPayload {
   manufacturingMethodId?: string;
   teaTypeId?: string;
   packageTypeId?: string;
+  sortBy?: string;
   page?: number;
   limit?: number;
 }

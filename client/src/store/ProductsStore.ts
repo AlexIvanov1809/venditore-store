@@ -33,6 +33,8 @@ export default class ProductsStore {
 
   private _selectedPackageType: string | undefined;
 
+  private _selectedSortBy: string;
+
   private _page: number;
 
   private _totalCount: number;
@@ -56,6 +58,7 @@ export default class ProductsStore {
     this._selectedManufacturingMethod = '';
     this._selectedTeaType = '';
     this._selectedPackageType = '';
+    this._selectedSortBy = '';
     this._page = 1;
     this._totalCount = 0;
     this._limit = 9;
@@ -130,6 +133,10 @@ export default class ProductsStore {
 
   setSelectedPackageType(packageType: string) {
     this._selectedPackageType = packageType;
+  }
+
+  setSelectedSortBy(sort: string) {
+    this._selectedSortBy = sort;
   }
 
   productSorting(type: keyof SortTypes, sort: 'asc' | 'desc') {
@@ -215,5 +222,9 @@ export default class ProductsStore {
   get selectedPackageType() {
     this.setPage(1);
     return this._selectedPackageType;
+  }
+  get selectedSortBy() {
+    this.setPage(1);
+    return this._selectedSortBy;
   }
 }

@@ -5,9 +5,9 @@ import { FilterTypes } from '@/types/productTypes';
 import { FilterFn } from '@/types/uiTypes';
 import { ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
-import styles from './Aside.module.css';
+import styles from './Aside.module.scss';
 import { Button } from '../../../ui';
-import { ShopFilterList } from '../..';
+import { ProductSortBy, ShopFilterList } from '../..';
 
 interface Props {
   className: string;
@@ -62,6 +62,7 @@ const Aside = observer(({ className }: Props) => {
       <Button appearance="primary" onClick={acceptFiltration}>
         Применить
       </Button>
+      <ProductSortBy />
     </aside>
   );
 });

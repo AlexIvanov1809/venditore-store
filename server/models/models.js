@@ -23,7 +23,7 @@ const Product = sequelize.define('product', {
   shortDescription: { type: DataTypes.STRING },
   acidity: { type: DataTypes.STRING },
   density: { type: DataTypes.STRING },
-  minPriceValue: { type: DataTypes.STRING, allowNull: false },
+  minPriceValue: { type: DataTypes.INTEGER, allowNull: false },
   active: { type: DataTypes.BOOLEAN, defaultValue: true, allowNull: false },
 });
 

@@ -55,6 +55,7 @@ const Shop = observer(() => {
             manufacturingMethodId: products.selectedManufacturingMethod,
             teaTypeId: products.selectedTeaType,
             packageTypeId: products.selectedPackageType,
+            sortBy: products.selectedSortBy,
             page: products.page,
             limit: products.limit
           },
@@ -82,6 +83,7 @@ const Shop = observer(() => {
     products.selectedManufacturingMethod,
     products.selectedTeaType,
     products.selectedPackageType,
+    products.selectedSortBy,
     products.page
   ]);
 

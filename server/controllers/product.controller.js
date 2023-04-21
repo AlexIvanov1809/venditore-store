@@ -23,17 +23,17 @@ class ProductController {
 
   async getAll(req, res, next) {
     try {
-      const { limit, page, ...data } = req.query;
+      const { limit, page, sortBy, ...data } = req.query;
       const filterParams = Object.keys(data).reduce((acc, product) => {
         if (data[product]) {
           acc[product] = data[product].split('-');
         }
         return acc;
       }, {});
-
       const products = await productService.getAllProducts(
         limit,
         page,
+        sortBy,
         filterParams,
       );
 

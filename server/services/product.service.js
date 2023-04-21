@@ -59,8 +59,11 @@ class ProductService {
     });
   }
 
-  async getAllProducts(limit, page, filterParams) {
+  async getAllProducts(limit, page, sortBy, filterParams) {
     const offset = page * limit - limit;
+    const sortProductByPrice = sortBy
+      ? ['minPriceValue', sortBy]
+      : ['id', 'ASC'];
 
     if (!Object.keys(filterParams).length) {
       return await Product.findAndCountAll({
@@ -72,19 +75,18 @@ class ProductService {
         distinct: true,
       });
     }
-    if (Object.keys(filterParams).length) {
-      return await Product.findAndCountAll({
-        where: { ...filterParams, active: true },
-        limit,
-        offset,
-        include: INCLUDES_MODELS,
-        order: [
-          [{ model: ProductPrice, as: 'prices' }, 'value', 'ASC'],
-          [{ model: ProductImg, as: 'images' }, 'row', 'ASC'],
-        ],
-        distinct: true,
-      });
-    }
+    return await Product.findAndCountAll({
+      where: { ...filterParams, active: true },
+      limit,
+      offset,
+      include: INCLUDES_MODELS,
+      order: [
+        sortProductByPrice,
+        [{ model: ProductPrice, as: 'prices' }, 'value', 'ASC'],
+        [{ model: ProductImg, as: 'images' }, 'row', 'ASC'],
+      ],
+      distinct: true,
+    });
   }
 
   async getOneProduct(id) {
