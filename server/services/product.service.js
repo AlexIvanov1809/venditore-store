@@ -50,6 +50,7 @@ class ProductService {
           'LIKE',
           '%' + name + '%',
         ),
+        active: true,
       },
       include: INCLUDES_MODELS,
       order: [
