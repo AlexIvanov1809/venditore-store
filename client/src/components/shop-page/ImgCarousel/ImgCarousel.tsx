@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import cn from 'classnames';
 import { IProductImage } from '@/types/productTypes';
-import styles from './ImgCarousel.module.css';
+import styles from './ImgCarousel.module.scss';
 import config from '../../../config/config.json';
 
 interface Props {

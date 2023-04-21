@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import styles from './CardList.module.css';
+import styles from './CardList.module.scss';
 import { Card } from '../..';
 import { useRootStore } from '@/context/StoreContext';
 

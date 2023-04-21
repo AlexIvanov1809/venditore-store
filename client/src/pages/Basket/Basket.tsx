@@ -9,7 +9,7 @@ import { sendOrder } from '@/http/orderAPI';
 import convertToTelegramMsgFormat from './messageConverter';
 import { useRootStore } from '@/context/StoreContext';
 import { setToStorage } from '@/service/storage.service';
-import styles from './Basket.module.css';
+import styles from './Basket.module.scss';
 import { useErrorBoundary, withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '@/components/ErrorBoundary/ErrorFallback';
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BasketSubmitFn } from '@/types/basketTypes';
 import { FnOnChange } from '@/types/uiTypes';
-import styles from './OrderSubmit.module.css';
+import styles from './OrderSubmit.module.scss';
 import { Button, TextInput, TextAreaField } from '../../ui';
 
 interface Props {

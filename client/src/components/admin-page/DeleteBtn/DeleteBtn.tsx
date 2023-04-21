@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DeleteFn } from '@/types/uiTypes';
-import styles from './DeleteBtn.module.css';
+import styles from './DeleteBtn.module.scss';
 import { CheckBox, IconButton } from '../../ui';
 
 interface DeleteBtn {

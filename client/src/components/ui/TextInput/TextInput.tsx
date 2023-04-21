@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import styles from './TextInput.module.css';
+import styles from './TextInput.module.scss';
 import TextInputProps from './TextInput.props';
 
 function TextInput({ label, name, type, value, onChange, error, placeholder, className, id }: TextInputProps) {

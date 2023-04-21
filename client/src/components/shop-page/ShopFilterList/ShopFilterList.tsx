@@ -3,7 +3,7 @@ import { IProduct } from '@/types/productTypes';
 import { FilterFn, FnOnChange } from '@/types/uiTypes';
 import { ProdGetter } from '@/types/constsTypes';
 import { useRootStore } from '@/context/StoreContext';
-import styles from './ShopFilterList.module.css';
+import styles from './ShopFilterList.module.scss';
 import { CheckBox } from '../../ui';
 
 interface Props {

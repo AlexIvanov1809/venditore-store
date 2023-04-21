@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import styles from './TextAreaField.module.css';
+import styles from './TextAreaField.module.scss';
 import TextAreaFieldProps from './TextAriaField.props';
 
 function TextAreaField({ label, name, value, onChange, error }: TextAreaFieldProps) {
