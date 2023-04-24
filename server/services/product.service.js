@@ -3,14 +3,14 @@ const uuid = require('uuid');
 const nullConverterForIdFields = require('../utils/nullConverterForIdFields');
 const makeEntitiesForFilters = require('../utils/makeEntitiesForFilters');
 const { INCLUDES_MODELS } = require('../constants/consts');
-const { convertAndSavePic } = require('../utils/saveAndRemovePic');
+const { convertAndSavePic, removePic } = require('../utils/saveAndRemovePic');
 const sequelize = require('../db');
 const { getFullName, getMinPriceValue } = require('../utils/getFullName');
 
 class ProductService {
-  async createProduct({ price, ...data }, images) {
+  async createProduct({ prices, ...data }, images) {
     data.fullName = await getFullName(data);
-    data.minPriceValue = getMinPriceValue(price);
+    data.minPriceValue = getMinPriceValue(prices);
 
     const product = await Product.create({
       ...data,
@@ -18,12 +18,12 @@ class ProductService {
 
     makeEntitiesForFilters(product);
 
-    const priceArr = JSON.parse(price);
+    const priceArr = JSON.parse(prices);
     priceArr.forEach(
       async (priceItem) =>
         await ProductPrice.create({
           weight: priceItem.weight,
-          value: priceItem.value,
+          value: parseInt(priceItem.value),
           productId: product.id,
         }),
     );
@@ -70,7 +70,7 @@ class ProductService {
       return await Product.findAndCountAll({
         include: INCLUDES_MODELS,
         order: [
-          [{ model: ProductPrice, as: 'prices' }, 'value', 'ASC'],
+          [{ model: ProductPrice, as: 'prices' }, 'id', 'ASC'],
           [{ model: ProductImg, as: 'images' }, 'row', 'ASC'],
         ],
         distinct: true,
@@ -95,7 +95,7 @@ class ProductService {
       where: { id },
       include: INCLUDES_MODELS,
       order: [
-        [{ model: ProductPrice, as: 'prices' }, 'value', 'ASC'],
+        [{ model: ProductPrice, as: 'prices' }, 'id', 'ASC'],
         [{ model: ProductImg, as: 'images' }, 'row', 'ASC'],
       ],
     });
@@ -103,7 +103,7 @@ class ProductService {
 
   async editProduct(id, data) {
     data.fullName = await getFullName(data);
-    data.minPriceValue = getMinPriceValue(data.price);
+    data.minPriceValue = getMinPriceValue(data.prices);
 
     const preparedData = nullConverterForIdFields(data);
     await Product.update(preparedData, { where: { id } });
@@ -111,29 +111,29 @@ class ProductService {
 
     makeEntitiesForFilters(product);
 
-    const price = JSON.parse(data.price);
-    price.forEach(async (i) =>
-      i.productId
+    const prices = JSON.parse(data.prices);
+    prices.forEach(async (price) =>
+      price.productId
         ? await ProductPrice.update(
             {
-              weight: i.weight,
-              value: i.value,
+              weight: price.weight,
+              value: parseInt(price.value),
             },
-            { where: { id: i.id } },
+            { where: { id: price.id } },
           )
         : await ProductPrice.create({
-            weight: i.weight,
-            value: i.value,
+            weight: price.weight,
+            value: parseInt(price.value),
             productId: id,
           }),
     );
   }
 
   async deleteProduct(id) {
-    const img = await ProductImg.findAll({ where: { productId: id } });
+    const images = await ProductImg.findAll({ where: { productId: id } });
 
-    img.forEach(async (i) => {
-      await removePic(i.name);
+    images.forEach(async (image) => {
+      await removePic(image.name);
     });
 
     makeEntitiesForFilters(id);

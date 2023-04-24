@@ -71,7 +71,7 @@ const ProductImg = sequelize.define('product_imgs', {
 const ProductPrice = sequelize.define('product_prices', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   weight: { type: DataTypes.STRING, allowNull: false },
-  value: { type: DataTypes.STRING, allowNull: false },
+  value: { type: DataTypes.INTEGER, allowNull: false },
 });
 
 const TypeBrand = sequelize.define('type_brand', {

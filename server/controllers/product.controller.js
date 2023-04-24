@@ -8,7 +8,7 @@ class ProductController {
       if (!req.files) {
         return next(ApiError.badRequest('Не отправили фото'));
       }
-      if (!data.price) {
+      if (!data.prices) {
         return next(ApiError.badRequest('Не отправили цены'));
       }
       const images = [req.files.img].flat();
@@ -69,7 +69,7 @@ class ProductController {
     try {
       const { id } = req.params;
       const data = req.body;
-      if (!data.price) {
+      if (!data.prices) {
         return next(ApiError.badRequest('Не отправили цены'));
       }
 

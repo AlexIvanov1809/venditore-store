@@ -18,7 +18,7 @@ interface IProductForEdit {
   manufacturingMethodId: IProductType['id'] | null;
   teaTypeId: IProductType['id'] | null;
   packageTypeId: IProductType['id'] | null;
-  price: string;
+  prices: string;
 }
 
 interface IProduct {
@@ -83,7 +83,7 @@ interface IProductImage {
 interface IProductPrice {
   id: number;
   weight: string;
-  value: string;
+  value: string | number;
   createdAt?: Date;
   updatedAt?: Date;
   productId?: IProduct['id'];
@@ -111,7 +111,7 @@ interface INewProduct {
   manufacturingMethodId: number | string | null;
   teaTypeId: number | string | null;
   packageTypeId: number | string | null;
-  price: string;
+  prices: string;
   active: boolean;
 }
 

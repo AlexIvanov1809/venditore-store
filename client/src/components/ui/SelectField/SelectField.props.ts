@@ -8,5 +8,4 @@ export default interface SelectFieldProps {
   options: (Options | undefined)[];
   error?: ErrorMsg;
   name?: string;
-  id?: number;
 }

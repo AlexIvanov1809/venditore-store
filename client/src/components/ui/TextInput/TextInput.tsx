@@ -3,7 +3,7 @@ import cn from 'classnames';
 import styles from './TextInput.module.scss';
 import TextInputProps from './TextInput.props';
 
-function TextInput({ label, name, type, value, onChange, error, placeholder, className, id }: TextInputProps) {
+function TextInput({ label, name, type, value, onChange, error, placeholder, className }: TextInputProps) {
   const inpClassName = cn(className, styles.inp_container, {
     error
   });
@@ -11,7 +11,7 @@ function TextInput({ label, name, type, value, onChange, error, placeholder, cla
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const value = type === 'tel' ? target.value.replace(/[^+\d]/g, '') : target.value;
 
-    onChange({ name: target.name, value, id });
+    onChange({ name: target.name, value });
   };
 
   return (

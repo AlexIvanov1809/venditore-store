@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
-import { icons } from '../../../assets/images';
+import icons from '@/assets/icons';
 
 export type IconName = keyof typeof icons;
 

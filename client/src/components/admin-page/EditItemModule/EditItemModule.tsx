@@ -3,7 +3,7 @@ import { IProductPrice } from '@/types/productTypes';
 import { ErrorValidation, FnOnChange } from '@/types/uiTypes';
 import httpService from '@/http/productAPI';
 import { validator } from '@/utils';
-import { makeFormDataFile, imgUploader, removedPriceIds, imgAndPriceValidator } from './helpers/';
+import { makeFormDataFile, imgUploader, imgAndPriceValidator, normalizedPricesData } from './helpers/';
 import { VALIDATOR_CONFIG } from '@/constants/otherConstants';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './EditItemModule.module.scss';
@@ -20,8 +20,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
 
   const [data, setData] = useState(product || DEFAULT);
   const [img, setImg] = useState<(string | File)[]>(['', '', '']);
-  const [price, setPrice] = useState<IProductPrice[]>(initialState);
-  const [removedPrice, setRemovedPrice] = useState(false);
+  const [prices, setPrices] = useState<IProductPrice[]>(initialState);
   const [errors, setErrors] = useState<ErrorValidation>({});
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
     };
     const validErrors = {
       ...validator(validationFields, VALIDATOR_CONFIG),
-      ...imgAndPriceValidator(price, 'price'),
+      ...imgAndPriceValidator(prices, 'price'),
       ...imgAndPriceValidator(img, 'image')
     };
     setErrors(validErrors);
@@ -49,14 +48,14 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
 
   useEffect(() => {
     validate();
-  }, [data, price, img]);
+  }, [data, prices, img]);
 
   const changeHandle: FnOnChange = ({ name, value }) => {
     setData((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const changePrice: FnOnChange = ({ name, value, id }) => {
-    setPrice(price.map((p) => (p.id === id ? { ...p, [name]: value } : p)));
+    setPrices(prices.map((p) => (p.id === id ? { ...p, [name]: value } : p)));
   };
 
   const changeImgHandle = (index: number, file: File | string): void => {
@@ -65,13 +64,12 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
 
   const addPrice = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    setPrice([...price, { id: Date.now(), weight: '', value: '' }]);
+    setPrices([...prices, { id: Date.now(), weight: '', value: '' }]);
   };
 
   const removePrice = (e: React.MouseEvent<Element, MouseEvent>, id: number): void => {
     e.preventDefault();
-    setPrice(price.filter((p) => p.id !== id));
-    setRemovedPrice(true);
+    setPrices(prices.filter((p) => p.id !== id));
   };
 
   const submitHandle = async (e: React.MouseEvent<HTMLFormElement>) => {
@@ -79,37 +77,31 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
     if (Object.keys(errors).length > 0) {
       return;
     }
-    const filteredPrice = price.filter((p) => p.weight && p.value);
+
+    const filteredPrice = prices.filter((p) => p.weight && p.value);
     if (product) {
-      if (removedPrice) {
-        const removedPriceId = removedPriceIds(price, product.prices);
-        removedPriceId.forEach((id) => {
-          try {
-            httpService.removePriceProduct(id);
-          } catch (e) {
-            console.log(e);
-          }
-        });
-      }
+      const normalizedPrices = normalizedPricesData(filteredPrice, product.prices);
+
       try {
         imgUploader(img, product);
-        const prod = { ...data, price: JSON.stringify(filteredPrice) };
+        const prod = { ...data, prices: JSON.stringify(normalizedPrices) };
         await httpService.editProduct(prod);
         onHide(false);
         onUpdated(true);
       } catch (e) {
         console.log(e);
       }
-    } else {
-      try {
-        const items = { ...data, price: JSON.stringify(filteredPrice) };
-        const formData = makeFormDataFile(items, img);
-        await httpService.createProduct(formData);
-        onHide(false);
-        onUpdated(true);
-      } catch (e) {
-        console.log(e);
-      }
+      return;
+    }
+
+    try {
+      const items = { ...data, prices: JSON.stringify(filteredPrice) };
+      const formData = makeFormDataFile(items, img);
+      await httpService.createProduct(formData);
+      onHide(false);
+      onUpdated(true);
+    } catch (e) {
+      console.log(e);
     }
   };
   return (
@@ -229,13 +221,13 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
               Активность
             </CheckBox>
             <div>
-              <Button appearance="primary" onClick={addPrice} disabled={price.length > 2}>
+              <Button appearance="primary" onClick={addPrice} disabled={prices.length > 2}>
                 Добавить цену
               </Button>
-              {price.map((p) => (
+              {prices.map((price) => (
                 <AddPriceValue
-                  key={p.id}
-                  price={p}
+                  key={price.id}
+                  price={price}
                   onChange={changePrice}
                   removePrice={removePrice}
                   className={styles.edit_price}

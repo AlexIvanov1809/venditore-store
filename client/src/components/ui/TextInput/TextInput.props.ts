@@ -8,6 +8,5 @@ export default interface TextInputProps {
   error?: ErrorMsg;
   placeholder?: string;
   className?: string;
-  id?: number;
   type?: HTMLInputElement['type'];
 }
