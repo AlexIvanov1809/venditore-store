@@ -4,7 +4,6 @@ import { FnOnChange } from '@/types/uiTypes';
 import { IProduct } from '@/types/productTypes';
 import useDebounce from '@/hooks/useDebounce';
 import httpService from '@/http/productAPI';
-import { frontDataAdapter } from '@/utils';
 
 interface Props {
   className: string;
@@ -18,7 +17,7 @@ const ProductSearch = ({ className }: Props) => {
   async function fetchSearchingProduct(name: string) {
     try {
       const response = await httpService.searchingProducts(name);
-      setProducts(frontDataAdapter(response));
+      setProducts(response);
     } catch (e) {
       console.log(e);
     }

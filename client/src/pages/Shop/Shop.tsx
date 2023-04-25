@@ -5,7 +5,6 @@ import { TypeBar, Aside, CardList, Pagination, ProductSearch } from '@/component
 import httpService from '@/http/productAPI';
 import { ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
-import { frontDataAdapter } from '@/utils';
 import styles from './Shop.module.scss';
 import { useErrorBoundary, withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '@/components/ErrorBoundary/ErrorFallback';
@@ -61,7 +60,7 @@ const Shop = observer(() => {
           },
           signal
         );
-        products.setProducts(frontDataAdapter(data.rows));
+        products.setProducts(data.rows);
         products.setTotalCount(data.count);
         setIsLoading(false);
       } catch (e: any) {

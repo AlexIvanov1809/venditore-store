@@ -1,6 +1,6 @@
 import { IProductForEdit, IProductType } from '@/types/productTypes';
 import { IFetchPayload } from '@/types/httpTypes';
-import { $authHost, $host } from './index';
+import { $authHost, $host, $productHost } from './index';
 
 const TYPES_ENDPOINT = 'productTypes';
 const PRODUCT_ENDPOINT = 'product';
@@ -60,7 +60,7 @@ const httpService = {
   },
 
   async searchingProducts(search: string) {
-    const { data } = await $host.get(`${PRODUCT_ENDPOINT}/search`, {
+    const { data } = await $productHost.get(`${PRODUCT_ENDPOINT}/search`, {
       params: {
         search
       }
@@ -69,7 +69,7 @@ const httpService = {
   },
 
   async fetchProducts(payload?: IFetchPayload, signal?: AbortSignal) {
-    const { data } = await $host.get(PRODUCT_ENDPOINT, {
+    const { data } = await $productHost.get(PRODUCT_ENDPOINT, {
       params: {
         ...payload
       },
@@ -79,7 +79,7 @@ const httpService = {
     return data;
   },
   async fetchOneProduct(id: number | string) {
-    const { data } = await $host.get(`${PRODUCT_ENDPOINT}/${id}`);
+    const { data } = await $productHost.get(`${PRODUCT_ENDPOINT}/${id}`);
 
     return data;
   },

@@ -5,7 +5,6 @@ import { IProduct, SortTypes } from '@/types/productTypes';
 import { Button, IconButton, Loader, TextInput } from '@/components/ui';
 import { EntityContainer, AdminItemForList, EditItemModule, AdminRegistration } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
-import { frontDataAdapter } from '@/utils';
 import changeProductSortWay from './changeProductSortWay';
 import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
@@ -31,7 +30,7 @@ const Admin = observer(() => {
       (async () => {
         try {
           const data = await httpService.fetchProducts({}, signal);
-          products.setProducts(frontDataAdapter(data.rows));
+          products.setProducts(data.rows);
           setUpdated(false);
         } catch (e: any) {
           if (e.message !== 'canceled') {

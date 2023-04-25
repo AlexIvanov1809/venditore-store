@@ -9,7 +9,6 @@ import Active from '@/assets/icons/active.svg';
 import { ADMIN_ROUTE } from '@/constants/routesConstants';
 import config from '@/config/config.json';
 import { useRootStore } from '@/context/StoreContext';
-import { frontDataAdapter } from '@/utils';
 import styles from './AdminProductItem.module.scss';
 import { ENTITY_TYPES } from '@/constants/adminPageConstants';
 
@@ -43,9 +42,8 @@ const AdminProductItem = observer(() => {
             }
           });
           if (id) {
-            const response = await httpService.fetchOneProduct(id);
-            const product = frontDataAdapter([response])[0];
-            setItem(() => product);
+            const [response] = await httpService.fetchOneProduct(id);
+            setItem(() => response);
           }
         } catch (e: any) {
           if (e.message !== 'canceled') {
