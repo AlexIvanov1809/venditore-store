@@ -6,10 +6,6 @@ type ErrorMsg = string;
 
 type Options = { id: string | number; name: string | number };
 
-type ErrorValidation = {
-  [key in keyof Pick<IProduct, 'brandId' | 'typeId' | 'sortName' | 'shortDescription' | 'images' | 'prices'>]?: string;
-};
-
 type HideFn = (data?: boolean) => void;
 
 type DeleteFn = (id: string | number) => void;
@@ -21,4 +17,4 @@ type SortProps = {
 
 type FilterFn = (filterType: keyof IProduct, item: string[]) => void;
 
-export { FnOnChange, ErrorMsg, Options, ErrorValidation, HideFn, DeleteFn, SortProps, FilterFn };
+export { FnOnChange, ErrorMsg, Options, HideFn, DeleteFn, SortProps, FilterFn };

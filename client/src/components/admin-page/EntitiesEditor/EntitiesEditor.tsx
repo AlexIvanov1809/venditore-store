@@ -5,10 +5,12 @@ import styles from './EntitiesEditor.module.scss';
 import { Button, TextInput } from '../../ui';
 import DeleteBtn from '../DeleteBtn/DeleteBtn';
 import EntityEditorProps from './EntityEditor.props';
+import useValidation from '@/hooks/useValidation';
+import { VALIDATOR_CONFIG } from '@/constants/configConstants';
 
 function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEditorProps) {
   const [value, setValue] = useState<{ name: string }>({ name: item ? item.name : '' });
-  const [error, setError] = useState<string>('');
+  const error = useValidation(value.name, VALIDATOR_CONFIG.required);
 
   const changeHandle: FnOnChange = ({ value }) => {
     if (typeof value === 'string') {
@@ -17,10 +19,10 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
   };
 
   const onSubmit = async () => {
-    if (value.name.trim() === '') {
-      setError('Поле не может быть пустым');
+    if (error) {
       return;
     }
+
     try {
       if (item) {
         await httpService.editEntityItem(endpoint, item.id, value);
@@ -51,7 +53,7 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
             <Button appearance="danger" onClick={() => onHide(false)}>
               Close
             </Button>
-            <Button appearance="primary" onClick={onSubmit}>
+            <Button disabled={!!error} appearance="primary" onClick={onSubmit}>
               {item ? 'Обновить' : 'Создать'}
             </Button>
           </div>

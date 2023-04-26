@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { IProductPrice } from '@/types/productTypes';
-import { ErrorValidation, FnOnChange } from '@/types/uiTypes';
+import { FnOnChange } from '@/types/uiTypes';
 import httpService from '@/http/productAPI';
-import { validator } from '@/utils';
 import { makeFormDataFile, imgUploader, imgAndPriceValidator, normalizedPricesData } from './helpers/';
-import { VALIDATOR_CONFIG } from '@/constants/otherConstants';
+import { VALIDATOR_CONFIG } from '@/constants/configConstants';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './EditItemModule.module.scss';
 import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } from '../../ui';
 import AddPriceValue from '../AddPriceValue/AddPriceValue';
 import EditItemModuleProps from './EditItemModule.props';
 import { DEFAULT, LEVEL } from '@/constants/adminPageConstants';
+import useValidation from '@/hooks/useValidation';
 
 function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   const { products } = useRootStore();
@@ -21,7 +21,12 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   const [data, setData] = useState(product || DEFAULT);
   const [img, setImg] = useState<(string | File)[]>(['', '', '']);
   const [prices, setPrices] = useState<IProductPrice[]>(initialState);
-  const [errors, setErrors] = useState<ErrorValidation>({});
+  const brandErrors = useValidation(data.brandId, VALIDATOR_CONFIG.required);
+  const typeErrors = useValidation(data.typeId, VALIDATOR_CONFIG.required);
+  const sortNameErrors = useValidation(data.sortName, VALIDATOR_CONFIG.required);
+  const shortDescErrors = useValidation(data.shortDescription, VALIDATOR_CONFIG.required);
+  const priceError = imgAndPriceValidator(prices, 'price');
+  const imageError = imgAndPriceValidator(img, 'image');
 
   useEffect(() => {
     if (product) {
@@ -32,23 +37,8 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   }, [product]);
 
   const validate = () => {
-    const validationFields = {
-      brandId: data.brandId,
-      typeId: data.typeId,
-      sortName: data.sortName,
-      shortDescription: data.shortDescription
-    };
-    const validErrors = {
-      ...validator(validationFields, VALIDATOR_CONFIG),
-      ...imgAndPriceValidator(prices, 'price'),
-      ...imgAndPriceValidator(img, 'image')
-    };
-    setErrors(validErrors);
+    return !!brandErrors || !!typeErrors || !!sortNameErrors || !!shortDescErrors || !!priceError || !!imageError;
   };
-
-  useEffect(() => {
-    validate();
-  }, [data, prices, img]);
 
   const changeHandle: FnOnChange = ({ name, value }) => {
     setData((prevState) => ({ ...prevState, [name]: value }));
@@ -74,7 +64,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
 
   const submitHandle = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (Object.keys(errors).length > 0) {
+    if (validate()) {
       return;
     }
 
@@ -118,7 +108,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
                   index={index}
                   onChange={changeImgHandle}
                   picName={picName}
-                  error={errors.images}
+                  error={imageError}
                 />
               ))}
             </div>
@@ -129,7 +119,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
                 label="Вид товара"
                 options={products.types}
                 onChange={changeHandle}
-                error={errors.typeId}
+                error={typeErrors}
               />
               <SelectField
                 value={data.brandId}
@@ -137,7 +127,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
                 label="Бренд"
                 options={products.brands}
                 onChange={changeHandle}
-                error={errors.brandId}
+                error={brandErrors}
               />
               <SelectField
                 value={data.countryId}
@@ -160,7 +150,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
                 name="sortName"
                 value={data.sortName}
                 onChange={changeHandle}
-                error={errors.sortName}
+                error={sortNameErrors}
               />
             </div>
             <div className={styles.edit_item}>
@@ -208,7 +198,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
                 name="shortDescription"
                 value={data.shortDescription}
                 onChange={changeHandle}
-                error={errors.shortDescription}
+                error={shortDescErrors}
               />
               <TextAreaField
                 label="Полное описание"
@@ -231,7 +221,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
                   onChange={changePrice}
                   removePrice={removePrice}
                   className={styles.edit_price}
-                  error={errors.prices}
+                  error={priceError}
                 />
               ))}
             </div>
@@ -240,7 +230,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
             <Button onClick={() => onHide()} appearance="danger">
               Закрыть
             </Button>
-            <Button appearance="primary" type="submit">
+            <Button disabled={validate()} appearance="primary" type="submit">
               {product ? 'Редактировать' : 'Создать'}
             </Button>
           </div>

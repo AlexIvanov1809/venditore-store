@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { BASKET_STORAGE_NAME } from '@/constants/otherConstants';
+import { BASKET_STORAGE_NAME } from '@/constants/configConstants';
 import { BasketChangeHandler, BasketSubmitFn } from '@/types/basketTypes';
 import { Button } from '@/components/ui';
 import { OrderSubmit, BasketItem } from '@/components/basket-page';

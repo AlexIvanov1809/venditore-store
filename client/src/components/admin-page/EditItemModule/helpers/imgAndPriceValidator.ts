@@ -1,8 +1,9 @@
 import { IProductPrice } from '@/types/productTypes';
+import { ErrorMsg } from '@/types/uiTypes';
 
 type DataImage = string | File;
 
-export default function imgAndPriceValidator(data: DataImage[] | IProductPrice[], type: 'image' | 'price') {
+export default function imgAndPriceValidator(data: DataImage[] | IProductPrice[], type: 'image' | 'price'): ErrorMsg {
   const errors = { img: true, price: true };
   data.forEach((item) => {
     if (type === 'image') {
@@ -18,7 +19,7 @@ export default function imgAndPriceValidator(data: DataImage[] | IProductPrice[]
   });
 
   if (type === 'image') {
-    if (errors.img) return { images: 'Нужно прикрепить фото' };
-  } else if (errors.price) return { prices: 'Поле необходимое для заполнения' };
-  return;
+    if (errors.img) return 'Нужно прикрепить фото';
+  } else if (errors.price) return 'Поле необходимое для заполнения';
+  return '';
 }

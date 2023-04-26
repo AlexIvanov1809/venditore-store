@@ -5,7 +5,7 @@ import { FnOnChange } from '@/types/uiTypes';
 import { IBasketItem } from '@/types/basketTypes';
 import { useRootStore } from '@/context/StoreContext';
 import { setToStorage } from '@/service/storage.service';
-import { BEANS } from '@/constants/otherConstants';
+import { BEANS } from '@/constants/configConstants';
 import styles from './Card.module.scss';
 import { Scale, CardPrice, SelectField } from '../../ui';
 import { ImgCarousel, OrderCardBtn } from '..';
