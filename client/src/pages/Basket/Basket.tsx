@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { BASKET_STORAGE_NAME } from '@/constants/configConstants';
-import { BasketChangeHandler, BasketSubmitFn } from '@/types/basketTypes';
+import { BasketChangeHandler, OrderData } from '@/types/basketTypes';
 import { Button } from '@/components/ui';
 import { OrderSubmit, BasketItem } from '@/components/basket-page';
 import { sendOrder } from '@/http/orderAPI';
@@ -45,8 +45,7 @@ const Basket = observer(() => {
     }
   };
 
-  const submitHandler: BasketSubmitFn = async (e, orderData) => {
-    e.preventDefault();
+  const submitHandler = async (orderData: OrderData) => {
     try {
       let total = 0;
       inBasket.forEach((orderedItem) => {

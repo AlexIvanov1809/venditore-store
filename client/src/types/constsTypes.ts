@@ -45,21 +45,8 @@ type AdminItemFields = {
 
 type ProductFieldsForValidation = Pick<IProduct, 'brandId' | 'typeId' | 'sortName' | 'shortDescription'>;
 
-type ValidatorConfig<T> = {
-  [key in keyof T]: {
-    isRequired: {
-      message: string;
-    };
-    isEmail?: {
-      message: string;
-    };
-    isContainDigit?: {
-      message: string;
-    };
-    isCapitalSymbol?: {
-      message: string;
-    };
-  };
+type ValidatorConfig = {
+  [key: string]: { message: string; value?: number };
 };
 
 export {

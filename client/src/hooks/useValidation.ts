@@ -1,11 +1,8 @@
+import { ValidatorConfig } from '@/types/constsTypes';
 import { ErrorMsg } from '@/types/uiTypes';
 import { useEffect, useState } from 'react';
 
-interface IConfig {
-  [key: string]: { message: string; value?: number };
-}
-
-export default function useValidation(value: string | number, config: IConfig, secondValue = ''): ErrorMsg {
+export default function useValidation(value: string | number, config: ValidatorConfig, secondValue = ''): ErrorMsg {
   if (typeof value === 'number') {
     value = value.toString();
   }
