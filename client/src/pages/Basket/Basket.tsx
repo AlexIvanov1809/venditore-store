@@ -6,7 +6,7 @@ import { BasketChangeHandler, BasketSubmitFn } from '@/types/basketTypes';
 import { Button } from '@/components/ui';
 import { OrderSubmit, BasketItem } from '@/components/basket-page';
 import { sendOrder } from '@/http/orderAPI';
-import convertToTelegramMsgFormat from './messageConverter';
+import convertToTelegramMsgFormat from './helper/messageConverter';
 import { useRootStore } from '@/context/StoreContext';
 import { setToStorage } from '@/service/storage.service';
 import styles from './Basket.module.scss';
@@ -49,8 +49,8 @@ const Basket = observer(() => {
     e.preventDefault();
     try {
       let total = 0;
-      inBasket.forEach((i) => {
-        total += i ? i.value : 0;
+      inBasket.forEach((orderedItem) => {
+        total += orderedItem.value * orderedItem.quantity;
       });
 
       const message = convertToTelegramMsgFormat({
@@ -73,10 +73,9 @@ const Basket = observer(() => {
     <main className={styles.basket}>
       <div>
         <ol className={styles.products_list}>
-          {inBasket.length > 0 &&
-            inBasket.map((item) => (
-              <BasketItem item={item} className={styles.product} key={item?.id} changeHandler={changeHandler} />
-            ))}
+          {inBasket.map((item) => (
+            <BasketItem item={item} className={styles.product} key={item?.id} changeHandler={changeHandler} />
+          ))}
         </ol>
         <Button appearance="primary" onClick={() => setConfirm(true)}>
           Оформить покупку
