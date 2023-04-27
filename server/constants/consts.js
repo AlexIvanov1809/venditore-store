@@ -37,12 +37,12 @@ const INCLUDES_MODELS = [
 ];
 
 const TYPES_FOR_FILTER = [
-  { model: models.TypeBrand, id: 'brandId' },
-  { model: models.TypeCountry, id: 'countryId' },
-  { model: models.TypeMakingMethod, id: 'makingMethodId' },
-  { model: models.TypeManufacturingMethod, id: 'manufacturingMethodId' },
-  { model: models.TypeTeaType, id: 'teaTypeId' },
-  { model: models.TypePackageType, id: 'packageTypeId' },
+  { model: models.TypeBrand, colName: 'brandId' },
+  { model: models.TypeCountry, colName: 'countryId' },
+  { model: models.TypeMakingMethod, colName: 'makingMethodId' },
+  { model: models.TypeManufacturingMethod, colName: 'manufacturingMethodId' },
+  { model: models.TypeTeaType, colName: 'teaTypeId' },
+  { model: models.TypePackageType, colName: 'packageTypeId' },
 ];
 
 module.exports = { INCLUDES_MODELS, TYPES_FOR_FILTER };

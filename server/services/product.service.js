@@ -16,7 +16,7 @@ class ProductService {
       ...data,
     });
 
-    makeEntitiesForFilters(product);
+    await makeEntitiesForFilters(product);
 
     const priceArr = JSON.parse(prices);
     priceArr.forEach(
@@ -109,7 +109,7 @@ class ProductService {
     await Product.update(preparedData, { where: { id } });
     const product = await Product.findOne({ where: { id } });
 
-    makeEntitiesForFilters(product);
+    await makeEntitiesForFilters(product);
 
     const prices = JSON.parse(data.prices);
     prices.forEach(async (price) =>

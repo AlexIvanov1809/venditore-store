@@ -1,30 +1,33 @@
 const { TYPES_FOR_FILTER } = require('../constants/consts');
 
-function makeEntitiesForFilters(item) {
-  TYPES_FOR_FILTER.forEach(async (t) => {
-    if (item[t.id]) {
-      const checker = await t.model.findAll({
-        where: { productId: item.id },
+function makeEntitiesForFilters(product) {
+  TYPES_FOR_FILTER.forEach(async (type) => {
+    if (typeof product === 'string') {
+      await type.model.destroy({
+        where: {
+          productId: product,
+        },
       });
-      if (checker.length !== 0) {
-        await t.model.destroy({
-          where: {
-            productId: item.id,
-          },
-        });
-      }
+      return;
+    }
 
-      await t.model.create({
-        typeId: item.typeId,
-        [t.id]: item[t.id],
-        productId: item.id,
+    const checker = await type.model.findAll({
+      where: { productId: product.id },
+    });
+
+    if (checker.length) {
+      await type.model.destroy({
+        where: {
+          productId: product.id,
+        },
       });
     }
-    if (typeof item === 'string') {
-      await t.model.destroy({
-        where: {
-          productId: item,
-        },
+
+    if (product[type.colName]) {
+      await type.model.create({
+        typeId: product.typeId,
+        [type.colName]: product[type.colName],
+        productId: product.id,
       });
     }
   });
