@@ -20,7 +20,7 @@ const Card = observer(({ product }: Props) => {
   const [quantity, setQuantity] = useState<number>(1);
   const [order, setOrder] = useState<IBasketItem[]>([]);
   const [bought, setBought] = useState<boolean>(false);
-  const [beans, setBeans] = useState({ name: 'Зерно' });
+  const [beans, setBeans] = useState({ name: 'Не молоть' });
 
   useEffect(() => {
     if (order.length) {
@@ -98,7 +98,7 @@ const Card = observer(({ product }: Props) => {
               label="Выберите помол"
               options={BEANS}
               value={beans.name}
-              defaultOption="Зерно"
+              defaultOption="Не молоть"
               onChange={grindType}
             />
           </div>

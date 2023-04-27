@@ -19,7 +19,6 @@ class ProductTypesService {
       const id = [];
       brand.forEach((i) => {
         const entityId = type.charAt(0).toLowerCase() + type.substring(1);
-        console.log(brand);
         id.push(i[entityId + 'Id']);
       });
       return await itemTypesModels[type].findAll({

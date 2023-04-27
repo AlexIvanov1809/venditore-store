@@ -4,7 +4,7 @@ export const ENTITY_TYPES: EntityTypes[] = [
   {
     id: 1,
     endpoint: 'Type',
-    label: 'Типы',
+    label: 'Группы товаров',
     getter: 'types',
     setter: 'setTypes',
     filter: 'typeId',
@@ -34,7 +34,7 @@ export const ENTITY_TYPES: EntityTypes[] = [
   {
     id: 4,
     endpoint: 'MakingMethod',
-    label: 'Методы приготовления',
+    label: 'Обжарка для',
     getter: 'makingMethods',
     setter: 'setMakingMethods',
     filter: 'makingMethodId',

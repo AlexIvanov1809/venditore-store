@@ -22,7 +22,7 @@ const validationConfig = (value: number): ValidatorConfig => {
 function OrderSubmit({ onSubmit }: Props) {
   const [orderData, setOrderData] = useState({
     name: '',
-    phone: '',
+    phone: '+7',
     address: '',
     comment: ''
   });

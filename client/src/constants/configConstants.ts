@@ -3,7 +3,8 @@ export const BASKET_STORAGE_NAME = 'venditore_basket';
 export const BEANS = [
   { id: 'для чашки', name: 'для чашки' },
   { id: 'для фильтра', name: 'для фильтра' },
-  { id: 'для эспрессо', name: 'для эспрессо' }
+  { id: 'для гейзера', name: 'для гейзера' },
+  { id: 'для турки', name: 'для турки' }
 ];
 
 export const VALIDATOR_CONFIG = {
