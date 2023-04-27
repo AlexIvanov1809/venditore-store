@@ -89,11 +89,6 @@ interface IProductPrice {
   productId?: IProduct['id'];
 }
 
-type Beans = {
-  id: string | number;
-  name: string;
-};
-
 type FilterTypes = {
   [key in keyof IProduct]?: string[];
 };
@@ -122,7 +117,6 @@ export {
   IProductImage,
   IProductPrice,
   IProductForEdit,
-  Beans,
   FilterTypes,
   SortTypes,
   INewProduct

@@ -22,8 +22,8 @@ function SelectField({ label, value, onChange, defaultOption, options, error, na
           </option>
           {options &&
             options.map((option) => (
-              <option key={option?.id} value={option?.id}>
-                {option?.name}
+              <option key={option.id} value={option.id}>
+                {option.name}
               </option>
             ))}
         </select>

@@ -5,7 +5,7 @@ export default interface SelectFieldProps {
   value: number | string | null;
   onChange: FnOnChange;
   defaultOption?: string;
-  options: (Options | undefined)[];
+  options: Options[];
   error?: ErrorMsg;
   name?: string;
 }

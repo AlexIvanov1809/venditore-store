@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Beans, IProduct, IProductPrice } from '@/types/productTypes';
+import { IProduct, IProductPrice } from '@/types/productTypes';
 import { FnOnChange } from '@/types/uiTypes';
 import { IBasketItem } from '@/types/basketTypes';
 import { useRootStore } from '@/context/StoreContext';
@@ -16,19 +16,15 @@ interface Props {
 
 const Card = observer(({ product }: Props) => {
   const { basket } = useRootStore();
-  const [price, setPrice] = useState<IProductPrice>();
+  const [price, setPrice] = useState<IProductPrice>(() => product.prices[0]);
   const [quantity, setQuantity] = useState<number>(1);
   const [order, setOrder] = useState<IBasketItem[]>([]);
   const [bought, setBought] = useState<boolean>(false);
-  const [beans, setBeans] = useState<Beans>({ id: '', name: '' });
-
-  useEffect(() => {
-    setPrice(product.prices[0]);
-  }, [product]);
+  const [beans, setBeans] = useState({ name: 'Зерно' });
 
   useEffect(() => {
     if (order.length) {
-      basket.setOrder(order as IBasketItem[]);
+      basket.setOrder(order);
       setToStorage(order);
     }
     if (basket.order.length) {
@@ -41,8 +37,8 @@ const Card = observer(({ product }: Props) => {
   }, [order]);
 
   const grindType: FnOnChange = ({ value }) => {
-    if (typeof value !== 'boolean') {
-      setBeans({ id: value, name: BEANS[Number(value)].name });
+    if (typeof value === 'string') {
+      setBeans({ name: value });
     }
   };
 
@@ -50,17 +46,27 @@ const Card = observer(({ product }: Props) => {
     const productsInBasket = basket.order;
     if (price) {
       const newOrder = {
-        id: `${product.id}-${price.weight}`,
+        id: `${product.id}-${price.weight}-${beans.name}-${product.brand}`,
         brand: product.brand,
         name: product.fullName,
         beans: beans.name,
         weight: price.weight,
-        value: +price.value * quantity,
+        value: +price.value,
         quantity
       };
-      const filtered = productsInBasket.filter((item) => item?.id !== newOrder.id);
-      filtered.push(newOrder);
-      setOrder(filtered);
+      let sameItem = false;
+      const filteredProducts = productsInBasket.map((item) => {
+        if (item.id === newOrder.id) {
+          sameItem = true;
+          item.quantity += newOrder.quantity;
+          return item;
+        }
+        return item;
+      });
+      if (!sameItem) {
+        filteredProducts.push(newOrder);
+      }
+      setOrder(filteredProducts);
     }
   };
 
@@ -70,10 +76,7 @@ const Card = observer(({ product }: Props) => {
         <div>
           <h4>{product.brand}</h4>
           <h4>{product.teaType}</h4>
-          <h4>
-            {product.country ? `${product.country} ` : ''}
-            {product.sortName}
-          </h4>
+          <h4>{product.fullName}</h4>
         </div>
         <div>
           <ImgCarousel images={product.images} />
@@ -89,12 +92,12 @@ const Card = observer(({ product }: Props) => {
         )}
         <p>{product.shortDescription}</p>
         <p>{product.description}</p>
-        {product.type === 'Кофе' && (
+        {product.type.toLowerCase() === 'кофе' && (
           <div>
             <SelectField
               label="Выберите помол"
               options={BEANS}
-              value={beans.id}
+              value={beans.name}
               defaultOption="Зерно"
               onChange={grindType}
             />
@@ -107,7 +110,7 @@ const Card = observer(({ product }: Props) => {
                 key={priceItem.id}
                 onClick={() => setPrice(priceItem)}
                 price={priceItem}
-                active={priceItem.id === price?.id}
+                active={priceItem.id === price.id}
               />
             ))}
           </div>

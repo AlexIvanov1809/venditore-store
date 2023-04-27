@@ -14,7 +14,7 @@ function BasketItem({ className, changeHandler, item }: Props) {
       <span>{item.beans}</span>
       <span>{item.name}</span>
       <span>{item.weight}</span>
-      <span>{item.value} RUB</span>
+      <span>{item.value * item.quantity} RUB</span>
       <IconButton onClick={() => changeHandler(item.id, '+')} appearance="primary" icon="Plus" />
 
       <span>{item.quantity}</span>

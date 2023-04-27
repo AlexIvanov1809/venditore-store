@@ -1,9 +1,9 @@
 export const BASKET_STORAGE_NAME = 'venditore_basket';
 
 export const BEANS = [
-  { id: '0', name: 'для чашки' },
-  { id: '1', name: 'для фильтра' },
-  { id: '2', name: 'для эспрессо' }
+  { id: 'для чашки', name: 'для чашки' },
+  { id: 'для фильтра', name: 'для фильтра' },
+  { id: 'для эспрессо', name: 'для эспрессо' }
 ];
 
 export const VALIDATOR_CONFIG = {
