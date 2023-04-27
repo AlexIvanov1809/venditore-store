@@ -19,12 +19,9 @@ const App: FC = observer(() => {
     if (productsInBasket) {
       basket.setOrder(productsInBasket);
     }
-    const controller = new AbortController();
-    const signal = controller.signal;
-
     (async () => {
       try {
-        const data = await authService.checkAuth(signal);
+        const data = await authService.checkAuth();
         user.setUser(data);
       } catch (e: any) {
         if (e.message !== 'canceled') {
@@ -34,10 +31,6 @@ const App: FC = observer(() => {
         setLoading(false);
       }
     })();
-
-    // return () => {
-    //   controller.abort();
-    // };
   }, [user]);
 
   if (loading) {
