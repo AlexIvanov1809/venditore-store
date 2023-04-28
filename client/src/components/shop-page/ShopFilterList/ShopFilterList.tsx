@@ -47,7 +47,6 @@ function ShopFilterList({ refresh, label, list, onChange, filterType }: Props) {
       <h3>{label}</h3>
       <div>
         {data &&
-          products[list].length > 0 &&
           products[list].map((item) => (
             <CheckBox
               name={item?.id ? item.id.toString() : ''}

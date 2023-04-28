@@ -98,9 +98,7 @@ const AdminProductItem = observer(() => {
           <h3>{item.type}</h3>
           <h4>{item.brand}</h4>
           <h4>{item.teaType}</h4>
-          <h4>
-            {item.country} {item.sortName}
-          </h4>
+          <h4>{item.fullName}</h4>
         </div>
         <div>
           {item.images.map((img) => (

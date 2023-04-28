@@ -9,6 +9,7 @@ import changeProductSortWay from './changeProductSortWay';
 import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './Admin.module.scss';
+import orderBy from 'lodash.orderby';
 
 const Admin = observer(() => {
   const { products } = useRootStore();
@@ -37,7 +38,8 @@ const Admin = observer(() => {
             console.log(e);
           }
         } finally {
-          products.productSorting(sortType.type, sortType.sort);
+          const sortedProducts = orderBy(products.products, sortType.type, sortType.sort);
+          products.setProducts(sortedProducts);
           setIsLoading(false);
         }
       })();
@@ -48,9 +50,8 @@ const Admin = observer(() => {
   }, [updated]);
 
   useEffect(() => {
-    if (Array.isArray(products.products)) {
-      products.productSorting(sortType.type, sortType.sort);
-    }
+    const sortedProducts = orderBy(products.products, sortType.type, sortType.sort);
+    products.setProducts(sortedProducts);
   }, [sortType]);
 
   const handleSearch: FnOnChange = ({ value }) => {

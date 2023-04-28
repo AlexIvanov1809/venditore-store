@@ -1,6 +1,6 @@
 import { IProductForEdit, IProductType } from '@/types/productTypes';
 import { IFetchPayload } from '@/types/httpTypes';
-import { $authHost, $host, $productHost } from './index';
+import { $host, $productHost } from './index';
 
 const TYPES_ENDPOINT = 'productTypes';
 const PRODUCT_ENDPOINT = 'product';
@@ -13,19 +13,19 @@ interface Entity {
 
 const httpService = {
   async createEntityItem(type: string, payload: Entity) {
-    const { data } = await $authHost.post(`${TYPES_ENDPOINT}/${type}`, payload);
+    const { data } = await $host.post(`${TYPES_ENDPOINT}/${type}`, payload);
 
     return data;
   },
 
   async editEntityItem(type: string, id: number | string, payload: Entity) {
-    const { data } = await $authHost.patch(`${TYPES_ENDPOINT}/${type}/${id}`, payload);
+    const { data } = await $host.patch(`${TYPES_ENDPOINT}/${type}/${id}`, payload);
 
     return data;
   },
 
   async removeEntityItem(type: string, id: number | string) {
-    const { data } = await $authHost.delete(`${TYPES_ENDPOINT}/${type}/${id}`);
+    const { data } = await $host.delete(`${TYPES_ENDPOINT}/${type}/${id}`);
 
     return data;
   },
@@ -43,18 +43,22 @@ const httpService = {
   },
 
   async createProduct(payload: FormData) {
-    const { data } = await $authHost.post(PRODUCT_ENDPOINT, payload);
+    const { data } = await $host.post(PRODUCT_ENDPOINT, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
 
     return data;
   },
   async editProduct(payload: IProductForEdit) {
-    const { data } = await $authHost.patch(`${PRODUCT_ENDPOINT}/${payload.id}`, payload);
+    const { data } = await $host.patch(`${PRODUCT_ENDPOINT}/${payload.id}`, payload);
 
     return data;
   },
 
   async removeProduct(id: number | string) {
-    const { data } = await $authHost.delete(`${PRODUCT_ENDPOINT}/${id}`);
+    const { data } = await $host.delete(`${PRODUCT_ENDPOINT}/${id}`);
 
     return data;
   },
@@ -85,22 +89,30 @@ const httpService = {
   },
 
   async createProductImage(productId: number | string, index: number, payload: File | FormData) {
-    const { data } = await $authHost.post(`${PIC_ENDPOINT}/${productId}/${index}`, payload);
+    const { data } = await $host.post(`${PIC_ENDPOINT}/${productId}/${index}`, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
 
     return data;
   },
   async editProductImage(id: number | string, payload: File | FormData) {
-    const { data } = await $authHost.patch(`${PIC_ENDPOINT}/${id}`, payload);
+    const { data } = await $host.patch(`${PIC_ENDPOINT}/${id}`, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
 
     return data;
   },
   async removeProductImage(id: number | string) {
-    const { data } = await $authHost.delete(`${PIC_ENDPOINT}/${id}`);
+    const { data } = await $host.delete(`${PIC_ENDPOINT}/${id}`);
 
     return data;
   },
   async removePriceProduct(id: number | string) {
-    const { data } = await $authHost.delete(`${PRICE_ENDPOINT}/${id}`);
+    const { data } = await $host.delete(`${PRICE_ENDPOINT}/${id}`);
 
     return data;
   }

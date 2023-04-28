@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IProductPrice } from '@/types/productTypes';
 import { FnOnChange } from '@/types/uiTypes';
 import httpService from '@/http/productAPI';
-import { makeFormDataFile, imgUploader, imgAndPriceValidator, normalizedPricesData } from './helpers/';
+import { makeFormDataFile, imgUploader, imageValidator, normalizedPricesData, priceValidator } from './helpers/';
 import { VALIDATOR_CONFIG } from '@/constants/configConstants';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './EditItemModule.module.scss';
@@ -25,8 +25,8 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   const typeErrors = useValidation(data.typeId, VALIDATOR_CONFIG.required);
   const sortNameErrors = useValidation(data.sortName, VALIDATOR_CONFIG.required);
   const shortDescErrors = useValidation(data.shortDescription, VALIDATOR_CONFIG.required);
-  const priceError = imgAndPriceValidator(prices, 'price');
-  const imageError = imgAndPriceValidator(img, 'image');
+  const priceError = priceValidator(prices);
+  const imageError = imageValidator(img);
 
   useEffect(() => {
     if (product) {
@@ -64,10 +64,6 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
 
   const submitHandle = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (validate()) {
-      return;
-    }
-
     const filteredPrice = prices.filter((p) => p.weight && p.value);
     if (product) {
       const normalizedPrices = normalizedPricesData(filteredPrice, product.prices);
@@ -94,6 +90,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
       console.log(e);
     }
   };
+
   return (
     <div className={styles.edit_module}>
       <div className={styles.edit_container}>

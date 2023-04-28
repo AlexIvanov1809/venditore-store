@@ -1,20 +1,21 @@
 import { INewProduct } from '@/types/productTypes';
 
-export default function makeFormDataFile(item: INewProduct | null, img: (string | File)[]) {
+export default function makeFormDataFile(product: INewProduct | null, images: (string | File)[]) {
   const formData = new FormData();
-  if (img) {
-    img.forEach((i) => {
-      if (i !== '') {
-        formData.append('img', i);
+  if (images) {
+    images.forEach((image) => {
+      if (typeof image === 'object') {
+        formData.append('img', image);
       }
     });
   }
 
-  if (item) {
+  if (product) {
     let key: keyof INewProduct;
-    for (key in item) {
-      if (item[key] !== '') {
-        formData.append(key, item[key] as string);
+    for (key in product) {
+      const fieldData = product[key];
+      if (fieldData) {
+        formData.append(key, fieldData as string);
       }
     }
   }

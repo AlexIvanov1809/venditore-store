@@ -1,4 +1,4 @@
-import { $authHost, $host } from './index';
+import { $host } from './index';
 
 const ENDPOINT = 'user';
 
@@ -36,7 +36,7 @@ const authService = {
   },
 
   checkAuth: async () => {
-    const { data } = await $authHost.get(`${ENDPOINT}/refresh`);
+    const { data } = await $host.get(`${ENDPOINT}/refresh`);
     localStorage.setItem('token', data.accessToken);
 
     return data.user;

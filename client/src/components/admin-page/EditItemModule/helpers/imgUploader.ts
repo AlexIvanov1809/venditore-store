@@ -10,19 +10,20 @@ export default function imgUploader(imgs: (string | File)[], product: IProduct) 
 
   imgs.forEach(async (file, index) => {
     try {
+      const imgId = imgIds[index];
       if (typeof file === 'object') {
         const formData = makeFormDataFile(null, [file]);
-        if (imgIds[index]) {
-          await httpService.editProductImage(imgIds[index] as number, formData);
+        if (imgId) {
+          await httpService.editProductImage(imgId, formData);
         } else {
           await httpService.createProductImage(product.id, index, formData);
         }
       }
-      if (imgIds[index] && !file) {
-        await httpService.removeProductImage(imgIds[index] as number);
+      if (imgId && !file) {
+        await httpService.removeProductImage(imgId);
       }
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      throw Error(e);
     }
   });
 }

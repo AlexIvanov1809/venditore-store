@@ -1,6 +1,6 @@
 import { IOrder } from '@/types/basketTypes';
 
-export default function convertToTelegramMsgFormat(data: IOrder): string {
+export default function convertToTelegramMsgText(data: IOrder): string {
   let message = `${data.name}\n${data.phone}\n${data.address}\n${data.comments ? `\n${data.comments}\n` : ''}`;
 
   data.items.forEach((i, v) => {

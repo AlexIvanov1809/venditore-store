@@ -17,6 +17,7 @@ const Shop = observer(() => {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
+
     (() => {
       ENTITY_TYPES.forEach(async (item) => {
         try {
@@ -42,9 +43,11 @@ const Shop = observer(() => {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
+
     (async () => {
       try {
         setIsLoading(true);
+
         const data = await httpService.fetchProducts(
           {
             typeId: products.selectedType,

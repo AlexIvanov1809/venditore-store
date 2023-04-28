@@ -1,5 +1,4 @@
-import { IProduct, IProductType, SortTypes } from '@/types/productTypes';
-import orderBy from 'lodash.orderby';
+import { IProduct, IProductType } from '@/types/productTypes';
 import { makeAutoObservable, runInAction } from 'mobx';
 
 export default class ProductsStore {
@@ -139,12 +138,6 @@ export default class ProductsStore {
     this._selectedSortBy = sort;
   }
 
-  productSorting(type: keyof SortTypes, sort: 'asc' | 'desc') {
-    if (this._products) {
-      this._products = orderBy(this._products, type, sort);
-    }
-  }
-
   get types() {
     return this._types;
   }
@@ -223,6 +216,7 @@ export default class ProductsStore {
     this.setPage(1);
     return this._selectedPackageType;
   }
+
   get selectedSortBy() {
     this.setPage(1);
     return this._selectedSortBy;

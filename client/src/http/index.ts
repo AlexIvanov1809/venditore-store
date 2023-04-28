@@ -9,10 +9,6 @@ const $productHost = axios.create({
   baseURL: config.apiURL
 });
 
-const $authHost = axios.create({
-  baseURL: config.apiURL
-});
-
 const productInterceptor = (response: AxiosResponse) => {
   if (response.data?.rows) {
     response.data.rows = frontDataAdapter(response.data.rows);
@@ -28,7 +24,7 @@ const authInterceptor = (config: InternalAxiosRequestConfig<unknown>) => {
   return config;
 };
 
-$authHost.interceptors.request.use(authInterceptor);
+$host.interceptors.request.use(authInterceptor);
 $productHost.interceptors.response.use(productInterceptor);
 
-export { $authHost, $host, $productHost };
+export { $host, $productHost };

@@ -13,6 +13,8 @@ interface Props {
   className: string;
 }
 
+const EXCEPT_ENDPOINT = 'Type';
+
 const Aside = observer(({ className }: Props) => {
   const { products } = useRootStore();
   const [data, setData] = useState<null | FilterTypes>(null);
@@ -20,10 +22,12 @@ const Aside = observer(({ className }: Props) => {
 
   useEffect(() => {
     ENTITY_TYPES.forEach((type) => {
-      if (type.endpoint !== 'Type') {
+      if (type.endpoint !== EXCEPT_ENDPOINT) {
         setData((prev) => ({ ...prev, [type.filter]: [] }));
       }
     });
+
+    acceptFiltration();
   }, [refresh]);
 
   const acceptFiltration = () => {

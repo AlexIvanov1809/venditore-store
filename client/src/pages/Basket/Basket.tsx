@@ -6,7 +6,7 @@ import { BasketChangeHandler, OrderData } from '@/types/basketTypes';
 import { Button } from '@/components/ui';
 import { OrderSubmit, BasketItem } from '@/components/basket-page';
 import { sendOrder } from '@/http/orderAPI';
-import convertToTelegramMsgFormat from './helper/messageConverter';
+import convertToTelegramMsgText from './helper/messageConverter';
 import { useRootStore } from '@/context/StoreContext';
 import { setToStorage } from '@/service/storage.service';
 import styles from './Basket.module.scss';
@@ -52,7 +52,7 @@ const Basket = observer(() => {
         total += orderedItem.value * orderedItem.quantity;
       });
 
-      const message = convertToTelegramMsgFormat({
+      const message = convertToTelegramMsgText({
         ...orderData,
         items: inBasket,
         total,
