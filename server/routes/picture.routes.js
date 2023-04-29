@@ -1,10 +1,10 @@
 const Router = require('express');
 const router = new Router();
 const pictureController = require('../controllers/picture.controller');
-const checkRole = require('../middleware/CheckRole.middleware');
+const authMiddleware = require('../middleware/CheckRole.middleware');
 
-router.post('/:productId/:index', pictureController.create);
-router.patch('/:id', pictureController.update);
-router.delete('/:id', pictureController.delete);
+router.post('/:productId/:index', authMiddleware(), pictureController.create);
+router.patch('/:id', authMiddleware(), pictureController.update);
+router.delete('/:id', authMiddleware(), pictureController.delete);
 
 module.exports = router;
