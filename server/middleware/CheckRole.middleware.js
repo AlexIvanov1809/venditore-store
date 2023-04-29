@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const ApiError = require('../error/ApiError');
 
-module.exports = function (role) {
+module.exports = function (roles = ['ADMIN', 'OWNER']) {
   return function (req, res, next) {
     if (req.method === 'OPTIONS') {
       next();
@@ -11,11 +11,18 @@ module.exports = function (role) {
       if (!token) {
         return next(ApiError.unauthorizedError());
       }
-      const decoded = jwt.verify(token, process.env.SECRET_KEY);
-      if (decoded.role !== role || decoded.role !== 'OWNER') {
+
+      const { role } = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+
+      let hasRole = false;
+      if (roles.includes(role)) {
+        hasRole = true;
+      }
+
+      if (!hasRole) {
         return next(ApiError.forbidden());
       }
-      req.user = decoded;
+
       next();
     } catch (e) {
       next(ApiError.unauthorizedError());
