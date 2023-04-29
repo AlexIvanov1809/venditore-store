@@ -20,21 +20,21 @@ export default class BasketStore {
       }
       return prod;
     });
+
     this._basket = data;
   }
 
   setDecrementQty(id: IBasketItem['id']) {
     const data = this._basket.map((prod) => {
-      if (prod.id !== id) return prod;
-
-      if (prod.id === id && prod.quantity > 1) {
+      if (prod.id === id) {
         prod.quantity -= 1;
         return prod;
       }
-      if (prod.quantity !== 1) return prod;
+      return prod;
     });
-    const newData = data.filter((prod) => prod) as IBasketItem[];
-    this._basket = newData || [];
+
+    const newData = data.filter((prod) => prod.quantity > 0);
+    this._basket = newData;
   }
 
   get order() {
