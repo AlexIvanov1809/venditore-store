@@ -7,8 +7,10 @@ import DeleteBtn from '../DeleteBtn/DeleteBtn';
 import EntityEditorProps from './EntityEditor.props';
 import useValidation from '@/hooks/useValidation';
 import { VALIDATOR_CONFIG } from '@/constants/configConstants';
+import { useRootStore } from '@/context/StoreContext';
 
 function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEditorProps) {
+  const { adminErrors } = useRootStore();
   const [value, setValue] = useState<{ name: string }>({ name: item ? item.name : '' });
   const error = useValidation(value.name, VALIDATOR_CONFIG.required);
 
@@ -19,10 +21,6 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
   };
 
   const onSubmit = async () => {
-    if (error) {
-      return;
-    }
-
     try {
       if (item) {
         await httpService.editEntityItem(endpoint, item.id, value);
@@ -30,8 +28,9 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
         await httpService.createEntityItem(endpoint, value);
       }
       onHide(false);
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      const errorMsg = typeof e.response.data === 'string' ? e.response.data : e.response.data.message;
+      adminErrors.setError(errorMsg);
     }
   };
 

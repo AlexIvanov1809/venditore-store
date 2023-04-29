@@ -10,9 +10,10 @@ import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/adminPageConstants'
 import { useRootStore } from '@/context/StoreContext';
 import styles from './Admin.module.scss';
 import orderBy from 'lodash.orderby';
+import AdminErrorBoundary from '@/components/admin-page/AdminErrorBoundary/AdminErrorBoundary';
 
 const Admin = observer(() => {
-  const { products } = useRootStore();
+  const { products, adminErrors } = useRootStore();
   const [isLoading, setIsLoading] = useState(false);
   const [entityIsOpen, setEntityIsOpen] = useState(false);
   const [show, setShow] = useState(false);
@@ -26,6 +27,7 @@ const Admin = observer(() => {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
+
     if (updated) {
       setIsLoading(true);
       (async () => {
@@ -35,7 +37,8 @@ const Admin = observer(() => {
           setUpdated(false);
         } catch (e: any) {
           if (e.message !== 'canceled') {
-            console.log(e);
+            const errorMsg = typeof e.response.data === 'string' ? e.response.data : e.response.data.message;
+            adminErrors.setError(errorMsg);
           }
         } finally {
           const sortedProducts = orderBy(products.products, sortType.type, sortType.sort);
@@ -119,6 +122,7 @@ const Admin = observer(() => {
           filteredProducts.map((product) => <AdminItemForList key={product.id} product={product} />)
         )}
       </div>
+      <AdminErrorBoundary />
       {show && <EditItemModule onUpdated={setUpdated} onHide={onHide} />}
     </main>
   );
