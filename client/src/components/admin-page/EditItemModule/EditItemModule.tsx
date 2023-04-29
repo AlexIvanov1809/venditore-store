@@ -11,9 +11,10 @@ import AddPriceValue from '../AddPriceValue/AddPriceValue';
 import EditItemModuleProps from './EditItemModule.props';
 import { DEFAULT, LEVEL } from '@/constants/adminPageConstants';
 import useValidation from '@/hooks/useValidation';
+import makeErrorMsg from '../utils/makeErrorMsg';
 
 function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
-  const { products } = useRootStore();
+  const { products, adminErrors } = useRootStore();
   function initialState() {
     return product?.prices || [{ id: Date.now(), weight: '', value: '' }];
   }
@@ -69,13 +70,14 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
       const normalizedPrices = normalizedPricesData(filteredPrice, product.prices);
 
       try {
-        imgUploader(img, product);
+        await imgUploader(img, product);
         const prod = { ...data, prices: JSON.stringify(normalizedPrices) };
         await httpService.editProduct(prod);
         onHide(false);
         onUpdated(true);
-      } catch (e) {
-        console.log(e);
+      } catch (e: any) {
+        const errorMsg = makeErrorMsg(e);
+        adminErrors.setError(errorMsg);
       }
       return;
     }
@@ -86,8 +88,9 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
       await httpService.createProduct(formData);
       onHide(false);
       onUpdated(true);
-    } catch (e) {
-      console.log(e);
+    } catch (e: any) {
+      const errorMsg = makeErrorMsg(e);
+      adminErrors.setError(errorMsg);
     }
   };
 

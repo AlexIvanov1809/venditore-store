@@ -8,6 +8,7 @@ import EntityEditorProps from './EntityEditor.props';
 import useValidation from '@/hooks/useValidation';
 import { VALIDATOR_CONFIG } from '@/constants/configConstants';
 import { useRootStore } from '@/context/StoreContext';
+import makeErrorMsg from '../utils/makeErrorMsg';
 
 function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEditorProps) {
   const { adminErrors } = useRootStore();
@@ -29,7 +30,7 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
       }
       onHide(false);
     } catch (e: any) {
-      const errorMsg = typeof e.response.data === 'string' ? e.response.data : e.response.data.message;
+      const errorMsg = makeErrorMsg(e);
       adminErrors.setError(errorMsg);
     }
   };

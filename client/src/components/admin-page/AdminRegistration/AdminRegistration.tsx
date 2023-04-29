@@ -6,6 +6,7 @@ import { FnOnChange } from '@/types/uiTypes';
 import authService from '@/http/userAPI';
 import useValidation from '@/hooks/useValidation';
 import { VALIDATOR_CONFIG } from '@/constants/configConstants';
+import makeErrorMsg from '../utils/makeErrorMsg';
 
 const DEFAULT = {
   email: '',
@@ -15,11 +16,11 @@ const DEFAULT = {
 };
 
 const AdminRegistration = (): JSX.Element => {
-  const { user } = useRootStore();
+  const { user, adminErrors } = useRootStore();
   const isOwner = user.user?.role === 'OWNER';
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState(DEFAULT);
-  const [errorFromServer, setErrorFromServer] = useState('');
+  // const [errorFromServer, setErrorFromServer] = useState('');
   const [showErrors, setShowErrors] = useState(false);
   const emailError = useValidation(data.email, VALIDATOR_CONFIG.email);
   const passwordError = useValidation(data.password, VALIDATOR_CONFIG.password, data.passwordCheckEqual);
@@ -49,7 +50,8 @@ const AdminRegistration = (): JSX.Element => {
       const response = await authService.registration(data);
       console.log(response);
     } catch (e: any) {
-      setErrorFromServer(e?.response?.data?.message);
+      const errorMsg = makeErrorMsg(e);
+      adminErrors.setError(errorMsg);
     }
   };
 
@@ -97,7 +99,7 @@ const AdminRegistration = (): JSX.Element => {
               onChange={handleChange}
               defaultOption="ADMIN"
             />
-            {errorFromServer && <p style={{ color: 'red' }}>{errorFromServer}</p>}
+            {/* {errorFromServer && <p style={{ color: 'red' }}>{errorFromServer}</p>} */}
             <Button appearance="primary">Зарегистрировать</Button>
             <Button onClick={handleClose} appearance="danger">
               Закрыть

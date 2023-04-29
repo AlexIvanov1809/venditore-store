@@ -11,6 +11,7 @@ import { useRootStore } from '@/context/StoreContext';
 import styles from './Admin.module.scss';
 import orderBy from 'lodash.orderby';
 import AdminErrorBoundary from '@/components/admin-page/AdminErrorBoundary/AdminErrorBoundary';
+import makeErrorMsg from '@/components/admin-page/utils/makeErrorMsg';
 
 const Admin = observer(() => {
   const { products, adminErrors } = useRootStore();
@@ -37,7 +38,7 @@ const Admin = observer(() => {
           setUpdated(false);
         } catch (e: any) {
           if (e.message !== 'canceled') {
-            const errorMsg = typeof e.response.data === 'string' ? e.response.data : e.response.data.message;
+            const errorMsg = makeErrorMsg(e);
             adminErrors.setError(errorMsg);
           }
         } finally {
