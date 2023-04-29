@@ -5,7 +5,7 @@ class ApiError extends Error {
     this.message = message;
   }
 
-  static UnauthorizedError() {
+  static unauthorizedError() {
     return new ApiError(401, 'Пользователь не авторизован.');
   }
 

@@ -9,7 +9,7 @@ module.exports = function (role) {
     try {
       const token = req.headers.authorization.split(' ')[1];
       if (!token) {
-        return next(ApiError.UnauthorizedError());
+        return next(ApiError.unauthorizedError());
       }
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
       if (decoded.role !== role || decoded.role !== 'OWNER') {
@@ -18,7 +18,7 @@ module.exports = function (role) {
       req.user = decoded;
       next();
     } catch (e) {
-      next(ApiError.UnauthorizedError());
+      next(ApiError.unauthorizedError());
     }
   };
 };
