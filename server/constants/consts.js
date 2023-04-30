@@ -45,4 +45,6 @@ const TYPES_FOR_FILTER = [
   { model: models.TypePackageType, colName: 'packageTypeId' },
 ];
 
-module.exports = { INCLUDES_MODELS, TYPES_FOR_FILTER };
+const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
+
+module.exports = { INCLUDES_MODELS, TYPES_FOR_FILTER, THIRTY_DAYS };
