@@ -12,14 +12,14 @@ class ProductTypesService {
   async getAllForFilterTypes(type, typeId) {
     if (type !== 'Type') {
       const key = 'Type' + type;
-      const brand = await itemTypesModels[key].findAll({
+      const itemTypes = await itemTypesModels[key].findAll({
         where: { typeId },
       });
 
       const id = [];
-      brand.forEach((i) => {
-        const entityId = type.charAt(0).toLowerCase() + type.substring(1);
-        id.push(i[entityId + 'Id']);
+      itemTypes.forEach((itemType) => {
+        const entityName = type.charAt(0).toLowerCase() + type.substring(1);
+        id.push(itemType[entityName + 'Id']);
       });
       return await itemTypesModels[type].findAll({
         where: { id },

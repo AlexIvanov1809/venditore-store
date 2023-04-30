@@ -136,10 +136,12 @@ class ProductService {
       await removePic(image.name);
     });
 
-    makeEntitiesForFilters(id);
-    await ProductImg.destroy({ where: { productId: id } });
-    await ProductPrice.destroy({ where: { productId: id } });
-    await Product.destroy({ where: { id } });
+    await makeEntitiesForFilters(id);
+    await Promise.all([
+      ProductImg.destroy({ where: { productId: id } }),
+      ProductPrice.destroy({ where: { productId: id } }),
+      Product.destroy({ where: { id } }),
+    ]);
   }
 }
 
