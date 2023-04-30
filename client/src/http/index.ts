@@ -31,6 +31,9 @@ $host.interceptors.response.use(
     return config;
   },
   async (error) => {
+    if (error.message === 'canceled') {
+      throw error;
+    }
     const originalRequest = error.config;
     if (error.response.status === 401 && error.config && !error.config._isRetry) {
       try {
