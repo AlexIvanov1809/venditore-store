@@ -25,8 +25,11 @@ class ProductTypesController {
 
   async getAllForFilter(req, res, next) {
     try {
-      const { type, typeId } = req.params;
-      const data = await productTypesService.getAllForFilterTypes(type, typeId);
+      const { type, entityId } = req.params;
+      const data = await productTypesService.getAllForFilterTypes(
+        type,
+        entityId,
+      );
 
       return res.json(data);
     } catch (e) {

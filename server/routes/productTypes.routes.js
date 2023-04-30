@@ -7,6 +7,6 @@ router.post('/:type', authMiddleware(), productTypesController.create);
 router.patch('/:type/:id', authMiddleware(), productTypesController.update);
 router.delete('/:type/:id', authMiddleware(), productTypesController.delete);
 router.get('/:type', productTypesController.getAll);
-router.get('/:type/filter/:typeId', productTypesController.getAllForFilter);
+router.get('/:type/filter/:entityId', productTypesController.getAllForFilter);
 
 module.exports = router;
