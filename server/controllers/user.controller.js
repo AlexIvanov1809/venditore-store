@@ -2,6 +2,7 @@ const ApiError = require('../error/ApiError');
 const { validationResult } = require('express-validator');
 const userService = require('../services/user.service');
 const { THIRTY_DAYS } = require('../constants/consts');
+const UserErrors = require('../error/userErrors');
 
 class UserController {
   async registration(req, res, next) {
@@ -22,7 +23,10 @@ class UserController {
 
       return res.json(userData);
     } catch (e) {
-      next(e);
+      if (e instanceof UserErrors) {
+        return next(ApiError.badRequest(e.message));
+      }
+      next(ApiError.internal(e.message));
     }
   }
 
@@ -39,6 +43,9 @@ class UserController {
 
       return res.json(userData);
     } catch (e) {
+      if (e instanceof UserErrors) {
+        return next(ApiError.badRequest(e.message));
+      }
       next(ApiError.internal(e.message));
     }
   }
@@ -62,6 +69,9 @@ class UserController {
 
       return res.redirect(process.env.CLIENT_URL);
     } catch (e) {
+      if (e instanceof UserErrors) {
+        return next(ApiError.badRequest(e.message));
+      }
       next(ApiError.internal(e.message));
     }
   }
@@ -79,7 +89,10 @@ class UserController {
 
       return res.json(userData);
     } catch (e) {
-      next(e);
+      if (e instanceof UserErrors) {
+        next(ApiError.unauthorizedError());
+      }
+      next(ApiError.internal(e.message));
     }
   }
 }

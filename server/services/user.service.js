@@ -4,13 +4,13 @@ const uuid = require('uuid');
 const mailService = require('./mail.service');
 const tokenService = require('./token.service');
 const UserDto = require('../dtos/user.dto');
-const ApiError = require('../error/ApiError');
+const UserErrors = require('../error/userErrors');
 
 class UserService {
   async registration(email, password, role) {
     const candidate = await User.findOne({ where: { email } });
     if (candidate) {
-      throw ApiError.badRequest(
+      throw new UserErrors(
         `Пользователь с почтовым адресом ${email} уже существует`,
       );
     }
@@ -42,21 +42,21 @@ class UserService {
   async activate(activationLink) {
     const user = await User.findOne({ where: { activationLink } });
     if (!user) {
-      throw ApiError.badRequest('Некорректная ссылка активации');
+      throw new UserErrors('Некорректная ссылка активации');
     }
 
-    await User.update({ isActivated: true }, { where: { id: user.id } });
+    return User.update({ isActivated: true }, { where: { id: user.id } });
   }
 
   async login(email, password) {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      throw ApiError.badRequest('Пользователь не был найден');
+      throw new UserErrors('Пользователь не был найден');
     }
 
     const isPassEquals = await bcrypt.compare(password, user.password);
     if (!isPassEquals) {
-      throw ApiError.badRequest('Неверный пароль');
+      throw new UserErrors('Неверный пароль');
     }
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
@@ -76,12 +76,12 @@ class UserService {
   }
   async refresh(refreshToken) {
     if (!refreshToken) {
-      throw ApiError.unauthorizedError();
+      throw new UserErrors('');
     }
     const userData = tokenService.validateRefreshToken(refreshToken);
     const tokenFromDb = await tokenService.findToken(refreshToken);
     if (!userData || !tokenFromDb) {
-      throw ApiError.unauthorizedError();
+      throw new UserErrors('');
     }
     const user = await User.findOne({ where: { id: userData.id } });
     const userDto = new UserDto(user);
