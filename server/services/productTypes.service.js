@@ -1,8 +1,16 @@
 const itemTypesModels = require('../models/models');
+const capitalize = require('../utils/capitalize');
 
 class ProductTypesService {
   async createType(type, name) {
-    return await itemTypesModels[type].create({ name });
+    const capitalizedName = capitalize(name);
+    const foundName = await itemTypesModels[type].findOne({
+      where: { name: capitalizedName },
+    });
+    if (foundName) {
+      throw Error(`Название ${capitalizedName} уже существует`);
+    }
+    return await itemTypesModels[type].create({ name: capitalizedName });
   }
 
   async getAllTypes(type) {
@@ -29,7 +37,11 @@ class ProductTypesService {
   }
 
   async editTypes(id, type, name) {
-    return await itemTypesModels[type].update({ name }, { where: { id } });
+    const capitalizedName = capitalize(name);
+    return await itemTypesModels[type].update(
+      { name: capitalizedName },
+      { where: { id } },
+    );
   }
 
   async deleteType(id, type) {
