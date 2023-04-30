@@ -2,7 +2,7 @@ import { IProductForEdit, IProductType } from '@/types/productTypes';
 import { IFetchPayload } from '@/types/httpTypes';
 import { $host, $productHost } from './index';
 
-const TYPES_ENDPOINT = 'productTypes';
+const TYPES_ENDPOINT = 'product-types';
 const PRODUCT_ENDPOINT = 'product';
 const PIC_ENDPOINT = 'pictures';
 const PRICE_ENDPOINT = 'price';
