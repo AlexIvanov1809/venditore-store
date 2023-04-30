@@ -24,7 +24,29 @@ const authInterceptor = (config: InternalAxiosRequestConfig<unknown>) => {
   return config;
 };
 
-$host.interceptors.request.use(authInterceptor);
 $productHost.interceptors.response.use(productInterceptor);
+$host.interceptors.request.use(authInterceptor);
+$host.interceptors.response.use(
+  (config) => {
+    return config;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && error.config && !error.config._isRetry) {
+      try {
+        originalRequest._isRetry = true;
+        const response = await axios.get(`${config.apiURL}/user/refresh`, {
+          withCredentials: true
+        });
+        localStorage.setItem('token', response.data.accessToken);
+        return $host.request(originalRequest);
+      } catch (e) {
+        console.log(e);
+        throw error;
+      }
+    }
+    throw error;
+  }
+);
 
 export { $host, $productHost };
