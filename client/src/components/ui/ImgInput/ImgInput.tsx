@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
-import styles from './imgInput.module.scss';
 import noPic from '@/assets/images/noImg.jpg';
+import styles from './imgInput.module.scss';
 import ImgInputProps from './ImgInput.props';
 import config from '../../../config/config.json';
 

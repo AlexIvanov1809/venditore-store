@@ -9,9 +9,9 @@ function TextInput({ label, name, type, value, onChange, error, placeholder, cla
   });
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    const value = type === 'tel' ? target.value.replace(/[^+\d]/g, '') : target.value;
+    const string = type === 'tel' ? target.value.replace(/[^+\d]/g, '') : target.value;
 
-    onChange({ name: target.name, value });
+    onChange({ name: target.name, value: string });
   };
 
   return (

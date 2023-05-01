@@ -30,8 +30,8 @@ const Auth = observer(({ onOpen }: Props) => {
         await authService.logout();
         onOpen(false);
         user.setUser(null);
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        console.log(error);
       }
       return;
     }
@@ -41,8 +41,8 @@ const Auth = observer(({ onOpen }: Props) => {
       user.setUser(data);
       setIsLogin(true);
       onOpen(false);
-    } catch (e) {
-      const errData = (e as AxiosError).response?.data;
+    } catch (error) {
+      const errData = (error as AxiosError).response?.data;
       console.log(errData);
     }
   };

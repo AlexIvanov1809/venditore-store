@@ -7,7 +7,7 @@ function IconButton({ appearance, icon, className, ...props }: ButtonProps): JSX
 
   const IconComponent = icons[icon];
   return (
-    <button {...props} className={btnStyle}>
+    <button type="button" {...props} className={btnStyle}>
       <IconComponent />
     </button>
   );

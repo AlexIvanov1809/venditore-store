@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import styles from './AdminRegistration.module.scss';
 import { Button, SelectField, TextInput } from '@/components/ui';
 import { useRootStore } from '@/context/StoreContext';
 import { FnOnChange } from '@/types/uiTypes';
 import authService from '@/http/userAPI';
 import useValidation from '@/hooks/useValidation';
 import { VALIDATOR_CONFIG } from '@/constants/configConstants';
+import styles from './AdminRegistration.module.scss';
 import makeErrorMsg from '../utils/makeErrorMsg';
 
 const DEFAULT = {
@@ -15,7 +15,7 @@ const DEFAULT = {
   role: 'ADMIN'
 };
 
-const AdminRegistration = (): JSX.Element => {
+function AdminRegistration(): JSX.Element {
   const { user, adminErrors } = useRootStore();
   const isOwner = user.user?.role === 'OWNER';
   const [isOpen, setIsOpen] = useState(false);
@@ -30,9 +30,7 @@ const AdminRegistration = (): JSX.Element => {
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const validate = () => {
-    return !!emailError || !!passwordError || !!passwordCheckEqualError;
-  };
+  const validate = () => !!emailError || !!passwordError || !!passwordCheckEqualError;
 
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -49,7 +47,7 @@ const AdminRegistration = (): JSX.Element => {
     try {
       const response = await authService.registration(data);
       console.log(response);
-    } catch (e: any) {
+    } catch (error: unknown) {
       const errorMsg = makeErrorMsg(e);
       adminErrors.setError(errorMsg);
     }
@@ -109,6 +107,6 @@ const AdminRegistration = (): JSX.Element => {
       )}
     </div>
   );
-};
+}
 
 export default AdminRegistration;

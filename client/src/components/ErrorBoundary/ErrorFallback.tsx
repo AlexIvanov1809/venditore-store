@@ -1,9 +1,8 @@
 interface Props {
-  error: any;
-  resetErrorBoundary: (...args: any[]) => void;
+  error: Error;
 }
 
-function ErrorFallback({ error, resetErrorBoundary }: Props) {
+function ErrorFallback({ error }: Props) {
   return (
     <div role="alert">
       <p>Something went wrong:</p>

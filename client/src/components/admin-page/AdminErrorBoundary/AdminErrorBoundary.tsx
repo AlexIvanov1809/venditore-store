@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import styles from './AdminErrorBoundary.module.scss';
 import { useRootStore } from '@/context/StoreContext';
 import { observer } from 'mobx-react-lite';
+import styles from './AdminErrorBoundary.module.scss';
 
 const AdminErrorBoundary = observer(() => {
   const { adminErrors } = useRootStore();
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    let firstTO: any = null;
-    let secondTO: any = null;
+    let firstTO: ReturnType<typeof setTimeout> | null = null;
+    let secondTO: ReturnType<typeof setTimeout> | null = null;
     if (adminErrors.error) {
       setError(true);
       firstTO = setTimeout(() => {
@@ -21,8 +21,10 @@ const AdminErrorBoundary = observer(() => {
     }
 
     return () => {
-      clearTimeout(firstTO);
-      clearTimeout(secondTO);
+      if (firstTO && secondTO) {
+        clearTimeout(firstTO);
+        clearTimeout(secondTO);
+      }
     };
   }, [adminErrors.error]);
 

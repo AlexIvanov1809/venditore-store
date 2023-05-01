@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { OrderData } from '@/types/basketTypes';
 import { FnOnChange } from '@/types/uiTypes';
-import styles from './OrderSubmit.module.scss';
-import { Button, TextInput, TextAreaField } from '../../ui';
 import useValidation from '@/hooks/useValidation';
 import { VALIDATOR_CONFIG } from '@/constants/configConstants';
 import { ValidatorConfig } from '@/types/constsTypes';
+import { Button, TextInput, TextAreaField } from '../../ui';
+import styles from './OrderSubmit.module.scss';
 
 interface Props {
   onSubmit: (data: OrderData) => void;
@@ -31,9 +31,7 @@ function OrderSubmit({ onSubmit }: Props) {
   const phoneError = useValidation(orderData.phone, validationConfig(10));
   const addressError = useValidation(orderData.address, VALIDATOR_CONFIG.required);
 
-  const validate = () => {
-    return !!nameError || !!phoneError || !!addressError;
-  };
+  const validate = () => !!nameError || !!phoneError || !!addressError;
 
   const changeHandler: FnOnChange = ({ name, value }) => {
     setOrderData((prev) => ({ ...prev, [name]: value }));

@@ -1,5 +1,11 @@
 export const BASKET_STORAGE_NAME = 'venditore_basket';
 
+const INCREASE = 'increase';
+const DECREASE = 'decrease';
+const DELETE = 'delete';
+
+export { INCREASE, DECREASE, DELETE };
+
 export const BEANS = [
   { id: 'для чашки', name: 'для чашки' },
   { id: 'для фильтра', name: 'для фильтра' },

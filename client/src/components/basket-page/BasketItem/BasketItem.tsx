@@ -1,4 +1,5 @@
 import { BasketChangeHandler, IBasketItem } from '@/types/basketTypes';
+import { DECREASE, DELETE, INCREASE } from '@/constants/configConstants';
 import { IconButton } from '../../ui';
 
 interface Props {
@@ -15,11 +16,11 @@ function BasketItem({ className, changeHandler, item }: Props) {
       <span>{item.name}</span>
       <span>{item.weight}</span>
       <span>{item.value * item.quantity} RUB</span>
-      <IconButton onClick={() => changeHandler(item.id, '+')} appearance="primary" icon="Plus" />
+      <IconButton onClick={() => changeHandler(item.id, INCREASE)} appearance="primary" icon="Plus" />
 
       <span>{item.quantity}</span>
-      <IconButton appearance="primary" onClick={() => changeHandler(item.id, '-')} icon="Minus" />
-      <IconButton appearance="danger" onClick={() => changeHandler(item.id, 'del')} icon="Delete" />
+      <IconButton appearance="primary" onClick={() => changeHandler(item.id, DECREASE)} icon="Minus" />
+      <IconButton appearance="danger" onClick={() => changeHandler(item.id, DELETE)} icon="Delete" />
     </li>
   );
 }

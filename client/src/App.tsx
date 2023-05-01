@@ -23,7 +23,10 @@ const App: FC = observer(() => {
       try {
         const data = await authService.checkAuth();
         user.setUser(data);
-      } catch (e: any) {
+      } catch (e: unknown) {
+        if (!(e instanceof Error)) {
+          return;
+        }
         if (e.message !== 'canceled') {
           console.log(e);
         }

@@ -9,10 +9,9 @@ interface Props {
   className: string;
 }
 
-const ProductSearch = ({ className }: Props) => {
+function ProductSearch({ className }: Props) {
   const [productName, setProductName] = useState('');
   const [products, setProducts] = useState<IProduct[]>([]);
-  const getFoundProduct = useDebounce(productName, fetchSearchingProduct, 500);
 
   async function fetchSearchingProduct(name: string) {
     try {
@@ -22,6 +21,7 @@ const ProductSearch = ({ className }: Props) => {
       console.log(e);
     }
   }
+  const getFoundProduct = useDebounce(productName, fetchSearchingProduct, 500);
 
   useEffect(() => {
     if (productName) {
@@ -48,6 +48,6 @@ const ProductSearch = ({ className }: Props) => {
       </div>
     </div>
   );
-};
+}
 
 export default ProductSearch;

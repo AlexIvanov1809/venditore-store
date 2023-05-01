@@ -20,16 +20,6 @@ const Aside = observer(({ className }: Props) => {
   const [data, setData] = useState<null | FilterTypes>(null);
   const [refresh, setRefresh] = useState(() => false);
 
-  useEffect(() => {
-    ENTITY_TYPES.forEach((type) => {
-      if (type.endpoint !== EXCEPT_ENDPOINT) {
-        setData((prev) => ({ ...prev, [type.filter]: [] }));
-      }
-    });
-
-    acceptFiltration();
-  }, [refresh]);
-
   const acceptFiltration = () => {
     if (data) {
       ENTITY_TYPES.forEach((type) => {
@@ -40,6 +30,16 @@ const Aside = observer(({ className }: Props) => {
       });
     }
   };
+
+  useEffect(() => {
+    ENTITY_TYPES.forEach((type) => {
+      if (type.endpoint !== EXCEPT_ENDPOINT) {
+        setData((prev) => ({ ...prev, [type.filter]: [] }));
+      }
+    });
+
+    acceptFiltration();
+  }, [refresh]);
 
   const handleChange: FilterFn = (filterType, item) => {
     setData((prev) => ({ ...prev, [filterType]: item }));

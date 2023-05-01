@@ -9,21 +9,21 @@ import Active from '@/assets/icons/active.svg';
 import { ADMIN_ROUTE } from '@/constants/routesConstants';
 import config from '@/config/config.json';
 import { useRootStore } from '@/context/StoreContext';
-import styles from './AdminProductItem.module.scss';
 import { ENTITY_TYPES } from '@/constants/adminPageConstants';
+import styles from './AdminProductItem.module.scss';
 
 const AdminProductItem = observer(() => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { products } = useRootStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [item, setItem] = useState<null | IProduct>(null);
+  const [productItem, setProductItem] = useState<null | IProduct>(null);
   const [editing, setEditing] = useState<boolean>(false);
   const [updated, setUpdated] = useState<boolean>(false);
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
+    const { signal } = controller;
     if (!products.products.length || updated) {
       setIsLoading(true);
       (async () => {
@@ -35,7 +35,10 @@ const AdminProductItem = observer(() => {
             try {
               const data = await httpService.fetchEntityItems(prop.endpoint, signal);
               products[prop.setter](data);
-            } catch (e: any) {
+            } catch (e: unknown) {
+              if (!(e instanceof Error)) {
+                return;
+              }
               if (e.message !== 'canceled') {
                 console.log(e);
               }
@@ -43,9 +46,12 @@ const AdminProductItem = observer(() => {
           });
           if (id) {
             const [response] = await httpService.fetchOneProduct(id);
-            setItem(() => response);
+            setProductItem(() => response);
           }
-        } catch (e: any) {
+        } catch (e: unknown) {
+          if (!(e instanceof Error)) {
+            return;
+          }
           if (e.message !== 'canceled') {
             console.log(e);
           }
@@ -56,10 +62,10 @@ const AdminProductItem = observer(() => {
       })();
     }
 
-    if (typeof id === 'string' && !item) {
+    if (typeof id === 'string' && !productItem) {
       setIsLoading(true);
-      const data = products.products.filter((item) => item.id === parseInt(id));
-      setItem(data[0]);
+      const data = products.products.filter((item) => item.id === parseInt(id, 10));
+      setProductItem(data[0]);
       setIsLoading(false);
     }
 
@@ -68,10 +74,10 @@ const AdminProductItem = observer(() => {
     };
   }, [updated, id]);
 
-  const removeHandle = async (id: string | number) => {
+  const removeHandle = async (productId: string | number) => {
     setIsLoading(true);
     try {
-      await httpService.removeProduct(id);
+      await httpService.removeProduct(productId);
       navigate(ADMIN_ROUTE);
     } catch (e) {
       console.log(e);
@@ -84,7 +90,7 @@ const AdminProductItem = observer(() => {
     setEditing(!editing);
   };
 
-  if (isLoading || !item) {
+  if (isLoading || !productItem) {
     return <Loader />;
   }
 
@@ -95,34 +101,34 @@ const AdminProductItem = observer(() => {
       </Button>
       <div className={styles.item_container}>
         <div>
-          <h3>{item.type}</h3>
-          <h4>{item.brand}</h4>
-          <h4>{item.teaType}</h4>
-          <h4>{item.fullName}</h4>
+          <h3>{productItem.type}</h3>
+          <h4>{productItem.brand}</h4>
+          <h4>{productItem.teaType}</h4>
+          <h4>{productItem.fullName}</h4>
         </div>
         <div>
-          {item.images.map((img) => (
+          {productItem.images.map((img) => (
             <img key={img.id} width={120} src={config.apiURL + img.name} alt="item" />
           ))}
         </div>
-        <span>{item.makingMethod}</span>
-        <span>{item.manufacturingMethod}</span>
-        {item.acidity && item.density && (
-          <div className={styles.item_scale}>
-            <Scale value={item.acidity} name="Кислотность" />
-            <Scale value={item.density} name="Плотность" />
+        <span>{productItem.makingMethod}</span>
+        <span>{productItem.manufacturingMethod}</span>
+        {productItem.acidity && productItem.density && (
+          <div className={styles.productItem_scale}>
+            <Scale value={productItem.acidity} name="Кислотность" />
+            <Scale value={productItem.density} name="Плотность" />
           </div>
         )}
-        <span>{item.packageType}</span>
-        <p>{item.shortDescription}</p>
-        <p>{item.description}</p>
-        {item.prices.map((price) => (
+        <span>{productItem.packageType}</span>
+        <p>{productItem.shortDescription}</p>
+        <p>{productItem.description}</p>
+        {productItem.prices.map((price) => (
           <div key={price.id}>
             <div>{price.weight}</div>
             <div>{price.value} &#8381;</div>
           </div>
         ))}
-        <div data-is-active={item.active}>
+        <div data-is-active={productItem.active}>
           В продаже: <Active />
         </div>
         <div className={styles.item_buttons}>
@@ -130,7 +136,7 @@ const AdminProductItem = observer(() => {
           <IconButton appearance="primary" onClick={openEditModule} icon="Edit" />
         </div>
       </div>
-      {editing && <EditItemModule product={item} onUpdated={setUpdated} onHide={openEditModule} />}
+      {editing && <EditItemModule product={productItem} onUpdated={setUpdated} onHide={openEditModule} />}
     </div>
   );
 });

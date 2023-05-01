@@ -30,13 +30,16 @@ const EntityContainer = observer(({ endpoint, label, getter, setter, isBlack }: 
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
+    const { signal } = controller;
 
     (async () => {
       try {
         const data = await httpService.fetchEntityItems(endpoint, signal);
         products[setter](data);
-      } catch (e: any) {
+      } catch (e: unknown) {
+        if (!(e instanceof Error)) {
+          return;
+        }
         if (e.message !== 'canceled') {
           console.log(e);
         }
@@ -64,8 +67,8 @@ const EntityContainer = observer(({ endpoint, label, getter, setter, isBlack }: 
     }
   };
 
-  const editItem = (item: IProductType) => {
-    setItem(item);
+  const editItem = (prodType: IProductType) => {
+    setItem(prodType);
     setShow(true);
   };
 
@@ -74,11 +77,11 @@ const EntityContainer = observer(({ endpoint, label, getter, setter, isBlack }: 
       <div className={containerName}>
         <h6>{label}</h6>
         <div className={styles.types_list}>
-          {products[getter].map((item) => (
-            <div className={styles.types_item} key={item?.id}>
-              <div>{item?.name}</div>
+          {products[getter].map((prodType) => (
+            <div className={styles.types_item} key={prodType?.id}>
+              <div>{prodType?.name}</div>
               <div>
-                <IconButton appearance="primary" onClick={() => editItem(item)} icon="Edit" />
+                <IconButton appearance="primary" onClick={() => editItem(prodType)} icon="Edit" />
               </div>
             </div>
           ))}

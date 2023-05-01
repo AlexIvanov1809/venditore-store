@@ -5,9 +5,9 @@ import { TypeBar, Aside, CardList, Pagination, ProductSearch } from '@/component
 import httpService from '@/http/productAPI';
 import { ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
-import styles from './Shop.module.scss';
 import { useErrorBoundary, withErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '@/components/ErrorBoundary/ErrorFallback';
+import styles from './Shop.module.scss';
 
 const Shop = observer(() => {
   const { products } = useRootStore();
@@ -16,14 +16,17 @@ const Shop = observer(() => {
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
+    const { signal } = controller;
 
     (() => {
       ENTITY_TYPES.forEach(async (item) => {
         try {
           const data = await httpService.fetchEntityItems(item.endpoint, signal);
           products[item.setter](data);
-        } catch (e: any) {
+        } catch (e: unknown) {
+          if (!(e instanceof Error)) {
+            return;
+          }
           if (e.message !== 'canceled') {
             showBoundary(e);
           }
@@ -42,7 +45,7 @@ const Shop = observer(() => {
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
+    const { signal } = controller;
 
     (async () => {
       try {
@@ -66,7 +69,10 @@ const Shop = observer(() => {
         products.setProducts(data.rows);
         products.setTotalCount(data.count);
         setIsLoading(false);
-      } catch (e: any) {
+      } catch (e: unknown) {
+        if (!(e instanceof Error)) {
+          return;
+        }
         if (e.message !== 'canceled') {
           showBoundary(e);
           setIsLoading(false);
@@ -91,14 +97,17 @@ const Shop = observer(() => {
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
+    const { signal } = controller;
 
     if (products.selectedType) {
       ENTITY_TYPES.forEach(async (item) => {
         try {
           const data = await httpService.fetchEntityFilterItems(item.endpoint, products.selectedType, signal);
           products[item.setter](data);
-        } catch (e: any) {
+        } catch (e: unknown) {
+          if (!(e instanceof Error)) {
+            return;
+          }
           if (e.message !== 'canceled') {
             showBoundary(e);
           }

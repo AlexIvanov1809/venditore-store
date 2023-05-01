@@ -48,6 +48,7 @@ module.exports = {
     'prettier/prettier': ['error'],
 
     'no-shadow': 'off',
+    'no-param-reassign': ['error', { props: false }],
     'no-use-before-define': 'off',
     'require-await': 'error',
     'spaced-comment': ['error', 'always'],
@@ -83,7 +84,6 @@ module.exports = {
         tsx: 'never'
       }
     ],
-    semi: ['error', 'always'],
     quotes: ['error', 'single']
   },
   settings: {

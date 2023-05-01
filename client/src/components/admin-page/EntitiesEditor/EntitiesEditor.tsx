@@ -1,35 +1,35 @@
 import { useState } from 'react';
 import { FnOnChange } from '@/types/uiTypes';
 import httpService from '@/http/productAPI';
+import useValidation from '@/hooks/useValidation';
+import { VALIDATOR_CONFIG } from '@/constants/configConstants';
+import { useRootStore } from '@/context/StoreContext';
 import styles from './EntitiesEditor.module.scss';
 import { Button, TextInput } from '../../ui';
 import DeleteBtn from '../DeleteBtn/DeleteBtn';
 import EntityEditorProps from './EntityEditor.props';
-import useValidation from '@/hooks/useValidation';
-import { VALIDATOR_CONFIG } from '@/constants/configConstants';
-import { useRootStore } from '@/context/StoreContext';
 import makeErrorMsg from '../utils/makeErrorMsg';
 
 function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEditorProps) {
   const { adminErrors } = useRootStore();
-  const [value, setValue] = useState<{ name: string }>({ name: item ? item.name : '' });
-  const error = useValidation(value.name, VALIDATOR_CONFIG.required);
+  const [entityValue, setEntityValue] = useState<{ name: string }>({ name: item ? item.name : '' });
+  const error = useValidation(entityValue.name, VALIDATOR_CONFIG.required);
 
   const changeHandle: FnOnChange = ({ value }) => {
     if (typeof value === 'string') {
-      setValue({ name: value });
+      setEntityValue({ name: value });
     }
   };
 
   const onSubmit = async () => {
     try {
       if (item) {
-        await httpService.editEntityItem(endpoint, item.id, value);
+        await httpService.editEntityItem(endpoint, item.id, entityValue);
       } else {
-        await httpService.createEntityItem(endpoint, value);
+        await httpService.createEntityItem(endpoint, entityValue);
       }
       onHide(false);
-    } catch (e: any) {
+    } catch (e: unknown) {
       const errorMsg = makeErrorMsg(e);
       adminErrors.setError(errorMsg);
     }
@@ -43,7 +43,7 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
           <TextInput
             error={error}
             name="name"
-            value={value.name}
+            value={entityValue.name}
             onChange={changeHandle}
             type="text"
             placeholder="Enter value"

@@ -13,8 +13,10 @@ export default function normalizedPricesData(prices: IProductPrice[], oldPrices:
 
     try {
       await httpService.removePriceProduct(price.id);
-    } catch (e: any) {
-      throw Error(e);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw e;
+      }
     }
   });
 

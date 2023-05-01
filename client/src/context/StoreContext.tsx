@@ -1,5 +1,5 @@
 import { BasketStore, ErrorStore, ProductsStore, UserStore } from '@/store';
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode, useContext, useMemo } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -19,18 +19,14 @@ export function useRootStore() {
 }
 
 function RootStoreProvider({ children }: Props) {
-  return (
-    <RootStoreContext.Provider
-      value={{
-        user: new UserStore(),
-        products: new ProductsStore(),
-        basket: new BasketStore(),
-        adminErrors: new ErrorStore()
-      }}
-    >
-      {children}
-    </RootStoreContext.Provider>
-  );
+  const user = new UserStore();
+  const products = new ProductsStore();
+  const basket = new BasketStore();
+  const adminErrors = new ErrorStore();
+
+  const value = useMemo(() => ({ user, products, basket, adminErrors }), [user, products, basket, adminErrors]);
+
+  return <RootStoreContext.Provider value={value}>{children}</RootStoreContext.Provider>;
 }
 
 export default RootStoreProvider;

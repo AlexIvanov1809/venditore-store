@@ -5,13 +5,13 @@ import { IProduct, SortTypes } from '@/types/productTypes';
 import { Button, IconButton, Loader, TextInput } from '@/components/ui';
 import { EntityContainer, AdminItemForList, EditItemModule, AdminRegistration } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
-import changeProductSortWay from './changeProductSortWay';
 import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
-import styles from './Admin.module.scss';
 import orderBy from 'lodash.orderby';
 import AdminErrorBoundary from '@/components/admin-page/AdminErrorBoundary/AdminErrorBoundary';
 import makeErrorMsg from '@/components/admin-page/utils/makeErrorMsg';
+import styles from './Admin.module.scss';
+import changeProductSortWay from './changeProductSortWay';
 
 const Admin = observer(() => {
   const { products, adminErrors } = useRootStore();
@@ -27,7 +27,7 @@ const Admin = observer(() => {
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
+    const { signal } = controller;
 
     if (updated) {
       setIsLoading(true);
@@ -36,7 +36,10 @@ const Admin = observer(() => {
           const data = await httpService.fetchProducts({}, signal);
           products.setProducts(data.rows);
           setUpdated(false);
-        } catch (e: any) {
+        } catch (e: unknown) {
+          if (!(e instanceof Error)) {
+            return;
+          }
           if (e.message !== 'canceled') {
             const errorMsg = makeErrorMsg(e);
             adminErrors.setError(errorMsg);
@@ -112,8 +115,10 @@ const Admin = observer(() => {
         </div>
         <div className={styles.items_fields}>
           {ADMIN_ITEM_FIELDS.map((field) => (
-            <div onClick={() => onClick(field.type)} key={field.id}>
-              {field.name}
+            <div key={field.id}>
+              <button type="button" onClick={() => onClick(field.type)}>
+                {field.name}
+              </button>
             </div>
           ))}
         </div>

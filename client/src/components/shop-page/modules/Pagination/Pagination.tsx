@@ -19,10 +19,10 @@ const Pagination = observer(({ className }: Props) => {
   return (
     <div className={cn(className, styles.pagination)}>
       {pages.length > 1 &&
-        pages.map((page, i) => (
-          <div key={i} data-active={products.page === page} onClick={() => products.setPage(page)}>
+        pages.map((page) => (
+          <button type="button" key={page} data-active={products.page === page} onClick={() => products.setPage(page)}>
             {page}
-          </div>
+          </button>
         ))}
     </div>
   );

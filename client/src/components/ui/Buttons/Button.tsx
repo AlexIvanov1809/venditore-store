@@ -13,7 +13,7 @@ function Button({ appearance, children, className, ...props }: ButtonProps): JSX
   const btnStyle = getAppearance(appearance, className);
 
   return (
-    <button {...props} className={btnStyle}>
+    <button type="button" {...props} className={btnStyle}>
       {children}
     </button>
   );

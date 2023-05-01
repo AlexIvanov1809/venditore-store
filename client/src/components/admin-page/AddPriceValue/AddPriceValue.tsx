@@ -1,8 +1,8 @@
 import cn from 'classnames';
-import { SelectField, TextInput, Button } from '../../ui';
-import AddPriceValueProps from './AddPriceValue.props';
 import { WEIGHT } from '@/constants/adminPageConstants';
 import { FnOnChange } from '@/types/uiTypes';
+import { SelectField, TextInput, Button } from '../../ui';
+import AddPriceValueProps from './AddPriceValue.props';
 
 function AddPriceValue({ price, className, onChange, removePrice, error }: AddPriceValueProps) {
   const priceClassName = cn(className, { error });

@@ -22,8 +22,10 @@ export default function imgUploader(imgs: (string | File)[], product: IProduct) 
       if (imgId && !file) {
         await httpService.removeProductImage(imgId);
       }
-    } catch (e: any) {
-      throw Error(e);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw e;
+      }
     }
   });
 }

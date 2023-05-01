@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { IProductPrice } from '@/types/productTypes';
 import { FnOnChange } from '@/types/uiTypes';
 import httpService from '@/http/productAPI';
-import { makeFormDataFile, imgUploader, imageValidator, normalizedPricesData, priceValidator } from './helpers/';
 import { VALIDATOR_CONFIG } from '@/constants/configConstants';
 import { useRootStore } from '@/context/StoreContext';
+import { DEFAULT, LEVEL } from '@/constants/adminPageConstants';
+import useValidation from '@/hooks/useValidation';
+import { makeFormDataFile, imgUploader, imageValidator, normalizedPricesData, priceValidator } from './helpers';
 import styles from './EditItemModule.module.scss';
 import { Button, TextAreaField, CheckBox, TextInput, ImgInput, SelectField } from '../../ui';
 import AddPriceValue from '../AddPriceValue/AddPriceValue';
 import EditItemModuleProps from './EditItemModule.props';
-import { DEFAULT, LEVEL } from '@/constants/adminPageConstants';
-import useValidation from '@/hooks/useValidation';
 import makeErrorMsg from '../utils/makeErrorMsg';
 
 function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
@@ -37,9 +37,8 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
     }
   }, [product]);
 
-  const validate = () => {
-    return !!brandErrors || !!typeErrors || !!sortNameErrors || !!shortDescErrors || !!priceError || !!imageError;
-  };
+  const validate = () =>
+    !!brandErrors || !!typeErrors || !!sortNameErrors || !!shortDescErrors || !!priceError || !!imageError;
 
   const changeHandle: FnOnChange = ({ name, value }) => {
     setData((prevState) => ({ ...prevState, [name]: value }));
@@ -75,7 +74,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
         await httpService.editProduct(prod);
         onHide(false);
         onUpdated(true);
-      } catch (e: any) {
+      } catch (error: unknown) {
         const errorMsg = makeErrorMsg(e);
         adminErrors.setError(errorMsg);
       }
@@ -88,7 +87,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
       await httpService.createProduct(formData);
       onHide(false);
       onUpdated(true);
-    } catch (e: any) {
+    } catch (error: unknown) {
       const errorMsg = makeErrorMsg(e);
       adminErrors.setError(errorMsg);
     }

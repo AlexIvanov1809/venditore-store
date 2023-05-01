@@ -3,7 +3,7 @@
 // console.clear(); // TODO: watchFix => it doesn't work properly since VSCode-terminal has bug: https://github.com/microsoft/vscode/issues/75141
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+// const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const PreloadPlugin = require('preload-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -47,9 +47,12 @@ module.exports = function (env, argv) {
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'], // using import without file-extensions
       alias: {
-        '@': path.resolve(__dirname, 'src/')
+        '@': path.resolve(__dirname, 'src/'),
+        'images/': path.resolve(srcPath, 'assets/images/'),
+        'fonts/': path.resolve(srcPath, 'assets/fonts/'),
+        'icons/': path.resolve(srcPath, 'assets/icons/')
       },
-      plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })] // plugin makes mapping from tsconfig.json to weback:alias
+      plugins: [new TsconfigPathsPlugin({ configFile: path.resolve(__dirname, './tsconfig.json') })] // plugin makes mapping from tsconfig.json to weback:alias
     },
     optimization: {
       // config is taken from vue-cli

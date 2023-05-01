@@ -2,10 +2,12 @@ import { ValidatorConfig } from '@/types/constsTypes';
 import { ErrorMsg } from '@/types/uiTypes';
 import { useEffect, useState } from 'react';
 
-export default function useValidation(value: string | number, config: ValidatorConfig, secondValue = ''): ErrorMsg {
-  if (typeof value === 'number') {
-    value = value.toString();
-  }
+export default function useValidation(
+  dataForValidation: string | number,
+  config: ValidatorConfig,
+  secondValue = ''
+): ErrorMsg {
+  const value = typeof dataForValidation === 'number' ? dataForValidation.toString() : dataForValidation;
   const [errors, setErrors] = useState('');
 
   const setterErrors = (message: string) => {
@@ -20,7 +22,7 @@ export default function useValidation(value: string | number, config: ValidatorC
   useEffect(() => {
     setErrors('');
     if (config) {
-      for (const validation in config) {
+      Object.keys(config).forEach((validation) => {
         switch (validation) {
           case 'isRequired':
             if (!value.toString().trim()) {
@@ -68,7 +70,7 @@ export default function useValidation(value: string | number, config: ValidatorC
           default:
             break;
         }
-      }
+      });
     }
   }, [value, secondValue]);
 

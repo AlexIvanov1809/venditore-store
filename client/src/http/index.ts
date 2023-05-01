@@ -1,12 +1,12 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import config from '../config/config.json';
+import appConfig from '../config/config.json';
 import frontDataAdapter from './helper/frontDataAdapter';
 
 const $host = axios.create({
-  baseURL: config.apiURL
+  baseURL: appConfig.apiURL
 });
 const $productHost = axios.create({
-  baseURL: config.apiURL
+  baseURL: appConfig.apiURL
 });
 
 const productInterceptor = (response: AxiosResponse) => {
@@ -27,9 +27,7 @@ const authInterceptor = (config: InternalAxiosRequestConfig<unknown>) => {
 $productHost.interceptors.response.use(productInterceptor);
 $host.interceptors.request.use(authInterceptor);
 $host.interceptors.response.use(
-  (config) => {
-    return config;
-  },
+  (config) => config,
   async (error) => {
     if (error.message === 'canceled') {
       throw error;
@@ -38,7 +36,7 @@ $host.interceptors.response.use(
     if (error.response.status === 401 && error.config && !error.config._isRetry) {
       try {
         originalRequest._isRetry = true;
-        const response = await axios.get(`${config.apiURL}/user/refresh`, {
+        const response = await axios.get(`${appConfig.apiURL}/user/refresh`, {
           withCredentials: true
         });
         localStorage.setItem('token', response.data.accessToken);

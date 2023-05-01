@@ -27,13 +27,16 @@ function ShopFilterList({ refresh, label, list, onChange, filterType }: Props) {
   }, [products, refresh]);
 
   useEffect(() => {
-    const filterList = [];
-    for (const key in data) {
+    if (!data) {
+      return;
+    }
+    const filterList: string[] = [];
+
+    Object.keys(data).forEach((key) => {
       if (data[key]) {
         filterList.push(key);
       }
-    }
-
+    });
     onChange(filterType, filterList);
   }, [data]);
 
