@@ -1,11 +1,15 @@
 const { Country } = require('../models/models');
 
 async function getFullName(data) {
-  if (data.countryId) {
-    const country = await Country.findOne({ where: { id: data.countryId } });
-    return `${country.name} ${data.sortName}`;
+  try {
+    if (data.countryId) {
+      const country = await Country.findOne({ where: { id: data.countryId } });
+      return `${country.name} ${data.sortName}`;
+    }
+    return data.sortName;
+  } catch (error) {
+    throw error;
   }
-  return data.sortName;
 }
 
 function getMinPriceValue(price) {
