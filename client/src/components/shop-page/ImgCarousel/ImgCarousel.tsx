@@ -12,10 +12,10 @@ function ImgCarousel({ images }: Props) {
   const [imgIndex, setImgIndex] = useState(0);
 
   const prev = () => {
-    setImgIndex((prev) => Math.max(0, prev - 1));
+    setImgIndex((prevState) => Math.max(0, prevState - 1));
   };
   const next = () => {
-    setImgIndex((prev) => Math.min(images.length - 1, prev + 1));
+    setImgIndex((prevState) => Math.min(images.length - 1, prevState + 1));
   };
   return (
     <div className={styles.carousel}>
@@ -25,12 +25,12 @@ function ImgCarousel({ images }: Props) {
         </div>
       </div>
       {images.length > imgIndex && imgIndex !== 0 && (
-        <button className={cn(styles.carousel_btn, styles.btn_prev)} onClick={prev}>
+        <button type="button" className={cn(styles.carousel_btn, styles.btn_prev)} onClick={prev}>
           {'<'}
         </button>
       )}
       {images.length > imgIndex && imgIndex !== images.length - 1 && (
-        <button className={cn(styles.carousel_btn, styles.btn_next)} onClick={next}>
+        <button type="button" className={cn(styles.carousel_btn, styles.btn_next)} onClick={next}>
           {'>'}
         </button>
       )}

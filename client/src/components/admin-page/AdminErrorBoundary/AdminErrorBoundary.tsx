@@ -3,7 +3,7 @@ import { useRootStore } from '@/context/StoreContext';
 import { observer } from 'mobx-react-lite';
 import styles from './AdminErrorBoundary.module.scss';
 
-const AdminErrorBoundary = observer(() => {
+const AdminErrorBoundary = observer((): JSX.Element => {
   const { adminErrors } = useRootStore();
   const [error, setError] = useState(false);
 
@@ -27,10 +27,6 @@ const AdminErrorBoundary = observer(() => {
       }
     };
   }, [adminErrors.error]);
-
-  if (!adminErrors.error) {
-    return <></>;
-  }
 
   return (
     <div data-error={error} className={styles.container}>

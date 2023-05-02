@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IProductPrice } from '@/types/productTypes';
-import { FnOnChange } from '@/types/uiTypes';
+import { FnOnChange, ImgType } from '@/types/uiTypes';
 import httpService from '@/http/productAPI';
 import { VALIDATOR_CONFIG } from '@/constants/configConstants';
 import { useRootStore } from '@/context/StoreContext';
@@ -13,6 +13,12 @@ import AddPriceValue from '../AddPriceValue/AddPriceValue';
 import EditItemModuleProps from './EditItemModule.props';
 import makeErrorMsg from '../utils/makeErrorMsg';
 
+const IMAGE_INITIAL_STATE = [
+  { id: 0, image: '' },
+  { id: 1, image: '' },
+  { id: 2, image: '' }
+];
+
 function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   const { products, adminErrors } = useRootStore();
   function initialState() {
@@ -20,7 +26,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   }
 
   const [data, setData] = useState(product || DEFAULT);
-  const [img, setImg] = useState<(string | File)[]>(['', '', '']);
+  const [img, setImg] = useState<ImgType>(IMAGE_INITIAL_STATE);
   const [prices, setPrices] = useState<IProductPrice[]>(initialState);
   const brandErrors = useValidation(data.brandId, VALIDATOR_CONFIG.required);
   const typeErrors = useValidation(data.typeId, VALIDATOR_CONFIG.required);
@@ -32,7 +38,9 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   useEffect(() => {
     if (product) {
       product.images.forEach((image) => {
-        setImg((prev) => prev.map((i, ind) => (ind === image.row ? image.name : i)));
+        setImg((prev) =>
+          prev.map((prevImg) => (prevImg.id === image.row ? { id: prevImg.id, image: image.name } : prevImg))
+        );
       });
     }
   }, [product]);
@@ -45,11 +53,12 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
   };
 
   const changePrice: FnOnChange = ({ name, value, id }) => {
-    setPrices(prices.map((p) => (p.id === id ? { ...p, [name]: value } : p)));
+    setPrices(prices.map((price) => (price.id === id ? { ...price, [name]: value } : price)));
   };
 
   const changeImgHandle = (index: number, file: File | string): void => {
-    setImg((imgs) => imgs.map((i, ind) => (ind === index ? file : i)));
+    setImg((imgs) => imgs.map((prevImg) => (prevImg.id === index ? { id: prevImg.id, image: file } : prevImg)));
+    console.log(img);
   };
 
   const addPrice = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -59,12 +68,12 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
 
   const removePrice = (e: React.MouseEvent<Element, MouseEvent>, id: number): void => {
     e.preventDefault();
-    setPrices(prices.filter((p) => p.id !== id));
+    setPrices(prices.filter((price) => price.id !== id));
   };
 
   const submitHandle = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const filteredPrice = prices.filter((p) => p.weight && p.value);
+    const filteredPrice = prices.filter((price) => price.weight && price.value);
     if (product) {
       const normalizedPrices = normalizedPricesData(filteredPrice, product.prices);
 
@@ -100,13 +109,13 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
         <form onSubmit={submitHandle}>
           <div className={styles.edit_items}>
             <div className={styles.edit_img}>
-              {img.map((picName, index) => (
+              {img.map((image) => (
                 <ImgInput
-                  key={index}
-                  name={`img${index}`}
-                  index={index}
+                  key={image.id}
+                  name={`img${image.image}`}
+                  index={image.id}
                   onChange={changeImgHandle}
-                  picName={picName}
+                  picName={image.image}
                   error={imageError}
                 />
               ))}
@@ -210,7 +219,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
               Активность
             </CheckBox>
             <div>
-              <Button appearance="primary" onClick={addPrice} disabled={prices.length > 2}>
+              <Button type="button" appearance="primary" onClick={addPrice} disabled={prices.length > 2}>
                 Добавить цену
               </Button>
               {prices.map((price) => (
@@ -226,7 +235,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
             </div>
           </div>
           <div className={styles.btn}>
-            <Button onClick={() => onHide()} appearance="danger">
+            <Button type="button" onClick={() => onHide()} appearance="danger">
               Закрыть
             </Button>
             <Button disabled={validate()} appearance="primary" type="submit">

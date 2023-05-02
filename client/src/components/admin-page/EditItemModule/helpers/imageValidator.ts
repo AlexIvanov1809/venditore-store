@@ -1,11 +1,9 @@
-import { ErrorMsg } from '@/types/uiTypes';
+import { ErrorMsg, ImgType } from '@/types/uiTypes';
 
-type DataImage = string | File;
-
-export default function imageValidator(images: DataImage[]): ErrorMsg {
+export default function imageValidator(images: ImgType): ErrorMsg {
   let error = true;
   images.forEach((image) => {
-    if (image) {
+    if (image.image) {
       error = false;
     }
   });

@@ -27,18 +27,21 @@ const Basket = observer(() => {
 
   const changeHandler: BasketChangeHandler = (id, action) => {
     switch (action) {
-      case INCREASE:
+      case INCREASE: {
         basket.setIncrementQty(id);
         break;
+      }
 
-      case DECREASE:
+      case DECREASE: {
         basket.setDecrementQty(id);
         break;
+      }
 
-      case DELETE:
+      case DELETE: {
         const filtered = inBasket.filter((item) => item?.id !== id);
         basket.setOrder(filtered);
         break;
+      }
 
       default:
         break;

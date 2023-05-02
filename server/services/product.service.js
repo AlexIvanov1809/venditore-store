@@ -11,9 +11,10 @@ class ProductService {
   async createProduct({ prices, ...data }, images) {
     data.fullName = await getFullName(data);
     data.minPriceValue = getMinPriceValue(prices);
+    const preparedData = nullConverterForIdFields(data);
 
     const product = await Product.create({
-      ...data,
+      ...preparedData,
     });
 
     await makeEntitiesForFilters(product);

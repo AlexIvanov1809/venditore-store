@@ -6,13 +6,13 @@ function CheckBox({ name, value, onChange, children, error }: CheckboxProps): JS
     onChange({ name, value: !value });
   };
   return (
-    <div className={styles.checkbox_container}>
-      <input type="checkbox" id={name} onChange={handleChange} checked={value} role="button" />
-      <label className={styles.checkbox_label} htmlFor="flexCheckDefault" onClick={handleChange} role="button">
+    <button type="button" onClick={handleChange} className={styles.checkbox_container}>
+      <input type="checkbox" id={name} onChange={handleChange} checked={value} />
+      <label className={styles.checkbox_label} htmlFor="checkLabelValue">
         {children}
       </label>
-      {error && <div className="invalid-feedback">{error}</div>}
-    </div>
+      {error && <div>{error}</div>}
+    </button>
   );
 }
 

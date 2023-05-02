@@ -48,17 +48,14 @@ function AdminRegistration(): JSX.Element {
       const response = await authService.registration(data);
       console.log(response);
     } catch (error: unknown) {
+      console.log(e);
       const errorMsg = makeErrorMsg(e);
       adminErrors.setError(errorMsg);
     }
   };
 
-  if (!isOwner) {
-    return <></>;
-  }
-
   return (
-    <div>
+    <div className={!isOwner ? styles.admin : ''}>
       <Button onClick={() => setIsOpen(true)} appearance="primary">
         Создать админа
       </Button>
@@ -98,8 +95,10 @@ function AdminRegistration(): JSX.Element {
               defaultOption="ADMIN"
             />
             {/* {errorFromServer && <p style={{ color: 'red' }}>{errorFromServer}</p>} */}
-            <Button appearance="primary">Зарегистрировать</Button>
-            <Button onClick={handleClose} appearance="danger">
+            <Button type="submit" appearance="primary">
+              Зарегистрировать
+            </Button>
+            <Button type="button" onClick={handleClose} appearance="danger">
               Закрыть
             </Button>
           </form>

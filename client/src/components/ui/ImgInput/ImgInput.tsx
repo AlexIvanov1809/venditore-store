@@ -39,18 +39,19 @@ function ImgInput({ name, index, onChange, error, picName }: ImgInputProps) {
       <div className={className}>
         <label htmlFor={name}>
           <img width={120} src={imgSrc} alt="No one" className="img-fluid" />
+          <input
+            aria-label="Image input"
+            type="file"
+            id={name}
+            className="d-none"
+            onChange={handleChange}
+            accept="image/*,.png,.jpg,.jpeg,.webp,"
+          />
         </label>
-        <input
-          type="file"
-          id={name}
-          className="d-none"
-          onChange={handleChange}
-          accept="image/*,.png,.jpg,.jpeg,.webp,"
-        />
         {imgSrc !== noPic && (
-          <div className={styles.img_btn} role="button" onClick={handleRemoveImage}>
+          <button type="button" className={styles.img_btn} onClick={handleRemoveImage}>
             X
-          </div>
+          </button>
         )}
       </div>
       {error && <p className="error">{error}</p>}

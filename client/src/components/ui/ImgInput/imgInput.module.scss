@@ -1,4 +1,4 @@
-.img_container > div > input {
+.img_container input {
 	display: none;
 }
 
@@ -14,11 +14,12 @@
 .img_btn {
 	position: absolute;
 	top: 0;
-	right: 0px;
+	right: 0;
 	cursor: pointer;
 	background-color: red;
 	padding: 2px 6px;
 	border-radius: 5px;
+	margin: 0;
 }
 
 .img {

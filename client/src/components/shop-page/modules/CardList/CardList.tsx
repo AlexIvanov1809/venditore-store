@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '@/context/StoreContext';
 import styles from './CardList.module.scss';
-import { Card } from '../..';
+import Card from '../../Card/Card';
 
 interface Props {
   className: string;

@@ -17,4 +17,6 @@ type SortProps = {
 
 type FilterFn = (filterType: keyof IProduct, item: string[]) => void;
 
-export { FnOnChange, ErrorMsg, Options, HideFn, DeleteFn, SortProps, FilterFn };
+type ImgType = { id: number; image: string | File }[];
+
+export { FnOnChange, ErrorMsg, Options, HideFn, DeleteFn, SortProps, FilterFn, ImgType };

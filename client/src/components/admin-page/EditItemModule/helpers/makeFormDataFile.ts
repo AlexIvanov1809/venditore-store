@@ -1,23 +1,25 @@
 import { INewProduct } from '@/types/productTypes';
+import { ImgType } from '@/types/uiTypes';
 
-export default function makeFormDataFile(product: INewProduct | null, images: (string | File)[]) {
+export default function makeFormDataFile(product: INewProduct | null, images: ImgType) {
   const formData = new FormData();
   if (images) {
     images.forEach((image) => {
-      if (typeof image === 'object') {
-        formData.append('img', image);
+      const data = image.image;
+      if (typeof data === 'object') {
+        console.log(data);
+        formData.append('img', data);
       }
     });
   }
 
   if (product) {
-    let key: keyof INewProduct;
-    for (key in product) {
-      const fieldData = product[key];
-      if (fieldData) {
+    Object.keys(product).forEach((key) => {
+      const fieldData = product[key as keyof INewProduct];
+      if (formData) {
         formData.append(key, fieldData as string);
       }
-    }
+    });
   }
   return formData;
 }

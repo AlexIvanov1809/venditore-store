@@ -50,10 +50,10 @@ function EntitiesEditor({ onDelete, label, onHide, item, endpoint }: EntityEdito
           />
           <div className={styles.buttons}>
             {item && <DeleteBtn onDelete={onDelete} id={item.id} />}
-            <Button appearance="danger" onClick={() => onHide(false)}>
+            <Button type="button" appearance="danger" onClick={() => onHide(false)}>
               Close
             </Button>
-            <Button disabled={!!error} appearance="primary" onClick={onSubmit}>
+            <Button type="submit" disabled={!!error} appearance="primary" onClick={onSubmit}>
               {item ? 'Обновить' : 'Создать'}
             </Button>
           </div>
