@@ -12,26 +12,22 @@ interface Props {
 function ProductSearch({ className }: Props) {
   const [productName, setProductName] = useState('');
   const [products, setProducts] = useState<IProduct[]>([]);
-
-  async function fetchSearchingProduct(name: string) {
-    try {
-      const response = await httpService.searchingProducts(name);
-      setProducts(response);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-  const getFoundProduct = useDebounce(productName, fetchSearchingProduct, 500);
+  const debouncedValue = useDebounce<string>(productName, 500);
 
   useEffect(() => {
     if (productName) {
       (async () => {
-        await getFoundProduct();
+        try {
+          const response = await httpService.searchingProducts(debouncedValue);
+          setProducts(response);
+        } catch (e) {
+          console.log(e);
+        }
       })();
       return;
     }
     setProducts([]);
-  }, [productName]);
+  }, [debouncedValue]);
 
   const handleChange: FnOnChange = ({ value }) => {
     if (typeof value === 'string') {
