@@ -5,6 +5,13 @@ class ProductController {
   async create(req, res, next) {
     try {
       const data = req.body;
+      if (!data.typeId || !data.brandId) {
+        return next(
+          ApiError.badRequest(
+            'Поля бренда и группы товара не должны быть пустыми',
+          ),
+        );
+      }
       if (!req.files) {
         return next(ApiError.badRequest('Не отправили фото'));
       }
@@ -69,6 +76,13 @@ class ProductController {
     try {
       const { id } = req.params;
       const data = req.body;
+      if (!data.typeId || !data.brandId) {
+        return next(
+          ApiError.badRequest(
+            'Поля бренда и группы товара не должны быть пустыми',
+          ),
+        );
+      }
       if (!data.prices) {
         return next(ApiError.badRequest('Не отправили цены'));
       }
