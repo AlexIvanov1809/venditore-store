@@ -10,12 +10,14 @@ import { ADMIN_ROUTE } from '@/constants/routesConstants';
 import config from '@/config/config.json';
 import { useRootStore } from '@/context/StoreContext';
 import { ENTITY_TYPES } from '@/constants/adminPageConstants';
+import AdminErrorBoundary from '@/components/admin-page/AdminErrorBoundary/AdminErrorBoundary';
+import makeErrorMsg from '@/components/admin-page/utils/makeErrorMsg';
 import styles from './AdminProductItem.module.scss';
 
 const AdminProductItem = observer(() => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { products } = useRootStore();
+  const { products, adminErrors } = useRootStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [productItem, setProductItem] = useState<null | IProduct>(null);
   const [editing, setEditing] = useState<boolean>(false);
@@ -40,7 +42,8 @@ const AdminProductItem = observer(() => {
                 return;
               }
               if (e.message !== 'canceled') {
-                console.log(e);
+                const errorMsg = makeErrorMsg(e);
+                adminErrors.setError(errorMsg);
               }
             }
           });
@@ -53,7 +56,8 @@ const AdminProductItem = observer(() => {
             return;
           }
           if (e.message !== 'canceled') {
-            console.log(e);
+            const errorMsg = makeErrorMsg(e);
+            adminErrors.setError(errorMsg);
           }
         } finally {
           setIsLoading(false);
@@ -79,8 +83,12 @@ const AdminProductItem = observer(() => {
     try {
       await httpService.removeProduct(productId);
       navigate(ADMIN_ROUTE);
-    } catch (e) {
-      console.log(e);
+    } catch (e: unknown) {
+      if (!(e instanceof Error)) {
+        return;
+      }
+      const errorMsg = makeErrorMsg(e);
+      adminErrors.setError(errorMsg);
     } finally {
       setIsLoading(false);
     }
@@ -136,6 +144,7 @@ const AdminProductItem = observer(() => {
           <IconButton appearance="primary" onClick={openEditModule} icon="Edit" />
         </div>
       </div>
+      <AdminErrorBoundary />
       {editing && <EditItemModule product={productItem} onUpdated={setUpdated} onHide={openEditModule} />}
     </div>
   );
