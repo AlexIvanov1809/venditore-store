@@ -124,7 +124,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
               <SelectField
                 value={data.typeId}
                 name="typeId"
-                label="Вид товара"
+                label="Группа товара"
                 options={products.types}
                 onChange={changeHandle}
                 error={typeErrors}
@@ -149,7 +149,7 @@ function EditItemModule({ product, onHide, onUpdated }: EditItemModuleProps) {
               <SelectField
                 value={data.makingMethodId}
                 name="makingMethodId"
-                label="Метод приготовления"
+                label="Обжарка для"
                 options={products.makingMethods}
                 onChange={changeHandle}
               />

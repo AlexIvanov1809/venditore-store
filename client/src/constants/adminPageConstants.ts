@@ -73,11 +73,11 @@ export const ENTITY_TYPES: EntityTypes[] = [
   }
 ];
 export const ADMIN_ITEM_FIELDS: AdminItemFields[] = [
-  { id: 1, name: 'Вид товара', type: 'type' },
+  { id: 1, name: 'Группы товаров', type: 'type' },
   { id: 2, name: 'Бренд', type: 'brand' },
   { id: 3, name: 'Страна', type: 'country' },
   { id: 4, name: 'Сорт или название', type: 'sortName' },
-  { id: 5, name: 'Метод приготовления', type: 'makingMethod' },
+  { id: 5, name: 'Обжарка для', type: 'makingMethod' },
   { id: 6, name: 'Метод производства', type: 'manufacturingMethod' },
   { id: 7, name: 'Тип чая', type: 'teaType' },
   { id: 8, name: 'Активный', type: 'active' }
