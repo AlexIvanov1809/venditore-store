@@ -5,6 +5,7 @@ const mailService = require('./mail.service');
 const tokenService = require('./token.service');
 const UserDto = require('../dtos/user.dto');
 const UserErrors = require('../error/userErrors');
+const { where } = require('sequelize');
 
 class UserService {
   async registration(email, password, role) {
@@ -92,6 +93,15 @@ class UserService {
       ...tokens,
       user: userDto,
     };
+  }
+
+  async getUsers() {
+    const users = await User.findAll();
+
+    return users.map((user) => new UserDto(user));
+  }
+  async removeUser(id) {
+    return await User.destroy({ where: { id } });
   }
 }
 

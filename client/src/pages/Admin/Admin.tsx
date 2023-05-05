@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { FnOnChange, SortProps } from '@/types/uiTypes';
 import { IProduct, SortTypes } from '@/types/productTypes';
 import { Button, IconButton, Loader, TextInput } from '@/components/ui';
-import { EntityContainer, AdminItemForList, EditItemModule, AdminRegistration } from '@/components/admin-page';
+import { EntityContainer, AdminItemForList, EditItemModule } from '@/components/admin-page';
 import httpService from '@/http/productAPI';
 import { ADMIN_ITEM_FIELDS, ENTITY_TYPES } from '@/constants/adminPageConstants';
 import { useRootStore } from '@/context/StoreContext';
@@ -12,6 +12,7 @@ import AdminErrorBoundary from '@/components/admin-page/AdminErrorBoundary/Admin
 import makeErrorMsg from '@/components/admin-page/utils/makeErrorMsg';
 import styles from './Admin.module.scss';
 import changeProductSortWay from './changeProductSortWay';
+import UserModule from '@/components/admin-page/modules/UserModule';
 
 const Admin = observer(() => {
   const { products, adminErrors } = useRootStore();
@@ -89,7 +90,7 @@ const Admin = observer(() => {
 
   return (
     <main className={styles.admin}>
-      <AdminRegistration />
+      <UserModule />
       <div>
         <div data-entity={entityIsOpen} className={styles.admin_types}>
           {ENTITY_TYPES.map((type) => (

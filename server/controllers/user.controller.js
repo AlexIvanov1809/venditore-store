@@ -95,6 +95,31 @@ class UserController {
       next(ApiError.internal(e.message));
     }
   }
+  async getUsers(req, res, next) {
+    try {
+      const users = await userService.getUsers();
+
+      return res.json(users);
+    } catch (e) {
+      if (e instanceof UserErrors) {
+        next(ApiError.unauthorizedError());
+      }
+      next(ApiError.internal(e.message));
+    }
+  }
+  async removeUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      const users = await userService.removeUser(id);
+
+      return res.json('Пользователь удален');
+    } catch (e) {
+      if (e instanceof UserErrors) {
+        next(ApiError.unauthorizedError());
+      }
+      next(ApiError.internal(e.message));
+    }
+  }
 }
 
 module.exports = new UserController();

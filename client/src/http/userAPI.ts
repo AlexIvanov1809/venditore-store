@@ -40,6 +40,18 @@ const authService = {
     localStorage.setItem('token', data.accessToken);
 
     return data.user;
+  },
+
+  getUsers: async () => {
+    const { data } = await $host.get(ENDPOINT);
+
+    return data;
+  },
+
+  removeUser: async (id: string | number) => {
+    const { data } = await $host.delete(`${ENDPOINT}/${id}`);
+
+    return data;
   }
 };
 

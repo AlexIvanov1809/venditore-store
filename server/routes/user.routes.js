@@ -15,7 +15,9 @@ router.post(
 );
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
+router.delete('/:id', userController.removeUser);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
+router.get('/', userController.getUsers);
 
 module.exports = router;

@@ -1,11 +1,13 @@
 export default interface IUser {
   accessToken: TokenJWT;
-  user: {
-    email: string;
-    id: number;
-    role: 'USER' | 'ADMIN' | 'OWNER';
-    isActivated: boolean;
-  };
+  user: UserData;
 }
 
 type TokenJWT = 'string';
+
+export type UserData = {
+  email: string;
+  id: number;
+  role: 'USER' | 'ADMIN' | 'OWNER';
+  isActivated: boolean;
+};
