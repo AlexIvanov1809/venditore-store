@@ -12,7 +12,7 @@ import AdminErrorBoundary from '@/components/admin-page/AdminErrorBoundary/Admin
 import makeErrorMsg from '@/components/admin-page/utils/makeErrorMsg';
 import styles from './Admin.module.scss';
 import changeProductSortWay from './changeProductSortWay';
-import UserModule from '@/components/admin-page/modules/UserModule';
+import UsersModule from '@/components/admin-page/UsersModule/UsersModule';
 
 const Admin = observer(() => {
   const { products, adminErrors } = useRootStore();
@@ -90,7 +90,7 @@ const Admin = observer(() => {
 
   return (
     <main className={styles.admin}>
-      <UserModule />
+      <UsersModule />
       <div>
         <div data-entity={entityIsOpen} className={styles.admin_types}>
           {ENTITY_TYPES.map((type) => (

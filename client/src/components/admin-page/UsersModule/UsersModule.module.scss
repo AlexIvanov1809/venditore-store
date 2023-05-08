@@ -1,0 +1,23 @@
+.container {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: 0.4s;
+	overflow: hidden;
+}
+
+.inside {
+	padding-left: 5px;
+	border-radius: 5px;
+	background-color: #b9b9b9;
+	min-height: 0px;
+	max-width: 500px;
+	display: grid;
+
+	& > div:first-child {
+		justify-self: end;
+	}
+}
+
+[data-show-users="true"] {
+	grid-template-rows: 1fr;
+}

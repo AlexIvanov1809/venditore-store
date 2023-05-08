@@ -1,16 +1,17 @@
 import { UserData } from '@/types/userType';
 import DeleteBtn from '../DeleteBtn/DeleteBtn';
 import { DeleteFn } from '@/types/uiTypes';
+import styles from './UserField.module.scss';
 
 interface Props {
   user: UserData;
-  onRemove: DeleteFn;
+  onDelete: DeleteFn;
 }
 
-const UserField = ({ user, onRemove }: Props) => {
+const UserField = ({ user, onDelete }: Props) => {
   return (
-    <div>
-      <span>{user.email}</span> <DeleteBtn onDelete={onRemove} id={user.id} />
+    <div className={styles.user}>
+      <span className={styles.user_name}>{user.email}</span> <DeleteBtn onDelete={onDelete} id={user.id} />
     </div>
   );
 };
