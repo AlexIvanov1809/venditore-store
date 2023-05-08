@@ -11,7 +11,7 @@ import makeErrorMsg from '../utils/makeErrorMsg';
 
 const UsersModule = observer(() => {
   const { user, adminErrors } = useRootStore();
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     (async () => {
