@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import AdminRegistration from '../AdminRegistration/AdminRegistration';
 import authService from '@/http/userAPI';
-import UserField from '../UserField/UserField';
 import { DeleteFn } from '@/types/uiTypes';
 import { observer } from 'mobx-react-lite';
 import { useRootStore } from '@/context/StoreContext';
-import styles from './UsersModule.module.scss';
 import { Button } from '@/components/ui';
+import styles from './UsersModule.module.scss';
+import UserField from '../UserField/UserField';
+import AdminRegistration from '../AdminRegistration/AdminRegistration';
 import makeErrorMsg from '../utils/makeErrorMsg';
 
 const UsersModule = observer(() => {
@@ -40,8 +40,8 @@ const UsersModule = observer(() => {
       <div data-show-users={active} className={styles.container}>
         <div className={styles.inside}>
           <AdminRegistration />
-          {user.users.map((user) => (
-            <UserField key={user.id} user={user} onDelete={handleRemove} />
+          {user.users.map((oneUser) => (
+            <UserField key={oneUser.id} user={oneUser} onDelete={handleRemove} />
           ))}
         </div>
       </div>

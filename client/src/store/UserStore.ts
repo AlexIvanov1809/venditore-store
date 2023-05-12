@@ -5,6 +5,7 @@ export default class UserStore {
   private _isAuth: boolean;
 
   private _user: null | IUser['user'];
+
   private _users: UserData[];
 
   constructor() {

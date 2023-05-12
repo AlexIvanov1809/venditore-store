@@ -9,6 +9,10 @@
 	cursor: pointer;
 }
 
+.none {
+	display: none;
+}
+
 [data-active="true"] {
 	background-color: $primary-color;
 	color: white;

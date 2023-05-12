@@ -10,9 +10,9 @@ import { useRootStore } from '@/context/StoreContext';
 import orderBy from 'lodash.orderby';
 import AdminErrorBoundary from '@/components/admin-page/AdminErrorBoundary/AdminErrorBoundary';
 import makeErrorMsg from '@/components/admin-page/utils/makeErrorMsg';
+import UsersModule from '@/components/admin-page/UsersModule/UsersModule';
 import styles from './Admin.module.scss';
 import changeProductSortWay from './changeProductSortWay';
-import UsersModule from '@/components/admin-page/UsersModule/UsersModule';
 
 const Admin = observer(() => {
   const { products, adminErrors } = useRootStore();
