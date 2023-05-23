@@ -18,11 +18,11 @@ async function convertAndSavePic(file, fileName) {
 }
 
 async function removePic(fileName) {
-  await fs.unlink(path.resolve(__dirname, '..', 'static', fileName), (err) => {
-    if (err) {
-      throw err;
-    }
-  });
+  try {
+    await fs.unlinkSync(path.resolve(__dirname, '..', 'static', fileName));
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = { convertAndSavePic, removePic };
