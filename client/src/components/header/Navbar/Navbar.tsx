@@ -19,7 +19,7 @@ const Navbar = observer(() => {
       </NavLink>
       <nav className={styles.links}>
         <NavLink to={SHOP_ROUTE}>Магазин</NavLink>
-        {user.isAuth && <NavLink to={ADMIN_ROUTE}>Панель Администратора</NavLink>}
+        {user.isAuth && user.user?.role !== 'USER' && <NavLink to={ADMIN_ROUTE}>Панель Администратора</NavLink>}
         <button type="button" onClick={() => setIsOpen(!isOpen)}>
           {user.isAuth ? <User /> : 'Войти'}
         </button>

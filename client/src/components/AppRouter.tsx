@@ -7,7 +7,9 @@ const AppRouter = observer(() => {
   const { user } = useRootStore();
   return (
     <Routes>
-      {user.isAuth && authRoutes.map(({ path, Component }) => <Route key={path} path={path} element={<Component />} />)}
+      {user.isAuth &&
+        user.user?.role !== 'USER' &&
+        authRoutes.map(({ path, Component }) => <Route key={path} path={path} element={<Component />} />)}
       {publicRoutes.map(({ path, Component }) => (
         <Route key={path} path={path} element={<Component />} />
       ))}
