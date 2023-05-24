@@ -13,6 +13,7 @@ import makeErrorMsg from '@/components/admin-page/utils/makeErrorMsg';
 import UsersModule from '@/components/admin-page/UsersModule/UsersModule';
 import styles from './Admin.module.scss';
 import changeProductSortWay from './changeProductSortWay';
+import Triangle from '@/assets/icons/triangle.svg';
 
 const Admin = observer(() => {
   const { products, adminErrors } = useRootStore();
@@ -117,6 +118,12 @@ const Admin = observer(() => {
         <div className={styles.items_fields}>
           {ADMIN_ITEM_FIELDS.map((field) => (
             <div key={field.id}>
+              <span
+                data-sort-min={sortType.sort === 'asc'}
+                className={styles[field.type === sortType.type ? 'sortIcon' : 'sortDisabled']}
+              >
+                <Triangle />
+              </span>
               <button type="button" onClick={() => onClick(field.type)}>
                 {field.name}
               </button>
