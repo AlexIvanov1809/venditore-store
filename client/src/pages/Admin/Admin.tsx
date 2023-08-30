@@ -11,9 +11,9 @@ import orderBy from 'lodash.orderby';
 import AdminErrorBoundary from '@/components/admin-page/AdminErrorBoundary/AdminErrorBoundary';
 import makeErrorMsg from '@/components/admin-page/utils/makeErrorMsg';
 import UsersModule from '@/components/admin-page/UsersModule/UsersModule';
+import Triangle from '@/assets/icons/triangle.svg';
 import styles from './Admin.module.scss';
 import changeProductSortWay from './changeProductSortWay';
-import Triangle from '@/assets/icons/triangle.svg';
 
 const Admin = observer(() => {
   const { products, adminErrors } = useRootStore();
