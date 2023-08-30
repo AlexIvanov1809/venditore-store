@@ -118,13 +118,13 @@ const Admin = observer(() => {
         <div className={styles.items_fields}>
           {ADMIN_ITEM_FIELDS.map((field) => (
             <div key={field.id}>
-              <span
-                data-sort-min={sortType.sort === 'asc'}
-                className={styles[field.type === sortType.type ? 'sortIcon' : 'sortDisabled']}
-              >
-                <Triangle />
-              </span>
-              <button type="button" onClick={() => onClick(field.type)}>
+              <button className={styles.adminBtn} type="button" onClick={() => onClick(field.type)}>
+                <span
+                  data-sort-min={sortType.sort === 'asc'}
+                  className={styles[field.type === sortType.type ? 'sortIcon' : 'sortDisabled']}
+                >
+                  <Triangle />
+                </span>
                 {field.name}
               </button>
             </div>

@@ -44,10 +44,14 @@
 		font-size: 14px;
 		font-weight: bold;
 		text-align: start;
-		padding: 3px 10px;
 		min-height: 100%;
-		cursor: pointer;
+		display: flex;
 	}
+}
+
+.adminBtn {
+	display: block;
+	flex: 1 1 100%;
 }
 
 [data-entity="false"] {
